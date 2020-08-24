@@ -9,6 +9,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using CACTUS.Service;
+using CACTUS.Domain.Repositories.Abstract;
+using CACTUS.Domain.Repositories.EntityFramework;
+using CACTUS.Domain;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace CACTUS
 {
@@ -16,9 +21,35 @@ namespace CACTUS
     {
         public IConfiguration Configuration { get; }
         public Startup(IConfiguration configuration) => Configuration = configuration;
+
         public void ConfigureServices(IServiceCollection services)
         {
             Configuration.Bind("Project", new Config());
+
+            services.AddTransient<ITextFieldsRepository, EFTextFieldsRepository>();
+            services.AddTransient<IServiceItemsRepository, EFServiceItemsRepository>();
+            services.AddTransient<DataManager>();
+
+            services.AddDbContext<AppDbContext>(x => x.UseSqlServer(Config.ConnectionString));
+
+            services.AddIdentity<IdentityUser, IdentityRole>(opts =>
+            {
+                opts.User.RequireUniqueEmail = true;
+                opts.Password.RequiredLength = 1;
+                opts.Password.RequireNonAlphanumeric = false;
+                opts.Password.RequireLowercase = false;
+                opts.Password.RequireUppercase = false;
+                opts.Password.RequireDigit = false;
+            }).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.Cookie.Name = "CACTUSAuth";
+                options.Cookie.HttpOnly = true;
+                options.LoginPath = "/login";
+                options.AccessDeniedPath = "/accessdenied";
+                options.SlidingExpiration = true;
+            });
 
             services.AddControllersWithViews()
                 .SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0)
@@ -33,9 +64,13 @@ namespace CACTUS
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseStaticFiles();
+
             app.UseRouting();
 
-            app.UseStaticFiles();
+            app.UseCookiePolicy();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
