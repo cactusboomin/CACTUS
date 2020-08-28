@@ -8,13 +8,15 @@ namespace CACTUS.Domain
 {
     public class DataManager
     {
-        public ITextFieldsRepository TextFields { get; set; }
-        public IServiceItemsRepository ServiceItems { get; set; }
+        public IItemsRepository Items { get; set; }
+        public ICollectionsRepository Collections { get; set; }
+        public ITagsRepository Tags { get; set; }
 
-        public DataManager(ITextFieldsRepository textFields, IServiceItemsRepository serviceItems)
+        public DataManager(IItemsRepository items, ICollectionsRepository collections, ITagsRepository tags)
         {
-            this.TextFields = textFields;
-            this.ServiceItems = serviceItems;
+            this.Items = items;
+            this.Collections = collections;
+            this.Tags = tags;
         }
     }
 }

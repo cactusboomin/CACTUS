@@ -19,6 +19,316 @@ namespace CACTUS.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("CACTUS.Domain.Entities.Collection", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("FirstCheckBoxIsEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("FirstCheckBoxName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("FirstDateIsEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("FirstDateName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("FirstNumberIsEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("FirstNumberName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("FirstTextIsEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("FirstTextName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("SecondCheckBoxIsEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecondCheckBoxName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("SecondDateIsEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecondDateName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("SecondNumberIsEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecondNumberName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("SecondTextIsEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecondTextName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Theme")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("ThirdCheckBoxIsEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ThirdCheckBoxName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("ThirdDateIsEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ThirdDateName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("ThirdNumberIsEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ThirdNumberName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("ThirdTextIsEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ThirdTextName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("TimeAdded")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TitleImagePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Collections");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("48cca082-152c-43df-96f2-7a6345b11cbd"),
+                            Description = "LALALA",
+                            FirstCheckBoxIsEnabled = true,
+                            FirstCheckBoxName = "LOL",
+                            FirstDateIsEnabled = true,
+                            FirstDateName = "SLIM SHADY",
+                            FirstNumberIsEnabled = true,
+                            FirstNumberName = "HUH?",
+                            FirstTextIsEnabled = true,
+                            FirstTextName = "MY NAME IS",
+                            SecondCheckBoxIsEnabled = false,
+                            SecondDateIsEnabled = false,
+                            SecondNumberIsEnabled = false,
+                            SecondTextIsEnabled = false,
+                            Theme = "OLD SCHOOL",
+                            ThirdCheckBoxIsEnabled = false,
+                            ThirdDateIsEnabled = false,
+                            ThirdNumberIsEnabled = false,
+                            ThirdTextIsEnabled = false,
+                            TimeAdded = new DateTime(2020, 8, 28, 22, 16, 50, 178, DateTimeKind.Utc).AddTicks(2888),
+                            Title = "SLIM SHADY",
+                            TitleImagePath = "images/slimshady.jpg",
+                            UserId = new Guid("7df74b2d-5189-4622-bd09-fe6337c18c3d")
+                        },
+                        new
+                        {
+                            Id = new Guid("c0b297f8-367b-4465-b7b1-0dbcc470ad7a"),
+                            Description = "ITS LIT",
+                            FirstCheckBoxIsEnabled = true,
+                            FirstCheckBoxName = "FFFFF",
+                            FirstDateIsEnabled = true,
+                            FirstDateName = "AAAAAAAAAAAAAAAAAAAA",
+                            FirstNumberIsEnabled = true,
+                            FirstNumberName = "HASGASG?",
+                            FirstTextIsEnabled = true,
+                            FirstTextName = "ALFKASLF",
+                            SecondCheckBoxIsEnabled = false,
+                            SecondDateIsEnabled = false,
+                            SecondNumberIsEnabled = false,
+                            SecondTextIsEnabled = false,
+                            Theme = "ASTROWORLD",
+                            ThirdCheckBoxIsEnabled = false,
+                            ThirdDateIsEnabled = false,
+                            ThirdNumberIsEnabled = false,
+                            ThirdTextIsEnabled = false,
+                            TimeAdded = new DateTime(2020, 8, 28, 22, 16, 50, 178, DateTimeKind.Utc).AddTicks(8176),
+                            Title = "TRAVIS SCOTT",
+                            TitleImagePath = "images/travisscott.jpg",
+                            UserId = new Guid("7df74b2d-5189-4622-bd09-fe6337c18c3d")
+                        },
+                        new
+                        {
+                            Id = new Guid("b5306fba-e436-4d49-a902-2ce1d01002b8"),
+                            Description = "I HATE BEING",
+                            FirstCheckBoxIsEnabled = true,
+                            FirstCheckBoxName = "LOL",
+                            FirstDateIsEnabled = true,
+                            FirstDateName = "AWESOME",
+                            FirstNumberIsEnabled = true,
+                            FirstNumberName = "IT'S",
+                            FirstTextIsEnabled = true,
+                            FirstTextName = "BIPOLAR",
+                            SecondCheckBoxIsEnabled = false,
+                            SecondDateIsEnabled = false,
+                            SecondNumberIsEnabled = false,
+                            SecondTextIsEnabled = false,
+                            Theme = "PSYCHO",
+                            ThirdCheckBoxIsEnabled = false,
+                            ThirdDateIsEnabled = false,
+                            ThirdNumberIsEnabled = false,
+                            ThirdTextIsEnabled = false,
+                            TimeAdded = new DateTime(2020, 8, 28, 22, 16, 50, 178, DateTimeKind.Utc).AddTicks(8391),
+                            Title = "KANYE WEST",
+                            TitleImagePath = "images/kanyewest.jpg",
+                            UserId = new Guid("7df74b2d-5189-4622-bd09-fe6337c18c3d")
+                        });
+                });
+
+            modelBuilder.Entity("CACTUS.Domain.Entities.Item", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CollectionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("FirstCheckBox")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("FirstDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("FirstNumber")
+                        .HasColumnType("float");
+
+                    b.Property<string>("FirstText")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("SecondCheckBox")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("SecondDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("SecondNumber")
+                        .HasColumnType("float");
+
+                    b.Property<string>("SecondText")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Theme")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("ThirdCheckBox")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("ThirdDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("ThirdNumber")
+                        .HasColumnType("float");
+
+                    b.Property<string>("ThirdText")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("TimeAdded")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TitleImagePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Items");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("61bdd256-5b8e-4db5-958c-601ea4d2eda1"),
+                            CollectionId = new Guid("48cca082-152c-43df-96f2-7a6345b11cbd"),
+                            FirstCheckBox = false,
+                            FirstDate = new DateTime(2020, 8, 29, 1, 16, 50, 179, DateTimeKind.Local).AddTicks(224),
+                            FirstNumber = 1000.0,
+                            FirstText = "DON'T YOU OPEN UP THE WINDOW",
+                            SecondCheckBox = false,
+                            SecondDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecondNumber = 0.0,
+                            Theme = "FIRST",
+                            ThirdCheckBox = false,
+                            ThirdDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ThirdNumber = 0.0,
+                            TimeAdded = new DateTime(2020, 8, 28, 22, 16, 50, 178, DateTimeKind.Utc).AddTicks(8880),
+                            Title = "FIRST ITEM",
+                            UserId = new Guid("7df74b2d-5189-4622-bd09-fe6337c18c3d")
+                        },
+                        new
+                        {
+                            Id = new Guid("3246a17e-a59d-42d6-8a26-cd4bf84f8612"),
+                            CollectionId = new Guid("48cca082-152c-43df-96f2-7a6345b11cbd"),
+                            FirstCheckBox = true,
+                            FirstDate = new DateTime(2020, 8, 29, 1, 16, 50, 180, DateTimeKind.Local).AddTicks(2618),
+                            FirstNumber = 2000.0,
+                            FirstText = "DON'T YOU LET OUT THE ANTIDOTE",
+                            SecondCheckBox = false,
+                            SecondDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecondNumber = 0.0,
+                            Theme = "SECOND",
+                            ThirdCheckBox = false,
+                            ThirdDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ThirdNumber = 0.0,
+                            TimeAdded = new DateTime(2020, 8, 28, 22, 16, 50, 180, DateTimeKind.Utc).AddTicks(2543),
+                            Title = "SECOND ITEM",
+                            UserId = new Guid("7df74b2d-5189-4622-bd09-fe6337c18c3d")
+                        },
+                        new
+                        {
+                            Id = new Guid("19e19e85-8ca7-4eb4-8dc9-63e70c93a47f"),
+                            CollectionId = new Guid("48cca082-152c-43df-96f2-7a6345b11cbd"),
+                            FirstCheckBox = false,
+                            FirstDate = new DateTime(2020, 8, 29, 1, 16, 50, 180, DateTimeKind.Local).AddTicks(2684),
+                            FirstNumber = 3000.0,
+                            FirstText = "STRAIGHT UP",
+                            SecondCheckBox = false,
+                            SecondDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecondNumber = 0.0,
+                            Theme = "THIRD",
+                            ThirdCheckBox = false,
+                            ThirdDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ThirdNumber = 0.0,
+                            TimeAdded = new DateTime(2020, 8, 28, 22, 16, 50, 180, DateTimeKind.Utc).AddTicks(2675),
+                            Title = "THIRD ITEM",
+                            UserId = new Guid("7df74b2d-5189-4622-bd09-fe6337c18c3d")
+                        });
+                });
+
             modelBuilder.Entity("CACTUS.Domain.Entities.ServiceItem", b =>
                 {
                     b.Property<Guid>("Id")
@@ -28,13 +338,8 @@ namespace CACTUS.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("MetaDescription")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MetaKeywords")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MetaTitle")
+                    b.Property<string>("Theme")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("TimeAdded")
@@ -47,9 +352,59 @@ namespace CACTUS.Migrations
                     b.Property<string>("TitleImagePath")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
                     b.ToTable("ServiceItems");
+                });
+
+            modelBuilder.Entity("CACTUS.Domain.Entities.Tag", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tags");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("9c1f89ac-1302-4ce8-b364-1cb5046ca27c"),
+                            Name = "RAP"
+                        },
+                        new
+                        {
+                            Id = new Guid("a1ccfdf9-be71-4428-a644-cbc51cb5a101"),
+                            Name = "POP"
+                        },
+                        new
+                        {
+                            Id = new Guid("3169a29e-9fce-4f01-b9c0-05b3d3d5a20a"),
+                            Name = "ROCK"
+                        },
+                        new
+                        {
+                            Id = new Guid("c21c3eb9-810b-43b5-98da-69f1edb6edd3"),
+                            Name = "JAZZ"
+                        },
+                        new
+                        {
+                            Id = new Guid("3e892139-3de4-490e-9ffe-e5580824a69c"),
+                            Name = "PUNK"
+                        },
+                        new
+                        {
+                            Id = new Guid("7ca274a2-b712-432d-9c6d-06fa36e4d444"),
+                            Name = "METAL"
+                        });
                 });
 
             modelBuilder.Entity("CACTUS.Domain.Entities.TextField", b =>
@@ -58,60 +413,26 @@ namespace CACTUS.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("CodeWord")
+                    b.Property<string>("Theme")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MetaDescription")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MetaKeywords")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MetaTitle")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("TimeAdded")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TitleImagePath")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
                     b.ToTable("TextFields");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("61bdd256-5b8e-4db5-958c-601ea4d2eda1"),
-                            CodeWord = "PageIndex",
-                            Description = "Main page",
-                            TimeAdded = new DateTime(2020, 8, 24, 18, 38, 20, 588, DateTimeKind.Utc).AddTicks(3446),
-                            Title = "LALALALA"
-                        },
-                        new
-                        {
-                            Id = new Guid("3246a17e-a59d-42d6-8a26-cd4bf84f8612"),
-                            CodeWord = "PageServices",
-                            Description = "Services",
-                            TimeAdded = new DateTime(2020, 8, 24, 18, 38, 20, 588, DateTimeKind.Utc).AddTicks(5486),
-                            Title = "LALALALA"
-                        },
-                        new
-                        {
-                            Id = new Guid("19e19e85-8ca7-4eb4-8dc9-63e70c93a47f"),
-                            CodeWord = "PageContacts",
-                            Description = "Contacts",
-                            TimeAdded = new DateTime(2020, 8, 24, 18, 38, 20, 588, DateTimeKind.Utc).AddTicks(5563),
-                            Title = "LALALALA"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -144,7 +465,7 @@ namespace CACTUS.Migrations
                         new
                         {
                             Id = "1E2EFB41-DAA4-4643-9E94-418D05609F57",
-                            ConcurrencyStamp = "ee75cbae-1a76-4639-87a8-a266b17294bc",
+                            ConcurrencyStamp = "32e9d50f-5ccd-47fa-aa72-b9849a0ea26e",
                             Name = "admin",
                             NormalizedName = "ADMIN"
                         });
@@ -243,13 +564,13 @@ namespace CACTUS.Migrations
                         {
                             Id = "7DF74B2D-5189-4622-BD09-FE6337C18C3D",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "eb8f1537-7e23-4c49-8ef3-8b6f29284246",
+                            ConcurrencyStamp = "4bc28cef-689b-4070-804c-597c6b3194a2",
                             Email = "123@mail.ru",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "123@MAIL.RU",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMf8PLSnw/B8lsA3sk8UZvkMpu4dGKtj3HMqMp3FUy6Jd2HOez5JVj7WmXreVwfSBw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKJru5OvOd3fZZOp+C7P/FhgjZ3J4ArAmyWsqo6+od3O0j64P9EGBJY8qE2t/CARbQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,

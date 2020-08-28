@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace CACTUS.Domain.Repositories.EntityFramework
 {
-    public class EFTextFieldsRepository : ITextFieldsRepository
+    public class EFTextFieldsRepository
     {
-        private readonly AppDbContext context;
+        /*private readonly AppDbContext context;
 
         public EFTextFieldsRepository(AppDbContext context)
         {
@@ -51,6 +51,6 @@ namespace CACTUS.Domain.Repositories.EntityFramework
             }
 
             context.SaveChanges();
-        }
+        }*/
     }
 }

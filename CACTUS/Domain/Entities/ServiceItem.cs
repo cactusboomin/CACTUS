@@ -10,9 +10,9 @@ namespace CACTUS.Domain.Entities
     {
         [Required(ErrorMessage = "Input the title")]
         [Display(Name = "Title")]
-        public override string Title { get; set; }
+        public new string Title { get; set; }
 
         [Display(Name = "Description")]
-        public override string Description { get; set; }
+        public string Description { get; set; }
     }
 }
