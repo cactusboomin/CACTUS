@@ -2822,7 +2822,7 @@ input::-moz-focus-inner {
 /* Header */
 
 	#header {
-		padding: 8em 0 0.1em 0 ;
+		padding: 2.5em 0 0.1em 0 ;
 	}
 
 		#header .logo {
@@ -3334,3 +3334,6 @@ input::-moz-focus-inner {
 		width: auto;
 	}
 
+	.title{
+		font-size : 30px;
+	}

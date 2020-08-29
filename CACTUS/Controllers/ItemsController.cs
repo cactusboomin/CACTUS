@@ -10,7 +10,7 @@ namespace CACTUS.Controllers
 {
     public class ItemsController : Controller
     {
-        private DataManager manager;
+        private readonly DataManager manager;
 
         public ItemsController(DataManager manager)
         {
