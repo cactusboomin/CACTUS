@@ -8,18 +8,18 @@ using System.Threading.Tasks;
 
 namespace CACTUS.Controllers
 {
-    public class CollectionsController : Controller
+    public class TagsController : Controller
     {
         private readonly DataManager manager;
 
-        public CollectionsController(DataManager manager)
+        public TagsController(DataManager manager)
         {
             this.manager = manager;
         }
 
         public IActionResult Index()
         {
-            return View(new CollectionsViewModel(this.manager));
+            return View(new TagsViewModel(this.manager));
         }
     }
 }

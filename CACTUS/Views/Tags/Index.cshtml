@@ -1,0 +1,21 @@
+﻿@model TagsViewModel
+
+<div>
+    <h1>
+        TAGS
+    </h1>
+
+    <section class="tiles">
+        @foreach (var t in Model.Tags)
+        {
+            <article class="style3">
+                <span class="image">
+                    <img src="images/tag.jpg" alt="" />
+                </span>
+                <a href="generic.html">
+                    <h2>@t.Name</h2>
+                </a>
+            </article>
+        }
+    </section>
+</div>

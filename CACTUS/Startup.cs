@@ -86,6 +86,7 @@ namespace CACTUS
                 endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute("collections", "{controller=Collections}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute("items", "{controller=Items}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute("tags", "{controller=Tags}/{action=Index}/{id?}");
             });
         }
     }
