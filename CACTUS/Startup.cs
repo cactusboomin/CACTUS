@@ -26,8 +26,9 @@ namespace CACTUS
         {
             Configuration.Bind("Project", new Config());
 
-            services.AddTransient<ITextFieldsRepository, EFTextFieldsRepository>();
-            services.AddTransient<IServiceItemsRepository, EFServiceItemsRepository>();
+            services.AddTransient<ICollectionsRepository, EFCollectionsRepository>();
+            services.AddTransient<IItemsRepository, EFItemsRepository>();
+            services.AddTransient<ITagsRepository, EFTagsRepository>();
             services.AddTransient<DataManager>();
 
             services.AddDbContext<AppDbContext>(x => x.UseSqlServer(Config.ConnectionString));
@@ -46,17 +47,24 @@ namespace CACTUS
             {
                 options.Cookie.Name = "CACTUSAuth";
                 options.Cookie.HttpOnly = true;
-                options.LoginPath = "/login";
-                options.AccessDeniedPath = "/accessdenied";
+                options.LoginPath = "/account/login";
+                options.AccessDeniedPath = "/account/accessdenied";
                 options.SlidingExpiration = true;
             });
 
-            services.AddControllersWithViews()
+            services.AddAuthorization(x =>
+            {
+                x.AddPolicy("AdminArea", policy => { policy.RequireRole("admin"); });
+            });
+
+            services.AddControllersWithViews(x =>
+            {
+                x.Conventions.Add(new AdminAreaAuthorization("Admin", "AdminArea"));
+            })
                 .SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0)
                 .AddSessionStateTempDataProvider();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -74,7 +82,9 @@ namespace CACTUS
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute("admin", "{area:exists}/{controller=Home}/{action=Index}");
                 endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute("collections", "{controller=Collections}/{action=Index}/{id?}");
             });
         }
     }

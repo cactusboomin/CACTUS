@@ -8,13 +8,13 @@ namespace CACTUS.Domain.Entities
 {
     public class TextField : EntityBase
     {
-        [Required]
-        public string CodeWord { get; set; }
+      //  [Required]
+    //    public string CodeWord { get; set; }
 
-        [Display(Name = "Title")]
-        public override string Title { get; set; } = "LALALALA";
+  //      [Display(Name = "Title")]
+//        public override string Title { get; set; } = "LALALALA";
 
-        [Display(Name = "Description")]
-        public override string Description { get; set; } = "AAAAAAAAAAA";
+        //[Display(Name = "Description")]
+        //public override string Description { get; set; } = "AAAAAAAAAAA";
     }
 }

@@ -1,5 +1,79 @@
-﻿<div>
-    <h1>
-        Это главная страница!
-    </h1>
-</div>
+﻿@model HomeViewModel
+    <div>
+        <a href="/collections">
+            <h1>
+                COLLECTIONS
+            </h1>
+        </a>
+        <section class="tiles">
+            @for (int i = 0; i < 3; i++)
+            {
+                <article class="style3">
+                    <span class="image">
+                        @if (Model.Collections[i].TitleImagePath == null)
+                        {
+                            <img src="images/empty.jpg" alt="" />
+                        }
+                        else
+                        {
+                            <img src="@Model.Collections[i].TitleImagePath" alt="" />
+                        }
+                    </span>
+                    <a href="generic.html">
+                        <h2>@Model.Collections[i].Title</h2>
+                        <div class="content">
+                            <p>@Model.Collections[i].Theme</p>
+                        </div>
+                    </a>
+                </article>
+            }
+        </section>
+
+        <a href="/items">
+            <h1>
+                ITEMS
+            </h1>
+        </a>
+        <section class="tiles">
+            @for (int i = 0; i < 3; i++)
+            {
+                <article class="style3">
+                    <span class="image">
+                        @if (Model.Items[i].TitleImagePath == null)
+                        {
+                            <img src="images/empty.jpg" alt="" />
+                        }
+                        else
+                        {
+                            <img src="@Model.Items[i].TitleImagePath" alt="" />
+                        }
+                    </span>
+                    <a href="generic.html">
+                        <h2>@Model.Items[i].Title</h2>
+                        <div class="content">
+                            <p>@Model.Items[i].Theme</p>
+                        </div>
+                    </a>
+                </article>
+            }
+        </section>
+
+        <a href="/tags">
+            <h1>
+                TAGS
+            </h1>
+        </a>
+        <section class="tiles">
+            @for (int i = 0; i < 6; i++)
+            {
+                <article class="style3">
+                    <span class="image">
+                            <img src="images/tag.jpg" alt="" />
+                    </span>
+                    <a href="generic.html">
+                        <h2>@Model.Tags[i].Name</h2>
+                    </a>
+                </article>
+            }
+        </section>
+    </div>
