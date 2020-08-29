@@ -1,0 +1,33 @@
+﻿@model CollectionsViewModel
+
+<div>
+    <h1>
+        COLLECTIONS
+    </h1>
+
+    <div>
+        <section class="tiles">
+            @foreach (var c in Model.Collections)
+            {
+                <article class="style3">
+                    <span class="image">
+                        @if (c.TitleImagePath == null)
+                        {
+                            <img src="images/empty.jpg" alt="" />
+                        }
+                        else
+                        {
+                            <img src="@c.TitleImagePath" alt="" />
+                        }
+                    </span>
+                    <a href="generic.html">
+                        <h2>@c.Title</h2>
+                        <div class="content">
+                            <p>@c.Theme</p>
+                        </div>
+                    </a>
+                </article>
+            }
+        </section>
+    </div>
+</div>
