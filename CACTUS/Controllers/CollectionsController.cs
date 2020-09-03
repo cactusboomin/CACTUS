@@ -1,6 +1,7 @@
 ﻿using CACTUS.Domain;
 using CACTUS.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace CACTUS.Controllers
     {
         private readonly DataManager manager;
 
-        public CollectionsController(DataManager manager)
+        public CollectionsController(DataManager manager, AppDbContext context)
         {
             this.manager = manager;
         }
@@ -20,6 +21,11 @@ namespace CACTUS.Controllers
         public IActionResult Index()
         {
             return View(new CollectionsViewModel(this.manager));
+        }
+
+        public IActionResult Collection(Guid id)
+        {
+            return View(new CollectionsViewModel(this.manager, id));
         }
     }
 }

@@ -1,0 +1,103 @@
+﻿@model ItemsViewModel
+
+<h1>@Model.Item.Title</h1>
+
+@if (Model.Item.TitleImagePath == null)
+{
+    <span class="image main"><img src="~/images/empty.jpg" alt="" /></span>
+}
+else
+{
+    <span class="image main"><img src="@Model.Item.TitleImagePath" alt="" /></span>
+}
+
+<h2>@Model.Item.Theme</h2>
+<h2>COLLECTION: @Model.Item.Collection.Title</h2>
+<h2>DATE: @Model.Item.TimeAdded</h2>
+
+
+@if (Model.Item.Collection.FirstNumberIsEnabled)
+{
+    <h2>@Model.Item.Collection.FirstNumberName</h2>
+    <p>@Model.Item.FirstNumber</p>
+}
+
+@if (Model.Item.Collection.SecondNumberIsEnabled)
+{
+    <h2>@Model.Item.Collection.SecondNumberName</h2>
+    <p>@Model.Item.SecondNumber</p>
+}
+
+@if (Model.Item.Collection.ThirdNumberIsEnabled)
+{
+    <h2>@Model.Item.Collection.ThirdNumberName</h2>
+    <p>@Model.Item.ThirdNumber</p>
+}
+
+@if (Model.Item.Collection.FirstTextIsEnabled)
+{
+    <h2>@Model.Item.Collection.FirstTextName</h2>
+    <p>@Model.Item.FirstText</p>
+}
+
+@if (Model.Item.Collection.SecondTextIsEnabled)
+{
+    <h2>@Model.Item.Collection.SecondTextName</h2>
+    <p>@Model.Item.SecondText</p>
+}
+
+@if (Model.Item.Collection.ThirdTextIsEnabled)
+{
+    <h2>@Model.Item.Collection.ThirdTextName</h2>
+    <p>@Model.Item.ThirdText</p>
+}
+
+@if (Model.Item.Collection.FirstDateIsEnabled)
+{
+    <h2>@Model.Item.Collection.FirstDateName</h2>
+    <p>@Model.Item.FirstDate</p>
+}
+
+@if (Model.Item.Collection.SecondDateIsEnabled)
+{
+    <h2>@Model.Item.Collection.SecondDateName</h2>
+    <p>@Model.Item.SecondDate</p>
+}
+
+@if (Model.Item.Collection.ThirdDateIsEnabled)
+{
+    <h2>@Model.Item.Collection.ThirdDateName</h2>
+    <p>@Model.Item.ThirdDate</p>
+}
+
+@if (Model.Item.Collection.FirstCheckBoxIsEnabled)
+{
+    <h2>@Model.Item.Collection.FirstCheckBoxName</h2>
+    <span asp-validation-for="@Model.Item.FirstCheckBox"></span>
+}
+
+@if (Model.Item.Collection.SecondCheckBoxIsEnabled)
+{
+    <h2>@Model.Item.Collection.SecondCheckBoxName</h2>
+    <span asp-validation-for="@Model.Item.SecondCheckBox"></span>
+}
+
+@if (Model.Item.Collection.ThirdCheckBoxIsEnabled)
+{
+    <h2>@Model.Item.Collection.ThirdCheckBoxName</h2>
+    <span asp-validation-for="@Model.Item.ThirdCheckBox"></span>
+}
+
+<section class="tiles">
+    @foreach (var t in Model.Item.ItemTags)
+    {
+        <article class="style3">
+            <span class="image">
+                <img src="images/tag.jpg" alt="" />
+            </span>
+            <a href="generic.html">
+                <h2>@t.Tag.Name</h2>
+            </a>
+        </article>
+    }
+</section>
