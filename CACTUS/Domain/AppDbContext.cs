@@ -132,7 +132,6 @@ namespace CACTUS.Domain
                 FirstCheckBox = false,
                 FirstDate = DateTime.Now,
             };
-
             var secondItem = new Item
             {
                 Id = new Guid("3246A17E-A59D-42D6-8A26-CD4BF84F8612"),
@@ -145,7 +144,6 @@ namespace CACTUS.Domain
                 FirstCheckBox = false,
                 FirstDate = DateTime.Now,
             };
-
             var thirdItem = new Item
             {
                 Id = new Guid("19E19E85-8CA7-4EB4-8DC9-63E70C93A47F"),
@@ -160,30 +158,21 @@ namespace CACTUS.Domain
                 SecondDate = DateTime.Now,
             };
 
-            builder.Entity<Item>().HasData(firstItem);
-
-            builder.Entity<Item>().HasData(secondItem);
-
-            builder.Entity<Item>().HasData(thirdItem);
-
             var firstTag = new Tag
             {
                 Id = new Guid("ac7e2eb6-ffb3-4f9e-bbda-1574c07f47bc"),
                 Name = "RAP",
             };
-
             var secondTag = new Tag
             {
                 Id = new Guid("6a179fe5-db82-4cf2-b529-00359bf5b99d"),
                 Name = "POP",
             };
-
             var thirdTag = new Tag
             {
                 Id = new Guid("6d067807-2076-4c1f-9e2b-1d766e8bef2c"),
                 Name = "ROCK",
             };
-
             var fourthTag = new Tag
             {
                 Id = new Guid("2bf21f1c-ed7a-4943-a844-7eb7ddc66447"),
@@ -195,13 +184,14 @@ namespace CACTUS.Domain
             thirdItem.ItemTags.Add(new ItemTag { ItemId = thirdItem.Id, TagId = thirdTag.Id });
             thirdItem.ItemTags.Add(new ItemTag { ItemId = thirdItem.Id, TagId = fourthTag.Id });
 
-            builder.Entity<Tag>().HasData(firstTag);
+            builder.Entity<Item>().OwnsOne(i => i.ItemTags).HasData(firstItem);
+            builder.Entity<Item>().OwnsOne(i => i.ItemTags).HasData(secondItem);
+            builder.Entity<Item>().OwnsOne(i => i.ItemTags).HasData(thirdItem);
 
-            builder.Entity<Tag>().HasData(secondTag);
-
-            builder.Entity<Tag>().HasData(thirdTag);
-
-            builder.Entity<Tag>().HasData(fourthTag);
+            builder.Entity<Tag>().OwnsOne(i => i.ItemTags).HasData(firstTag);
+            builder.Entity<Tag>().OwnsOne(i => i.ItemTags).HasData(secondTag);
+            builder.Entity<Tag>().OwnsOne(i => i.ItemTags).HasData(thirdTag);
+            builder.Entity<Tag>().OwnsOne(i => i.ItemTags).HasData(fourthTag);
         }
     }
 }
