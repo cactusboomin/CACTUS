@@ -21,5 +21,10 @@ namespace CACTUS.Controllers
         {
             return View(new ItemsViewModel(this.manager));
         }
+
+        public IActionResult Item(Guid id)
+        {
+            return View(new ItemsViewModel(this.manager, id));
+        }
     }
 }

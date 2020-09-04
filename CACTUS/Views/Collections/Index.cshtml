@@ -13,14 +13,16 @@
                     <span class="image">
                         @if (c.TitleImagePath == null)
                         {
-                            <img src="images/empty.jpg" alt="" />
+                            <img src="~/images/empty.jpg" alt="" />
                         }
                         else
                         {
                             <img src="@c.TitleImagePath" alt="" />
                         }
                     </span>
-                    <a href="generic.html">
+                    <a asp-controller="Collections"
+                       asp-action="Collection"
+                       asp-route-id="@c.Id">
                         <h2>@c.Title</h2>
                         <div class="content">
                             <p>@c.Theme</p>

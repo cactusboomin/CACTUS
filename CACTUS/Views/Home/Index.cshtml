@@ -6,7 +6,7 @@
             </h1>
         </a>
         <section class="tiles">
-            @for (int i = 0; i < 3; i++)
+            @for (int i = 0; i < (Model.Collections.Count > 3 ? 3 : Model.Collections.Count); i++)
             {
                 <article class="style3">
                     <span class="image">
@@ -19,7 +19,9 @@
                             <img src="@Model.Collections[i].TitleImagePath" alt="" />
                         }
                     </span>
-                    <a href="generic.html">
+                    <a asp-controller="Collections"
+                       asp-action="Collection"
+                       asp-route-id="@Model.Collections[i].Id">
                         <h2>@Model.Collections[i].Title</h2>
                         <div class="content">
                             <p>@Model.Collections[i].Theme</p>
@@ -35,7 +37,7 @@
             </h1>
         </a>
         <section class="tiles">
-            @for (int i = 0; i < 3; i++)
+            @for (int i = 0; i < (Model.Items.Count > 3 ? 3 : Model.Items.Count); i++)
             {
                 <article class="style3">
                     <span class="image">
@@ -48,7 +50,9 @@
                             <img src="@Model.Items[i].TitleImagePath" alt="" />
                         }
                     </span>
-                    <a href="generic.html">
+                    <a asp-controller="Items"
+                       asp-action="Item"
+                       asp-route-id="@Model.Items[i].Id">
                         <h2>@Model.Items[i].Title</h2>
                         <div class="content">
                             <p>@Model.Items[i].Theme</p>
@@ -64,7 +68,7 @@
             </h1>
         </a>
         <section class="tiles">
-            @for (int i = 0; i < 6; i++)
+            @for (int i = 0; i < (Model.Tags.Count > 6 ? 6 : Model.Tags.Count); i++)
             {
                 <article class="style3">
                     <span class="image">

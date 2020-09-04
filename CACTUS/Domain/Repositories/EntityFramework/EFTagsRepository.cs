@@ -16,9 +16,10 @@ namespace CACTUS.Domain.Repositories.EntityFramework
             this.context = context;
         }
 
-        public Tag GetTag(Guid Id)
+        public Tag GetTag(string name)
         {
-            return this.context.Tags.FirstOrDefault(x => x.Id == Id);
+            return this.context.Tags.FirstOrDefault(x => 
+                    x.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
         }
 
         public IQueryable<Tag> GetTags()

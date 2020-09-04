@@ -9,7 +9,6 @@ namespace CACTUS.Domain.Repositories.Abstract
     public interface IItemsRepository
     {
         IQueryable<Item> GetItems();
-        IQueryable<Item> GetItemsFromCollection(Guid collectionId);
         IQueryable<Item> GetItemsFromUser(Guid userId);
         IQueryable<Item> GetItems(string searchString);
         Item GetItem(Guid Id);
