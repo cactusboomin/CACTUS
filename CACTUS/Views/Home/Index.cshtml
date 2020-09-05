@@ -1,7 +1,8 @@
 ﻿@model HomeViewModel
     <div>
         <a asp-controller="Collections"
-           asp-action="Index">
+           asp-action="Index"
+           asp-route-collections="@Model.Collections">
             <h1>
                 COLLECTIONS
             </h1>
@@ -9,8 +10,8 @@
 
         <h2>
             SORT BY: 
-            <a asp-action="Index" asp-route-sortOrder="@ViewBag.ItemNameSort">TITLE</a>
-            <a asp-action="Index" asp-route-sortOrder="@ViewBag.ItemDateSort">DATE</a>
+            <a asp-action="Index" asp-route-sortOrder="@ViewBag.CollectionNameSort">TITLE</a>
+            <a asp-action="Index" asp-route-sortOrder="@ViewBag.CollectionDateSort">DATE</a>
         </h2>
 
         <section class="tiles">
@@ -39,7 +40,9 @@
             }
         </section>
 
-        <a href="/items">
+        <a asp-controller="Items"
+           asp-action="Index"
+           asp-route-items="@Model.Items">
             <h1>
                 ITEMS
             </h1>
@@ -47,8 +50,8 @@
 
         <h2>
             SORT BY: 
-            <a asp-action="Index" asp-route-sortOrder="@ViewBag.CollectionNameSort">TITLE</a>
-            <a asp-action="Index" asp-route-sortOrder="@ViewBag.CollectionDateSort">DATE</a>
+            <a asp-action="Index" asp-route-sortOrder="@ViewBag.ItemNameSort">TITLE</a>
+            <a asp-action="Index" asp-route-sortOrder="@ViewBag.ItemDateSort">DATE</a>
         </h2>
 
         <section class="tiles">
@@ -77,7 +80,9 @@
             }
         </section>
 
-        <a href="/tags">
+        <a asp-controller="Tags"
+           asp-action="Index"
+           asp-route-tags="@Model.Tags">
             <h1>
                 TAGS
             </h1>

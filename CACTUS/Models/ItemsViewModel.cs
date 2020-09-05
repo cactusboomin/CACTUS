@@ -28,6 +28,11 @@ namespace CACTUS.Models
             this.Item.Collection = this.Items.FirstOrDefault(i => i.Id == this.Item.Id).Collection;
         }
 
+        public ItemsViewModel(IQueryable<Item> items)
+        {
+            this.Items = items.ToList();
+        }
+
         public List<Item> Items { get; set; }
 
         public Item Item { get; set; }

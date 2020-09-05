@@ -4,6 +4,12 @@
 <h2>@Model.Collection.Theme</h2>
 <h2>@Model.Collection.Description</h2>
 
+<h2>
+    SORT BY:
+    <a asp-action="Index" asp-route-sortOrder="@ViewBag.ItemNameSort">TITLE</a>
+    <a asp-action="Index" asp-route-sortOrder="@ViewBag.ItemDateSort">DATE</a>
+</h2>
+
 <section class="tiles">
     @foreach (var i in Model.Items)
     {
