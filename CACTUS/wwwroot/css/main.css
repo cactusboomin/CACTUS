@@ -3337,3 +3337,12 @@ input::-moz-focus-inner {
 	.title{
 		font-size : 30px;
 	}
+
+.right{
+	float: right;
+	text-align: right;
+}
+
+.left{
+	float: left;
+}
