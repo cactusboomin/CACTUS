@@ -8,11 +8,6 @@ namespace CACTUS.Domain.Entities
 {
     public class Tag
     {
-        public Tag()
-        {
-            this.ItemTags = new List<ItemTag>();
-        }
-
         [Required]
         public Guid Id { get; set; }
 
@@ -20,6 +15,6 @@ namespace CACTUS.Domain.Entities
         [Display(Name = "NAME")]
         public string Name { get; set; }
 
-        public List<ItemTag> ItemTags { get; set; }
+        public List<ItemTag> ItemTags { get; set; } = new List<ItemTag>();
     }
 }

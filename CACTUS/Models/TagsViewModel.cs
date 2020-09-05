@@ -1,5 +1,6 @@
 ﻿using CACTUS.Domain;
 using CACTUS.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,16 @@ namespace CACTUS.Models
             this.Tags = manager.Tags.GetTags().ToList();
         }
 
+        public TagsViewModel(DataManager manager, Guid id)
+        {
+            this.Tag = manager.Tags.GetTags()
+                                .Include(t => t.ItemTags)
+                                .ThenInclude(it => it.Item)
+                                .FirstOrDefault(t => t.Id == id);
+        }
+
         public List<Tag> Tags { get; set; }
+
+        public Tag Tag { get; set; }
     }
 }

@@ -93,9 +93,11 @@ else
     {
         <article class="style3">
             <span class="image">
-                <img src="images/tag.jpg" alt="" />
+                <img src="~/images/tag.jpg" alt="" />
             </span>
-            <a href="generic.html">
+            <a asp-controller="Tags"
+               asp-action="Tag"
+               asp-route-id="@t.Tag.Id">
                 <h2>@t.Tag.Name</h2>
             </a>
         </article>
