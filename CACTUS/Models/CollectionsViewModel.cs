@@ -16,6 +16,11 @@ namespace CACTUS.Models
             this.Collections = manager.Collections.GetCollections().ToList();
         }
 
+        public CollectionsViewModel(IQueryable<Collection> collections)
+        {
+            this.Collections = collections.ToList();
+        }
+
         public CollectionsViewModel(DataManager manager, Guid id)
         {
             this.Items = manager.Items

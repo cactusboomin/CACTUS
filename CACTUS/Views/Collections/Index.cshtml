@@ -5,6 +5,12 @@
         COLLECTIONS
     </h1>
 
+    <h2>
+        SORT BY:
+        <a asp-action="Index" asp-route-sortOrder="@ViewBag.CollectionNameSort">TITLE</a>
+        <a asp-action="Index" asp-route-sortOrder="@ViewBag.CollectionDateSort">DATE</a>
+    </h2>   
+
     <div>
         <section class="tiles">
             @foreach (var c in Model.Collections)

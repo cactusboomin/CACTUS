@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using CACTUS.Domain;
 using CACTUS.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CACTUS.Controllers
 {
@@ -17,9 +18,37 @@ namespace CACTUS.Controllers
             this.manager = manager;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(SortState sortOrder = SortState.TitleAsc)
         {
-            return View(new HomeViewModel(this.manager));
+            var collections = this.manager.Collections.GetCollections();
+            var items = this.manager.Items.GetItems();
+
+            ViewData["CollectionNameSort"] = sortOrder == SortState.TitleAsc ? SortState.TitleDesc : SortState.TitleAsc;
+            ViewData["CollectionDateSort"] = sortOrder == SortState.DateAsc ? SortState.DateDesc : SortState.DateAsc;
+            ViewData["ItemNameSort"] = sortOrder == SortState.TitleAsc ? SortState.TitleDesc : SortState.TitleAsc;
+            ViewData["ItemDateSort"] = sortOrder == SortState.DateAsc ? SortState.DateDesc : SortState.DateAsc;
+
+            collections = sortOrder switch
+            {
+                SortState.TitleAsc => collections.OrderBy(c => c.Title),
+                SortState.TitleDesc => collections.OrderByDescending(c => c.Title),
+                SortState.DateAsc => collections.OrderBy(c => c.TimeAdded),
+                SortState.DateDesc => collections.OrderByDescending(c => c.TimeAdded),
+                _ => collections.OrderBy(c => c.Title),
+            };
+
+            items = sortOrder switch
+            {
+                SortState.TitleAsc => items.OrderBy(i => i.Title),
+                SortState.TitleDesc => items.OrderByDescending(i => i.Title),
+                SortState.DateAsc => items.OrderBy(i => i.TimeAdded),
+                SortState.DateDesc => items.OrderByDescending(i => i.TimeAdded),
+                _ => items.OrderBy(i => i.Title),
+            };
+
+            return View(new HomeViewModel(collections.AsNoTracking().ToList(),
+                                            items.AsNoTracking().ToList(),
+                                            this.manager.Tags.GetTags().AsNoTracking().ToList()));
         }
     }
 }

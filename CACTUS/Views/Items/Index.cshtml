@@ -1,33 +1,39 @@
 ﻿@model ItemsViewModel
 
-<div>
-    <h1>
-        ITEMS
-    </h1>
+    <div>
+        <h1>
+            ITEMS
+        </h1>
 
-    <section class="tiles">
-        @foreach (var i in Model.Items)
-        {
-            <article class="style3">
-                <span class="image">
-                    @if (i.TitleImagePath == null)
-                    {
-                        <img src="~/images/empty.jpg" alt="" />
-                    }
-                    else
-                    {
-                        <img src="@i.TitleImagePath" alt="" />
-                    }
-                </span>
-                <a asp-controller="Items"
-                   asp-action="Item"
-                   asp-route-id="@i.Id">
-                    <h2>@i.Title</h2>
-                    <div class="content">
-                        <p>@i.Theme</p>
-                    </div>
-                </a>
-            </article>
-        }
-    </section>
-</div>
+        <h2>
+            SORT BY:
+            <a asp-action="Index" asp-route-sortOrder="@ViewBag.ItemNameSort">TITLE</a>
+            <a asp-action="Index" asp-route-sortOrder="@ViewBag.ItemDateSort">DATE</a>
+        </h2>
+
+        <section class="tiles">
+            @foreach (var i in Model.Items)
+            {
+                <article class="style3">
+                    <span class="image">
+                        @if (i.TitleImagePath == null)
+                        {
+                            <img src="~/images/empty.jpg" alt="" />
+                        }
+                        else
+                        {
+                            <img src="@i.TitleImagePath" alt="" />
+                        }
+                    </span>
+                    <a asp-controller="Items"
+                       asp-action="Item"
+                       asp-route-id="@i.Id">
+                        <h2>@i.Title</h2>
+                        <div class="content">
+                            <p>@i.Theme</p>
+                        </div>
+                    </a>
+                </article>
+            }
+        </section>
+    </div>

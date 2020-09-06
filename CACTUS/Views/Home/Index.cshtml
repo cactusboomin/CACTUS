@@ -1,10 +1,19 @@
 ﻿@model HomeViewModel
     <div>
-        <a href="/collections">
+        <a asp-controller="Collections"
+           asp-action="Index"
+           asp-route-collections="@Model.Collections">
             <h1>
                 COLLECTIONS
             </h1>
         </a>
+
+        <h2>
+            SORT BY: 
+            <a asp-action="Index" asp-route-sortOrder="@ViewBag.CollectionNameSort">TITLE</a>
+            <a asp-action="Index" asp-route-sortOrder="@ViewBag.CollectionDateSort">DATE</a>
+        </h2>
+
         <section class="tiles">
             @for (int i = 0; i < (Model.Collections.Count > 3 ? 3 : Model.Collections.Count); i++)
             {
@@ -31,11 +40,20 @@
             }
         </section>
 
-        <a href="/items">
+        <a asp-controller="Items"
+           asp-action="Index"
+           asp-route-items="@Model.Items">
             <h1>
                 ITEMS
             </h1>
         </a>
+
+        <h2>
+            SORT BY: 
+            <a asp-action="Index" asp-route-sortOrder="@ViewBag.ItemNameSort">TITLE</a>
+            <a asp-action="Index" asp-route-sortOrder="@ViewBag.ItemDateSort">DATE</a>
+        </h2>
+
         <section class="tiles">
             @for (int i = 0; i < (Model.Items.Count > 3 ? 3 : Model.Items.Count); i++)
             {
@@ -62,7 +80,9 @@
             }
         </section>
 
-        <a href="/tags">
+        <a asp-controller="Tags"
+           asp-action="Index"
+           asp-route-tags="@Model.Tags">
             <h1>
                 TAGS
             </h1>
@@ -72,11 +92,11 @@
             {
                 <article class="style3">
                     <span class="image">
-                            <img src="~/images/tag.jpg" alt="" />
+                        <img src="~/images/tag.jpg" alt="" />
                     </span>
                     <a asp-controller="Tags"
-                        asp-action="Tag"
-                        asp-route-id="@Model.Tags[i].Id">
+                       asp-action="Tag"
+                       asp-route-id="@Model.Tags[i].Id">
                         <h2>@Model.Tags[i].Name</h2>
                     </a>
                 </article>

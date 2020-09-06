@@ -23,6 +23,11 @@ namespace CACTUS.Models
                                 .FirstOrDefault(t => t.Id == id);
         }
 
+        public TagsViewModel(IQueryable<Tag> tags)
+        {
+            this.Tags = tags.ToList();
+        }
+
         public List<Tag> Tags { get; set; }
 
         public Tag Tag { get; set; }

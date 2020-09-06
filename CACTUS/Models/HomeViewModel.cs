@@ -11,11 +11,11 @@ namespace CACTUS.Models
 {
     public class HomeViewModel
     {
-        public HomeViewModel(DataManager manager)
+        public HomeViewModel(IEnumerable<Collection> collections, IEnumerable<Item> items, IEnumerable<Tag> tags)
         {
-            this.Collections = manager.Collections.GetCollections().ToList();
-            this.Items = manager.Items.GetItems().ToList();
-            this.Tags = manager.Tags.GetTags().ToList();
+            this.Collections = collections.ToList();
+            this.Items = items.ToList();
+            this.Tags = tags.ToList();
         }
 
         [Display(Name = "COLLECTIONS")]

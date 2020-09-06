@@ -18,9 +18,23 @@ namespace CACTUS.Controllers
             this.manager = manager;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(SortState sortOrder = SortState.TitleAsc)
         {
-            return View(new CollectionsViewModel(this.manager));
+            var collections = this.manager.Collections.GetCollections();
+
+            ViewData["CollectionNameSort"] = sortOrder == SortState.TitleAsc ? SortState.TitleDesc : SortState.TitleAsc;
+            ViewData["CollectionDateSort"] = sortOrder == SortState.DateAsc ? SortState.DateDesc : SortState.DateAsc;
+            
+            collections = sortOrder switch
+            {
+                SortState.TitleAsc => collections.OrderBy(c => c.Title),
+                SortState.TitleDesc => collections.OrderByDescending(c => c.Title),
+                SortState.DateAsc => collections.OrderBy(c => c.TimeAdded),
+                SortState.DateDesc => collections.OrderByDescending(c => c.TimeAdded),
+                _ => collections.OrderBy(c => c.Title),
+            };
+
+            return View(new CollectionsViewModel(collections.AsNoTracking()));
         }
 
         public IActionResult Collection(Guid id)
