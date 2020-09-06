@@ -10,17 +10,12 @@ namespace CACTUS.Domain.Entities
 {
     public class Item : EntityBase
     {
-        public Item()
-        {
-            this.ItemTags = new List<ItemTag>();
-        }
-
         [Required]
         public Guid CollectionId { get; set; }
 
         public Collection Collection { get; set; }
 
-        public List<ItemTag> ItemTags { get; set; }
+        public List<ItemTag> ItemTags { get; set; } = new List<ItemTag>();
 
         #region NUMBERS
 

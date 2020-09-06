@@ -179,19 +179,24 @@ namespace CACTUS.Domain
                 Name = "JAZZ",
             };
 
-            firstItem.ItemTags.Add(new ItemTag { ItemId = firstItem.Id, TagId = firstTag.Id });
-            secondItem.ItemTags.Add(new ItemTag { ItemId = secondItem.Id, TagId = secondTag.Id });
-            thirdItem.ItemTags.Add(new ItemTag { ItemId = thirdItem.Id, TagId = thirdTag.Id });
-            thirdItem.ItemTags.Add(new ItemTag { ItemId = thirdItem.Id, TagId = fourthTag.Id });
+            var itemTag1 = new ItemTag { ItemId = firstItem.Id, TagId = firstTag.Id };
+            var itemTag2 = new ItemTag { ItemId = secondItem.Id, TagId = secondTag.Id };
+            var itemTag3 = new ItemTag { ItemId = thirdItem.Id, TagId = thirdTag.Id };
+            var itemTag4 = new ItemTag { ItemId = thirdItem.Id, TagId = fourthTag.Id };
 
-            builder.Entity<Item>().OwnsOne(i => i.ItemTags).HasData(firstItem);
-            builder.Entity<Item>().OwnsOne(i => i.ItemTags).HasData(secondItem);
-            builder.Entity<Item>().OwnsOne(i => i.ItemTags).HasData(thirdItem);
+            builder.Entity<Item>().HasData(firstItem);
+            builder.Entity<Item>().HasData(secondItem);
+            builder.Entity<Item>().HasData(thirdItem);
 
-            builder.Entity<Tag>().OwnsOne(i => i.ItemTags).HasData(firstTag);
-            builder.Entity<Tag>().OwnsOne(i => i.ItemTags).HasData(secondTag);
-            builder.Entity<Tag>().OwnsOne(i => i.ItemTags).HasData(thirdTag);
-            builder.Entity<Tag>().OwnsOne(i => i.ItemTags).HasData(fourthTag);
+            builder.Entity<Tag>().HasData(firstTag);
+            builder.Entity<Tag>().HasData(secondTag);
+            builder.Entity<Tag>().HasData(thirdTag);
+            builder.Entity<Tag>().HasData(fourthTag);
+
+            builder.Entity<ItemTag>().HasData(itemTag1);
+            builder.Entity<ItemTag>().HasData(itemTag2);
+            builder.Entity<ItemTag>().HasData(itemTag3);
+            builder.Entity<ItemTag>().HasData(itemTag4);
         }
     }
 }

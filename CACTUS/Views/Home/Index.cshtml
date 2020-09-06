@@ -12,7 +12,7 @@
                     <span class="image">
                         @if (Model.Collections[i].TitleImagePath == null)
                         {
-                            <img src="images/empty.jpg" alt="" />
+                            <img src="~/images/empty.jpg" alt="" />
                         }
                         else
                         {
@@ -43,7 +43,7 @@
                     <span class="image">
                         @if (Model.Items[i].TitleImagePath == null)
                         {
-                            <img src="images/empty.jpg" alt="" />
+                            <img src="~/images/empty.jpg" alt="" />
                         }
                         else
                         {
@@ -72,9 +72,11 @@
             {
                 <article class="style3">
                     <span class="image">
-                            <img src="images/tag.jpg" alt="" />
+                            <img src="~/images/tag.jpg" alt="" />
                     </span>
-                    <a href="generic.html">
+                    <a asp-controller="Tags"
+                        asp-action="Tag"
+                        asp-route-id="@Model.Tags[i].Id">
                         <h2>@Model.Tags[i].Name</h2>
                     </a>
                 </article>
