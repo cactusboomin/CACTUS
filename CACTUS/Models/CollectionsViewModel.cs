@@ -21,22 +21,11 @@ namespace CACTUS.Models
             this.Collections = collections.ToList();
         }
 
-        public CollectionsViewModel(DataManager manager, Guid id)
+        public CollectionsViewModel(DataManager manager, IQueryable<Item> items, Guid id)
         {
-            this.Items = manager.Items
-                    .GetItems()
-                    .Where(i => i.CollectionId == id)
-                    .Include(i => i.Collection)
-                    .ToList();
+            this.Items = items.ToList();
 
-            this.Collections = manager.Collections
-                    .GetCollections()
-                    .ToList();
-
-            this.Collection = manager.Collections
-                    .GetCollections()
-                    .ToList()
-                    .FirstOrDefault(c => c.Id == id);
+            this.Collection = manager.Collections.GetCollections().FirstOrDefault(c => c.Id == id);
         }
 
         [Display(Name = "COLLECTIONS")]

@@ -18,7 +18,7 @@ namespace CACTUS.Controllers
             this.manager = manager;
         }
 
-        public IActionResult Index(SortState sortOrder = SortState.TitleAsc)
+        public IActionResult Index(string searchString, SortState sortOrder = SortState.TitleAsc)
         {
             var items = this.manager.Items.GetItems();
 
@@ -33,6 +33,12 @@ namespace CACTUS.Controllers
                 SortState.DateDesc => items.OrderByDescending(i => i.TimeAdded),
                 _ => items.OrderBy(i => i.Title),
             };
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                items = items.Where(i => (i.Title.Contains(searchString) || searchString.Contains(i.Title))
+                                                    || (i.Theme.Contains(searchString) || searchString.Contains(i.Theme)));
+            }
 
             return View(new ItemsViewModel(items.AsNoTracking()));
         }

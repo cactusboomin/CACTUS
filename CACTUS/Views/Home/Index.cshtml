@@ -1,5 +1,14 @@
 ﻿@model HomeViewModel
-    <div>
+
+        <form asp-controller="Home" asp-action="Index" method="get">
+            <h2>
+                SEARCH: <input type="text" name="SearchString" />
+                <input type="submit" value="FIND" />
+            </h2>
+        </form>
+
+        @if (Model.Collections.Count != 0)
+        {
         <a asp-controller="Collections"
            asp-action="Index"
            asp-route-collections="@Model.Collections">
@@ -9,7 +18,7 @@
         </a>
 
         <h2>
-            SORT BY: 
+            SORT BY:
             <a asp-action="Index" asp-route-sortOrder="@ViewBag.CollectionNameSort">TITLE</a>
             <a asp-action="Index" asp-route-sortOrder="@ViewBag.CollectionDateSort">DATE</a>
         </h2>
@@ -39,7 +48,10 @@
                 </article>
             }
         </section>
+        }
 
+        @if (Model.Items.Count != 0)
+        {
         <a asp-controller="Items"
            asp-action="Index"
            asp-route-items="@Model.Items">
@@ -49,7 +61,7 @@
         </a>
 
         <h2>
-            SORT BY: 
+            SORT BY:
             <a asp-action="Index" asp-route-sortOrder="@ViewBag.ItemNameSort">TITLE</a>
             <a asp-action="Index" asp-route-sortOrder="@ViewBag.ItemDateSort">DATE</a>
         </h2>
@@ -79,6 +91,7 @@
                 </article>
             }
         </section>
+        }
 
         <a asp-controller="Tags"
            asp-action="Index"
@@ -102,4 +115,3 @@
                 </article>
             }
         </section>
-    </div>

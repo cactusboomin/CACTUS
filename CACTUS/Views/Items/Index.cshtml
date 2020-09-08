@@ -1,9 +1,16 @@
 ﻿@model ItemsViewModel
 
-    <div>
+
         <h1>
             ITEMS
         </h1>
+
+        <form asp-controller="Items" asp-action="Index" method="get">
+            <h2>
+                SEARCH: <input type="text" name="SearchString" />
+                <input type="submit" value="FIND" />
+            </h2>
+        </form>
 
         <h2>
             SORT BY:
@@ -36,4 +43,3 @@
                 </article>
             }
         </section>
-    </div>
