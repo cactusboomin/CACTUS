@@ -1,5 +1,12 @@
 ﻿@model CollectionsViewModel
 
+    <form asp-controller="Collections" asp-action="Collection" method="get">
+        <h2>
+            SEARCH: <input type="text" name="SearchString" />
+            <input type="submit" value="FIND" />
+        </h2>
+    </form>
+
 <h1>@Model.Collection.Title</h1>
 <h2>@Model.Collection.Theme</h2>
 <h2>@Model.Collection.Description</h2>

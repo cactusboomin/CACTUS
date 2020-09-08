@@ -1,41 +1,42 @@
 ﻿@model CollectionsViewModel
 
-<div>
-    <h1>
-        COLLECTIONS
-    </h1>
+        <form asp-controller="Collections" asp-action="Index" method="get">
+            <h2>
+                SEARCH: <input type="text" name="SearchString" />
+                <input type="submit" value="FIND" />
+            </h2>
+        </form>
 
-    <h2>
-        SORT BY:
-        <a asp-action="Index" asp-route-sortOrder="@ViewBag.CollectionNameSort">TITLE</a>
-        <a asp-action="Index" asp-route-sortOrder="@ViewBag.CollectionDateSort">DATE</a>
-    </h2>   
+        <h2>
+            SORT BY:
+            <a asp-action="Index" asp-route-sortOrder="@ViewBag.CollectionNameSort">TITLE</a>
+            <a asp-action="Index" asp-route-sortOrder="@ViewBag.CollectionDateSort">DATE</a>
+        </h2>
 
-    <div>
-        <section class="tiles">
-            @foreach (var c in Model.Collections)
-            {
-                <article class="style3">
-                    <span class="image">
-                        @if (c.TitleImagePath == null)
-                        {
-                            <img src="~/images/empty.jpg" alt="" />
-                        }
-                        else
-                        {
-                            <img src="@c.TitleImagePath" alt="" />
-                        }
-                    </span>
-                    <a asp-controller="Collections"
-                       asp-action="Collection"
-                       asp-route-id="@c.Id">
-                        <h2>@c.Title</h2>
-                        <div class="content">
-                            <p>@c.Theme</p>
-                        </div>
-                    </a>
-                </article>
-            }
-        </section>
-    </div>
-</div>
+        <div>
+            <section class="tiles">
+                @foreach (var c in Model.Collections)
+                {
+                    <article class="style3">
+                        <span class="image">
+                            @if (c.TitleImagePath == null)
+                            {
+                                <img src="~/images/empty.jpg" alt="" />
+                            }
+                            else
+                            {
+                                <img src="@c.TitleImagePath" alt="" />
+                            }
+                        </span>
+                        <a asp-controller="Collections"
+                           asp-action="Collection"
+                           asp-route-id="@c.Id">
+                            <h2>@c.Title</h2>
+                            <div class="content">
+                                <p>@c.Theme</p>
+                            </div>
+                        </a>
+                    </article>
+                }
+            </section>
+        </div>

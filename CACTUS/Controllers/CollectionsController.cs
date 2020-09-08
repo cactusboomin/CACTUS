@@ -18,7 +18,7 @@ namespace CACTUS.Controllers
             this.manager = manager;
         }
 
-        public IActionResult Index(SortState sortOrder = SortState.TitleAsc)
+        public IActionResult Index(string searchString, SortState sortOrder = SortState.TitleAsc)
         {
             var collections = this.manager.Collections.GetCollections();
 
@@ -34,12 +34,29 @@ namespace CACTUS.Controllers
                 _ => collections.OrderBy(c => c.Title),
             };
 
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                collections = collections.Where(c => (c.Title.Contains(searchString) || searchString.Contains(c.Title))
+                                                    || (c.Description.Contains(searchString)||searchString.Contains(c.Description))
+                                                    || (c.Theme.Contains(searchString) || searchString.Contains(c.Theme)));
+            }
+
             return View(new CollectionsViewModel(collections.AsNoTracking()));
         }
 
-        public IActionResult Collection(Guid id)
+        public IActionResult Collection(string searchString, Guid id)
         {
-            return View(new CollectionsViewModel(this.manager, id));
+            var items = this.manager.Collections.GetCollection(id).Items.AsQueryable()
+                                                                        .Include(i => i.Collection)
+                                                                        .AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                items = items.Where(i => (i.Title.Contains(searchString) || searchString.Contains(i.Title))
+                             || (i.Theme.Contains(searchString) || searchString.Contains(i.Theme)));
+            }
+
+            return View(new CollectionsViewModel(this.manager, items, id));
         }
     }
 }
