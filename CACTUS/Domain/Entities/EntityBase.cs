@@ -11,7 +11,7 @@ namespace CACTUS.Domain.Entities
         protected EntityBase() => TimeAdded = DateTime.UtcNow;
 
         [Required]
-        public Guid UserId { get; set; }
+        public string UserId { get; set; }
 
         [Required]
         public Guid Id { get; set; }

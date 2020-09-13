@@ -89,6 +89,7 @@ namespace CACTUS.Controllers
                     }
 
                     var result = await userManager.CreateAsync(user, model.Password);
+                    await userManager.AddClaimAsync(user, new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email));
                     await userManager.AddToRoleAsync(user, "user");
 
                     if (result.Succeeded)
