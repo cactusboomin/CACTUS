@@ -19,13 +19,18 @@ namespace CACTUS.Domain
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            base.OnModelCreating(builder);
-
             builder.Entity<IdentityRole>().HasData(new IdentityRole
             {
                 Id = "1E2EFB41-DAA4-4643-9E94-418D05609F57",
                 Name = "admin",
                 NormalizedName = "ADMIN"
+            });
+
+            builder.Entity<IdentityRole>().HasData(new IdentityRole
+            {
+                Id = "02d962c8-3531-41e9-bf0f-bdf29fb0b745",
+                Name = "user",
+                NormalizedName = "USER"
             });
 
             builder.Entity<IdentityUser>().HasData(new IdentityUser
@@ -36,15 +41,35 @@ namespace CACTUS.Domain
                 Email = "123@mail.ru",
                 NormalizedEmail = "123@MAIL.RU",
                 EmailConfirmed = true,
-                PasswordHash = new PasswordHasher<IdentityUser>().HashPassword(null, "superpassword"),
-                SecurityStamp = String.Empty
+                PasswordHash = new PasswordHasher<IdentityUser>().HashPassword(null, "adminpassword"),
+                SecurityStamp = String.Empty,
+            });
+
+            builder.Entity<IdentityUser>().HasData(new IdentityUser
+            {
+                Id = "9a0136a4-5b7a-41ac-b9d9-0556dbd09eda",
+                UserName = "user",
+                NormalizedUserName = "USER",
+                Email = "oc@yandex.by",
+                NormalizedEmail = "OC@YANDEX.BY",
+                EmailConfirmed = true,
+                PasswordHash = new PasswordHasher<IdentityUser>().HashPassword(null, "userpassword"),
+                SecurityStamp = String.Empty,
             });
 
             builder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
             {
                 RoleId = "1E2EFB41-DAA4-4643-9E94-418D05609F57",
-                UserId = "7DF74B2D-5189-4622-BD09-FE6337C18C3D"
+                UserId = "7DF74B2D-5189-4622-BD09-FE6337C18C3D",
             });
+
+            builder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
+            {
+                RoleId = "02d962c8-3531-41e9-bf0f-bdf29fb0b745",
+                UserId = "9a0136a4-5b7a-41ac-b9d9-0556dbd09eda",
+            });
+
+            base.OnModelCreating(builder);
 
             builder.Entity<Item>()
                 .HasOne(i => i.Collection)

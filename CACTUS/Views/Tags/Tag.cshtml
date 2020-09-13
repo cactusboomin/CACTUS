@@ -1,29 +1,33 @@
 ﻿@model TagsViewModel
 
-<h1>@Model.Tag.Name</h1>
+<div id="main">
+    <div class="inner">
+        <h1>@Model.Tag.Name</h1>
 
-    <section class="tiles">
-        @foreach (var it in Model.Tag.ItemTags)
-        {
-            <article class="style3">
-                <span class="image">
-                    @if (it.Item.TitleImagePath == null)
-                    {
-                        <img src="~/images/empty.jpg" alt="" />
-                    }
-                    else
-                    {
-                        <img src="@it.Item.TitleImagePath" alt="" />
-                    }
-                </span>
-                <a asp-controller="Items"
-                   asp-action="Item"
-                   asp-route-id="@it.Item.Id">
-                    <h2>@it.Item.Title</h2>
-                    <div class="content">
-                        <p>@it.Item.Theme</p>
-                    </div>
-                </a>
-            </article>
-        }
-    </section>
+        <section class="tiles">
+            @foreach (var it in Model.Tag.ItemTags)
+            {
+                <article class="style3">
+                    <span class="image">
+                        @if (it.Item.TitleImagePath == null)
+                        {
+                            <img src="~/images/empty.jpg" alt="" />
+                        }
+                        else
+                        {
+                            <img src="@it.Item.TitleImagePath" alt="" />
+                        }
+                    </span>
+                    <a asp-controller="Items"
+                       asp-action="Item"
+                       asp-route-id="@it.Item.Id">
+                        <h2>@it.Item.Title</h2>
+                        <div class="content">
+                            <p>@it.Item.Theme</p>
+                        </div>
+                    </a>
+                </article>
+            }
+        </section>
+    </div>
+</div>

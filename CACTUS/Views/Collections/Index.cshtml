@@ -1,5 +1,7 @@
 ﻿@model CollectionsViewModel
 
+<div id="main">
+    <div class="inner">
         <form asp-controller="Collections" asp-action="Index" method="get">
             <h2>
                 SEARCH: <input type="text" name="SearchString" />
@@ -40,3 +42,5 @@
                 }
             </section>
         </div>
+    </div>
+</div>

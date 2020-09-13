@@ -1,10 +1,12 @@
-﻿using CACTUS.Models;
+﻿using CACTUS.Domain.Entities;
+using CACTUS.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace CACTUS.Controllers
@@ -14,11 +16,15 @@ namespace CACTUS.Controllers
     {
         private readonly UserManager<IdentityUser> userManager;
         private readonly SignInManager<IdentityUser> signInManager;
+        private readonly RoleManager<IdentityRole> roleManager;
         
-        public AccountController(UserManager<IdentityUser> userMgr, SignInManager<IdentityUser> signInMgr)
+        public AccountController(UserManager<IdentityUser> userMgr, 
+                                SignInManager<IdentityUser> signInMgr,
+                                RoleManager<IdentityRole> roleMgr)
         {
             userManager = userMgr;
             signInManager = signInMgr;
+            roleManager = roleMgr;
         }
 
         [AllowAnonymous]
@@ -34,20 +40,81 @@ namespace CACTUS.Controllers
         {
             if (ModelState.IsValid)
             {
-                IdentityUser user = await userManager.FindByNameAsync(model.UserName);
+                var user = await userManager.FindByEmailAsync(model.Email);
                 if (user != null)
                 {
                     await signInManager.SignOutAsync();
-                    Microsoft.AspNetCore.Identity.SignInResult result = await signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
+
+                    await Authenticate(user);
+                    return Redirect(returnUrl ?? "/");
+                }
+
+                ModelState.AddModelError(nameof(LoginViewModel.Email), "False password or login.");
+            }
+            return View(model);
+        }
+
+        [AllowAnonymous]
+        public IActionResult Register(string returnUrl = null)
+        {
+            ViewBag.returnUrl = returnUrl;
+            return View(new RegisterViewModel());
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await userManager.FindByEmailAsync(model.Email);
+                if (user == null)
+                {
+                    user = new IdentityUser
+                    {
+                        Id = Guid.NewGuid().ToString(),
+                        Email = model.Email,
+                        UserName = model.UserName,
+                        PasswordHash = new PasswordHasher<IdentityUser>().HashPassword(null, model.Password),
+                    };
+
+                    if (await roleManager.FindByIdAsync("02d962c8-3531-41e9-bf0f-bdf29fb0b745") == null)
+                    {
+                        await roleManager.CreateAsync(new IdentityRole
+                        {
+                            Id = "02d962c8-3531-41e9-bf0f-bdf29fb0b745",
+                            Name = "user",
+                            NormalizedName = "USER"
+                        }); 
+                    }
+
+                    var result = await userManager.CreateAsync(user, model.Password);
+                    await userManager.AddToRoleAsync(user, "user");
+
                     if (result.Succeeded)
                     {
+                        await Authenticate(user);
                         return Redirect(returnUrl ?? "/");
                     }
                 }
-
-                ModelState.AddModelError(nameof(LoginViewModel.UserName), "False password or login.");
+                else
+                {
+                    ModelState.AddModelError("", $"USER WITH EMAIL {model.Email} ALREADY EXISTS.");
+                }
             }
+
+            ModelState.AddModelError("", "UNCORRECT DATA.");
             return View(model);
+        }
+
+        public async Task Authenticate(IdentityUser user)
+        {
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email)
+            };
+
+            await signInManager.SignInWithClaimsAsync(user, true, claims);
         }
 
         [Authorize]

@@ -12,16 +12,9 @@
 
         <!-- Header -->
         @await Html.PartialAsync("HeaderPartial")
-
-        <!-- Menu -->
         @await Html.PartialAsync("MenuPartial")
 
-        <!-- Main -->
-        <div id="main">
-            <div class="inner">
                 @RenderBody()
-            </div>
-        </div>
 
         <!-- Footer -->
         @await Html.PartialAsync("FooterPartial")

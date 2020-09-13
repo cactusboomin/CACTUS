@@ -1,10 +1,22 @@
 ﻿<nav id="menu">
     <h2>Menu</h2>
     <ul>
-        <li><a href="/">HOME</a></li>
-        <li><a href="/">Collections</a></li>
-        <li><a href="/">Tempus etiam</a></li>
-        <li><a href="/">Consequat dolor</a></li>
-        <li><a href="/">Elements</a></li>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <li><a asp-controller="User" asp-action="Index" asp-route-id="@User.Identity.Name">MY PAGE</a></li>
+        }
+        <li><a asp-controller="Home" asp-action="Index">HOME</a></li>
+        <li><a asp-controller="Collections" asp-action="Index">COLLECTIONS</a></li>
+        <li><a asp-controller="Items" asp-action="Index">ITEMS</a></li>
+        <li><a asp-controller="Tags" asp-action="Index">TAGS</a></li>
+        @if (!User.Identity.IsAuthenticated)
+        {
+            <li><a asp-controller="Account" asp-action="Register">SIGN UP</a></li>
+            <li><a asp-controller="Account" asp-action="Login">SIGN IN</a></li>
+        }
+        else
+        {
+            <li><a asp-controller="Account" asp-action="Logout">EXIT</a></li>
+        }
     </ul>
 </nav>
