@@ -47,7 +47,7 @@ namespace CACTUS.Domain.Repositories.EntityFramework
             return result.AsQueryable<Collection>();
         }
 
-        public IQueryable<Collection> GetCollectionsFromUser(Guid userId)
+        public IQueryable<Collection> GetCollectionsFromUser(string userId)
         {
             return this.context.Collections.Where(x => x.UserId == userId);
         }

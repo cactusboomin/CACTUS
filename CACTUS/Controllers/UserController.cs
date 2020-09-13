@@ -1,4 +1,5 @@
 ﻿using CACTUS.Domain;
+using CACTUS.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -21,10 +22,11 @@ namespace CACTUS.Controllers
             this.userManager = userManager;
         }
 
-        public IActionResult Index(string email)
+        public IActionResult Index(string name)
         {
-            var user = userManager.FindByEmailAsync(email);
-            return View();
+            IdentityUser user = userManager.FindByNameAsync(name).Result;
+
+            return View(new UserViewModel(user, dataManager));
         }
     }
 }

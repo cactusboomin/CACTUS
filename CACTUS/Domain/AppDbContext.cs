@@ -92,7 +92,7 @@ namespace CACTUS.Domain
             builder.Entity<Collection>().HasData(new Collection
             {
                 Id = new Guid("48cca082-152c-43df-96f2-7a6345b11cbd"),
-                UserId = new Guid("7DF74B2D-5189-4622-BD09-FE6337C18C3D"),
+                UserId = "7DF74B2D-5189-4622-BD09-FE6337C18C3D",
                 Title = "SLIM SHADY",
                 TitleImagePath = "images/slimshady.jpg",
                 Theme = "OLD SCHOOL",
@@ -110,7 +110,7 @@ namespace CACTUS.Domain
             builder.Entity<Collection>().HasData(new Collection
             {
                 Id = new Guid("c0b297f8-367b-4465-b7b1-0dbcc470ad7a"),
-                UserId = new Guid("7DF74B2D-5189-4622-BD09-FE6337C18C3D"),
+                UserId = "7DF74B2D-5189-4622-BD09-FE6337C18C3D",
                 Title = "TRAVIS SCOTT",
                 TitleImagePath = "images/travisscott.jpg",
                 Theme = "ASTROWORLD",
@@ -128,7 +128,7 @@ namespace CACTUS.Domain
             builder.Entity<Collection>().HasData(new Collection
             {
                 Id = new Guid("b5306fba-e436-4d49-a902-2ce1d01002b8"),
-                UserId = new Guid("7DF74B2D-5189-4622-BD09-FE6337C18C3D"),
+                UserId = "7DF74B2D-5189-4622-BD09-FE6337C18C3D",
                 Title = "KANYE WEST",
                 TitleImagePath = "images/kanyewest.jpg",
                 Theme = "PSYCHO",
@@ -148,7 +148,7 @@ namespace CACTUS.Domain
             var firstItem = new Item
             {
                 Id = new Guid("61BDD256-5B8E-4DB5-958C-601EA4D2EDA1"),
-                UserId = new Guid("7DF74B2D-5189-4622-BD09-FE6337C18C3D"),
+                UserId = "7DF74B2D-5189-4622-BD09-FE6337C18C3D",
                 CollectionId = new Guid("48cca082-152c-43df-96f2-7a6345b11cbd"),
                 Title = "TRAVIS",
                 Theme = "FIRST",
@@ -160,7 +160,7 @@ namespace CACTUS.Domain
             var secondItem = new Item
             {
                 Id = new Guid("3246A17E-A59D-42D6-8A26-CD4BF84F8612"),
-                UserId = new Guid("7DF74B2D-5189-4622-BD09-FE6337C18C3D"),
+                UserId = "7DF74B2D-5189-4622-BD09-FE6337C18C3D",
                 CollectionId = new Guid("c0b297f8-367b-4465-b7b1-0dbcc470ad7a"),
                 Title = "SECOND ITEM",
                 Theme = "SECOND",
@@ -172,7 +172,7 @@ namespace CACTUS.Domain
             var thirdItem = new Item
             {
                 Id = new Guid("19E19E85-8CA7-4EB4-8DC9-63E70C93A47F"),
-                UserId = new Guid("7DF74B2D-5189-4622-BD09-FE6337C18C3D"),
+                UserId = "7DF74B2D-5189-4622-BD09-FE6337C18C3D",
                 CollectionId = new Guid("b5306fba-e436-4d49-a902-2ce1d01002b8"),
                 Title = "THIRD ITEM",
                 Theme = "THIRD",
