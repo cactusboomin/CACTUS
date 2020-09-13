@@ -9,8 +9,8 @@ namespace CACTUS.Models
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "LOGIN")]
-        public string UserName { get; set; }
+        [Display(Name = "EMAIL")]
+        public string Email { get; set; }
 
         [Required]
         [UIHint("password")]

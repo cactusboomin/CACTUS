@@ -1,9 +1,10 @@
 ﻿using CACTUS.Domain;
+using CACTUS.Domain.Entities;
 using CACTUS.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -19,7 +20,7 @@ namespace CACTUS.Areas.Admin.Controllers
             this.manager = manager;
         }
 
-        public IActionResult Index(SortState sortOrder = SortState.TitleAsc)
+        public IActionResult Index(string searchString, SortState sortOrder = SortState.TitleAsc)
         {
             var collections = this.manager.Collections.GetCollections();
             var items = this.manager.Items.GetItems();
@@ -47,9 +48,64 @@ namespace CACTUS.Areas.Admin.Controllers
                 _ => items.OrderBy(i => i.Title),
             };
 
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                items = items.Where(i => (i.Title.Contains(searchString) || searchString.Contains(i.Title))
+                                        || i.Theme.Contains(searchString) || searchString.Contains(i.Theme));
+
+                collections = collections.Where(c => (c.Title.Contains(searchString) || searchString.Contains(c.Title))
+                                                    || (c.Description.Contains(searchString) || searchString.Contains(c.Description))
+                                                    || (c.Theme.Contains(searchString) || searchString.Contains(c.Theme)));
+            }
+
             return View(new HomeViewModel(collections.AsNoTracking().ToList(),
                                             items.AsNoTracking().ToList(),
                                             this.manager.Tags.GetTags().AsNoTracking().ToList()));
+        }
+
+        public IActionResult Delete(Guid id)
+        {
+            var items = this.manager.Items.GetItems();
+            var tags = this.manager.Tags.GetTags();
+            var collection = this.manager.Collections.GetCollections();
+
+            var deletedItems = items.Include(i => i.Collection)
+                                    .Include(i => i.ItemTags)
+                                    .ThenInclude(it => it.Tag)
+                                    .Where(i => i.Collection.Id == id)
+                                    .ToList();
+            
+            var deletedTags = new List<Tag>();
+
+            foreach (var t in tags.ToList())
+            {
+                foreach (var i in deletedItems)
+                {
+                    foreach (var it in i.ItemTags)
+                    {
+                        if (it.TagId == t.Id && t.ItemTags.Count == 1)
+                        {
+                            deletedTags.Add(t);
+                        }
+                    }
+                }
+            }
+
+            var deletedCollection = this.manager.Collections.GetCollection(id);
+            
+            foreach (var i in deletedItems)
+            {
+                items.ToList().Remove(i);
+            }
+
+            foreach (var t in deletedTags)
+            {
+                tags.ToList().Remove(t);
+            }
+
+            collection.ToList().Remove(deletedCollection);
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

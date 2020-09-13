@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CACTUS.Migrations
 {
-    public partial class _update_entities : Migration
+    public partial class _update_users_roles1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -267,21 +267,29 @@ namespace CACTUS.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "1E2EFB41-DAA4-4643-9E94-418D05609F57", "f4b92bb4-ece6-4528-aa5c-58af353f952a", "admin", "ADMIN" });
+                values: new object[,]
+                {
+                    { "1E2EFB41-DAA4-4643-9E94-418D05609F57", "7bda32e5-6030-4765-bb64-fd8c8b9c97b3", "admin", null },
+                    { "02d962c8-3531-41e9-bf0f-bdf29fb0b745", "6842afba-4ffc-488d-a42a-0fa11dfe5874", "user", null }
+                });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "7DF74B2D-5189-4622-BD09-FE6337C18C3D", 0, "621385cd-ae6a-4aac-99e4-d88615160244", "123@mail.ru", true, false, null, "123@MAIL.RU", "ADMIN", "AQAAAAEAACcQAAAAEBFykR9CLGH42+pF5JTZtkehFSs6ZU0SfskJGjDUZhliu6Je9Wy6vA4i0u0/poN91g==", null, false, "", false, "admin" });
+                values: new object[,]
+                {
+                    { "7DF74B2D-5189-4622-BD09-FE6337C18C3D", 0, "1ef1ec56-703c-4245-b365-b544e554e068", "123@mail.ru", true, false, null, "123@MAIL.RU", "ADMIN", "AQAAAAEAACcQAAAAEI9QdRsX5ixNLCbbe1ywQTceoOgT5TOKiXqIQh/UsD3EE9G2hi7Lf/yjjKBOeCXSRw==", null, false, "", false, "admin" },
+                    { "9a0136a4-5b7a-41ac-b9d9-0556dbd09eda", 0, "f98ee749-ed54-4ec8-be1e-57a87435b3fa", "oc@yandex.by", true, false, null, "OC@YANDEX.BY", "USER", "AQAAAAEAACcQAAAAEJlkb+3tcjd0i6ZdZiq7psvIAaJ496jh+SygknHFAJV/9ci/qPkmG+WGrkhHMwRP0A==", null, false, "", false, "user" }
+                });
 
             migrationBuilder.InsertData(
                 table: "Collections",
                 columns: new[] { "Id", "Description", "FirstCheckBoxIsEnabled", "FirstCheckBoxName", "FirstDateIsEnabled", "FirstDateName", "FirstNumberIsEnabled", "FirstNumberName", "FirstTextIsEnabled", "FirstTextName", "SecondCheckBoxIsEnabled", "SecondCheckBoxName", "SecondDateIsEnabled", "SecondDateName", "SecondNumberIsEnabled", "SecondNumberName", "SecondTextIsEnabled", "SecondTextName", "Theme", "ThirdCheckBoxIsEnabled", "ThirdCheckBoxName", "ThirdDateIsEnabled", "ThirdDateName", "ThirdNumberIsEnabled", "ThirdNumberName", "ThirdTextIsEnabled", "ThirdTextName", "TimeAdded", "Title", "TitleImagePath", "UserId" },
                 values: new object[,]
                 {
-                    { new Guid("48cca082-152c-43df-96f2-7a6345b11cbd"), "LALALA", true, "LOL", true, "SLIM SHADY", true, "HUH?", true, "MY NAME IS", false, null, false, null, false, null, false, null, "OLD SCHOOL", false, null, false, null, false, null, false, null, new DateTime(2020, 9, 5, 13, 13, 4, 546, DateTimeKind.Utc).AddTicks(3037), "SLIM SHADY", "images/slimshady.jpg", new Guid("7df74b2d-5189-4622-bd09-fe6337c18c3d") },
-                    { new Guid("c0b297f8-367b-4465-b7b1-0dbcc470ad7a"), "ITS LIT", true, "SSSSS", true, "FFFFFFFFFFFF", true, "HABABAGAGAGA", true, "AAAAAAAA", false, null, false, null, false, null, false, null, "ASTROWORLD", false, null, false, null, false, null, false, null, new DateTime(2020, 9, 5, 13, 13, 4, 546, DateTimeKind.Utc).AddTicks(8321), "TRAVIS SCOTT", "images/travisscott.jpg", new Guid("7df74b2d-5189-4622-bd09-fe6337c18c3d") },
-                    { new Guid("b5306fba-e436-4d49-a902-2ce1d01002b8"), "I HATE BEING", true, "LOL", false, null, false, null, false, null, true, "HA", true, "AWESOME", true, "IT'S", true, "BIPOLAR", "PSYCHO", false, null, false, null, false, null, false, null, new DateTime(2020, 9, 5, 13, 13, 4, 546, DateTimeKind.Utc).AddTicks(8526), "KANYE WEST", "images/kanyewest.jpg", new Guid("7df74b2d-5189-4622-bd09-fe6337c18c3d") }
+                    { new Guid("48cca082-152c-43df-96f2-7a6345b11cbd"), "LALALA", true, "LOL", true, "SLIM SHADY", true, "HUH?", true, "MY NAME IS", false, null, false, null, false, null, false, null, "OLD SCHOOL", false, null, false, null, false, null, false, null, new DateTime(2020, 9, 11, 23, 7, 58, 89, DateTimeKind.Utc).AddTicks(294), "SLIM SHADY", "images/slimshady.jpg", new Guid("7df74b2d-5189-4622-bd09-fe6337c18c3d") },
+                    { new Guid("c0b297f8-367b-4465-b7b1-0dbcc470ad7a"), "ITS LIT", true, "SSSSS", true, "FFFFFFFFFFFF", true, "HABABAGAGAGA", true, "AAAAAAAA", false, null, false, null, false, null, false, null, "ASTROWORLD", false, null, false, null, false, null, false, null, new DateTime(2020, 9, 11, 23, 7, 58, 89, DateTimeKind.Utc).AddTicks(8571), "TRAVIS SCOTT", "images/travisscott.jpg", new Guid("7df74b2d-5189-4622-bd09-fe6337c18c3d") },
+                    { new Guid("b5306fba-e436-4d49-a902-2ce1d01002b8"), "I HATE BEING", true, "LOL", false, null, false, null, false, null, true, "HA", true, "AWESOME", true, "IT'S", true, "BIPOLAR", "PSYCHO", false, null, false, null, false, null, false, null, new DateTime(2020, 9, 11, 23, 7, 58, 89, DateTimeKind.Utc).AddTicks(8764), "KANYE WEST", "images/kanyewest.jpg", new Guid("7df74b2d-5189-4622-bd09-fe6337c18c3d") }
                 });
 
             migrationBuilder.InsertData(
@@ -298,16 +306,20 @@ namespace CACTUS.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "UserId", "RoleId" },
-                values: new object[] { "7DF74B2D-5189-4622-BD09-FE6337C18C3D", "1E2EFB41-DAA4-4643-9E94-418D05609F57" });
+                values: new object[,]
+                {
+                    { "7DF74B2D-5189-4622-BD09-FE6337C18C3D", "1E2EFB41-DAA4-4643-9E94-418D05609F57" },
+                    { "9a0136a4-5b7a-41ac-b9d9-0556dbd09eda", "02d962c8-3531-41e9-bf0f-bdf29fb0b745" }
+                });
 
             migrationBuilder.InsertData(
                 table: "Items",
                 columns: new[] { "Id", "CollectionId", "FirstCheckBox", "FirstDate", "FirstNumber", "FirstText", "SecondCheckBox", "SecondDate", "SecondNumber", "SecondText", "Theme", "ThirdCheckBox", "ThirdDate", "ThirdNumber", "ThirdText", "TimeAdded", "Title", "TitleImagePath", "UserId" },
                 values: new object[,]
                 {
-                    { new Guid("61bdd256-5b8e-4db5-958c-601ea4d2eda1"), new Guid("48cca082-152c-43df-96f2-7a6345b11cbd"), false, new DateTime(2020, 9, 5, 16, 13, 4, 547, DateTimeKind.Local).AddTicks(2731), 1000.0, "DON'T YOU OPEN UP THE WINDOW", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0.0, null, "FIRST", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0.0, null, new DateTime(2020, 9, 5, 13, 13, 4, 547, DateTimeKind.Utc).AddTicks(1300), "TRAVIS", null, new Guid("7df74b2d-5189-4622-bd09-fe6337c18c3d") },
-                    { new Guid("3246a17e-a59d-42d6-8a26-cd4bf84f8612"), new Guid("c0b297f8-367b-4465-b7b1-0dbcc470ad7a"), false, new DateTime(2020, 9, 5, 16, 13, 4, 548, DateTimeKind.Local).AddTicks(5186), 1000.0, "DON'T YOU LET OUT THE ANTIDOTE", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0.0, null, "SECOND", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0.0, null, new DateTime(2020, 9, 5, 13, 13, 4, 548, DateTimeKind.Utc).AddTicks(5096), "SECOND ITEM", null, new Guid("7df74b2d-5189-4622-bd09-fe6337c18c3d") },
-                    { new Guid("19e19e85-8ca7-4eb4-8dc9-63e70c93a47f"), new Guid("b5306fba-e436-4d49-a902-2ce1d01002b8"), true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0.0, null, false, new DateTime(2020, 9, 5, 16, 13, 4, 548, DateTimeKind.Local).AddTicks(6299), 10000000.0, "STRAIGHT UP", "THIRD", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0.0, null, new DateTime(2020, 9, 5, 13, 13, 4, 548, DateTimeKind.Utc).AddTicks(5211), "THIRD ITEM", null, new Guid("7df74b2d-5189-4622-bd09-fe6337c18c3d") }
+                    { new Guid("61bdd256-5b8e-4db5-958c-601ea4d2eda1"), new Guid("48cca082-152c-43df-96f2-7a6345b11cbd"), false, new DateTime(2020, 9, 12, 2, 7, 58, 90, DateTimeKind.Local).AddTicks(5230), 1000.0, "DON'T YOU OPEN UP THE WINDOW", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0.0, null, "FIRST", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0.0, null, new DateTime(2020, 9, 11, 23, 7, 58, 90, DateTimeKind.Utc).AddTicks(3150), "TRAVIS", null, new Guid("7df74b2d-5189-4622-bd09-fe6337c18c3d") },
+                    { new Guid("3246a17e-a59d-42d6-8a26-cd4bf84f8612"), new Guid("c0b297f8-367b-4465-b7b1-0dbcc470ad7a"), false, new DateTime(2020, 9, 12, 2, 7, 58, 91, DateTimeKind.Local).AddTicks(7835), 1000.0, "DON'T YOU LET OUT THE ANTIDOTE", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0.0, null, "SECOND", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0.0, null, new DateTime(2020, 9, 11, 23, 7, 58, 91, DateTimeKind.Utc).AddTicks(7754), "SECOND ITEM", null, new Guid("7df74b2d-5189-4622-bd09-fe6337c18c3d") },
+                    { new Guid("19e19e85-8ca7-4eb4-8dc9-63e70c93a47f"), new Guid("b5306fba-e436-4d49-a902-2ce1d01002b8"), true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0.0, null, false, new DateTime(2020, 9, 12, 2, 7, 58, 91, DateTimeKind.Local).AddTicks(9478), 10000000.0, "STRAIGHT UP", "THIRD", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0.0, null, new DateTime(2020, 9, 11, 23, 7, 58, 91, DateTimeKind.Utc).AddTicks(7858), "THIRD ITEM", null, new Guid("7df74b2d-5189-4622-bd09-fe6337c18c3d") }
                 });
 
             migrationBuilder.InsertData(

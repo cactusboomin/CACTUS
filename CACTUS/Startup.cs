@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -12,8 +15,8 @@ using CACTUS.Service;
 using CACTUS.Domain.Repositories.Abstract;
 using CACTUS.Domain.Repositories.EntityFramework;
 using CACTUS.Domain;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
+using System.IO;
+using System.Security.Principal;
 
 namespace CACTUS
 {
@@ -47,10 +50,12 @@ namespace CACTUS
             {
                 options.Cookie.Name = "CACTUSAuth";
                 options.Cookie.HttpOnly = true;
-                options.LoginPath = "/account/login";
-                options.AccessDeniedPath = "/account/accessdenied";
+                options.LoginPath = "/Account/Login";
+                options.AccessDeniedPath = "/Account/Login";
                 options.SlidingExpiration = true;
             });
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme);
 
             services.AddAuthorization(x =>
             {
@@ -78,15 +83,13 @@ namespace CACTUS
 
             app.UseCookiePolicy();
             app.UseAuthentication();
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute("admin", "{area:exists}/{controller=Home}/{action=Index}");
                 endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
-                //endpoints.MapControllerRoute("collections", "{controller=Collections}/{action=Index}/{id?}");
-                //endpoints.MapControllerRoute("items", "{controller=Items}/{action=Index}/{id?}");
-                //endpoints.MapControllerRoute("tags", "{controller=Tags}/{action=Index}/{id?}");
             });
         }
     }
