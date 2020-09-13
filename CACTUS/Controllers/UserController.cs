@@ -80,5 +80,37 @@ namespace CACTUS.Controllers
 
             return View(model);
         }
+
+        [Authorize]
+        public async Task<IActionResult> ChangeEmail(string id)
+        {
+            var user = await userManager.FindByIdAsync(id);
+
+            return View(new ChangeEmailViewModel { Id = user.Id });
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> ChangeEmail(ChangeEmailViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await userManager.FindByIdAsync(model.Id);
+                var checkEmail = await userManager.FindByEmailAsync(model.NewEmail);
+                if (checkEmail == null)
+                {
+                    user.Email = model.NewEmail;
+                    user.NormalizedEmail = model.NewEmail.ToUpper();
+                    await userManager.UpdateAsync(user);
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, $"USER WITH EMAIL {model.NewEmail} ALREADY EXISTS.");
+                    return View(model);
+                }
+            }
+
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
