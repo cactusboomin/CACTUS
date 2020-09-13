@@ -8,11 +8,11 @@ namespace CACTUS.Models
 {
     public class LoginViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "ENTER EMAIL")]
         [Display(Name = "EMAIL")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "ENTER PASSWORD")]
         [UIHint("password")]
         [Display(Name = "PASSWORD")]
         public string Password { get; set; }

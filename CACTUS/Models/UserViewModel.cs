@@ -10,6 +10,11 @@ namespace CACTUS.Models
 {
     public class UserViewModel
     {
+        public UserViewModel(IdentityUser user)
+        {
+            this.User = user;
+        }
+
         public UserViewModel(IdentityUser user, DataManager dataManager)
         {
             this.User = user;

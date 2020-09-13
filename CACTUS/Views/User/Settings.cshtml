@@ -1,0 +1,27 @@
+﻿@model UserViewModel
+
+<div id="main">
+    <div class="inner">
+        <h1>
+            SETTINGS
+        </h1>
+
+        <h2>
+            <a asp-controller="User"
+               asp-action="ChangeName"
+               asp-route-id="@Model.User.Id">CHANGE NAME</a>
+        </h2>
+
+        <h2>
+            <a asp-controller="User"
+               asp-action="ChangeEmail"
+               asp-route-id="@Model.User.Id">CHANGE EMAIL</a>
+        </h2>
+
+        <h2>
+            <a asp-controller="User"
+               asp-action="ChangePassword"
+               asp-route-id="@Model.User.Id">CHANGE PASSWORD</a>
+        </h2>
+    </div>
+</div>
