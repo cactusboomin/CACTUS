@@ -112,5 +112,32 @@ namespace CACTUS.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
+        public async Task<IActionResult> ChangeName(string id)
+        {
+            var user = await userManager.FindByIdAsync(id);
+
+            return View(new ChangeNameViewModel { Id = user.Id });
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> ChangeName(ChangeNameViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await userManager.FindByIdAsync(model.Id);
+                user.UserName = model.NewName;
+                user.NormalizedUserName = model.NewName.ToUpper();
+                await userManager.UpdateAsync(user);
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "INVALID DATA");
+                return View(model);
+            }
+
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

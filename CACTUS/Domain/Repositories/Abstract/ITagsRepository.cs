@@ -8,6 +8,7 @@ namespace CACTUS.Domain.Repositories.Abstract
 {
     public interface ITagsRepository
     {
+        void AddTag(Tag entity);
         IQueryable<Tag> GetTags();
         IQueryable<Tag> GetTags(string searchString);
         Tag GetTag(string Name);

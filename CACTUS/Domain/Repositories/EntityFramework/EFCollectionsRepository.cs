@@ -52,6 +52,12 @@ namespace CACTUS.Domain.Repositories.EntityFramework
             return this.context.Collections.Where(x => x.UserId == userId);
         }
 
+        public void AddCollection(Collection entity)
+        {
+            this.context.Collections.Add(entity);
+            this.context.SaveChanges();
+        }
+
         public void SaveCollection(Collection entity)
         {
             if (entity.Id == default)

@@ -10,6 +10,8 @@ namespace CACTUS.Models
 {
     public class ItemsViewModel
     {
+        public ItemsViewModel() { }
+
         public ItemsViewModel(DataManager manager)
         {
             this.Items = manager.Items.GetItems().ToList();
