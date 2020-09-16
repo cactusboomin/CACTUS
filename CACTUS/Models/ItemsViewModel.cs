@@ -38,5 +38,7 @@ namespace CACTUS.Models
         public List<Item> Items { get; set; }
 
         public Item Item { get; set; }
+
+        public Collection Collection { get; set; }
     }
 }

@@ -65,7 +65,7 @@ namespace CACTUS.Controllers
         }
 
         [Authorize]
-        public IActionResult Create(string userId, string returnUrl)
+        public IActionResult Create(string userId)
         {
             var themes = new List<string>
             {
