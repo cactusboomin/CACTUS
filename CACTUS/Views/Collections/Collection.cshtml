@@ -9,40 +9,67 @@
             </h2>
         </form>
 
-        <h1>@Model.Collection.Title</h1>
-        <h2>@Model.Collection.Theme</h2>
-        <h2>@Model.Collection.Description</h2>
-
-        <h2>
-            SORT BY:
-            <a asp-action="Index" asp-route-sortOrder="@ViewBag.ItemNameSort">TITLE</a>
-            <a asp-action="Index" asp-route-sortOrder="@ViewBag.ItemDateSort">DATE</a>
-        </h2>
-
         <section class="tiles">
-            @foreach (var i in Model.Items)
-            {
-                <article class="style3">
-                    <span class="image">
-                        @if (i.TitleImagePath == null)
-                        {
-                            <img src="~/images/empty.jpg" alt="" />
-                        }
-                        else
-                        {
-                            <img src="@i.TitleImagePath" alt="" />
-                        }
-                    </span>
-                    <a asp-controller="Items"
-                       asp-action="Item"
-                       asp-route-id="@i.Id">
-                        <h2>@i.Title</h2>
-                        <div class="content">
-                            <p>@i.Theme</p>
-                        </div>
-                    </a>
-                </article>
-            }
+            <article class="style3">
+                <span class="image">
+                    <img src="~/images/tag.jpg" alt="" />
+                </span>
+                <a asp-controller="Items"
+                   asp-action="Create"
+                   asp-route-collectionId="@Model.Collection.Id">
+                    <h2>CREATE ITEM</h2>
+                </a>
+            </article>
+            <article class="style3">
+                <span class="image">
+                    <img src="~/images/tag.jpg" alt="" />
+                </span>
+                <a asp-controller="Items"
+                   asp-action="Create"
+                   asp-route-collectionId="@Model.Collection.Id">
+                    <h2>CREATE ITEM</h2>
+                </a>
+            </article>
+            <article class="style3">
+                <span class="image">
+                    <img src="~/images/tag.jpg" alt="" />
+                </span>
+                <a asp-controller="Items"
+                   asp-action="Create"
+                   asp-route-collectionId="@Model.Collection.Id">
+                    <h2>CREATE ITEM</h2>
+                </a>
+            </article>
         </section>
+
+            <h1>@Model.Collection.Title</h1>
+            <h2>@Model.Collection.Theme</h2>
+            <h2>@Model.Collection.Description</h2>
+
+            <section class="tiles">
+                @foreach (var i in Model.Items)
+                {
+                    <article class="style3">
+                        <span class="image">
+                            @if (i.TitleImagePath == null)
+                            {
+                                <img src="~/images/empty.jpg" alt="" />
+                            }
+                            else
+                            {
+                                <img src="@i.TitleImagePath" alt="" />
+                            }
+                        </span>
+                        <a asp-controller="Items"
+                           asp-action="Item"
+                           asp-route-id="@i.Id">
+                            <h2>@i.Title</h2>
+                            <div class="content">
+                                <p>@i.Theme</p>
+                            </div>
+                        </a>
+                    </article>
+                }
+            </section>
     </div>
 </div>

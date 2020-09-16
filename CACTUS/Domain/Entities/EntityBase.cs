@@ -16,11 +16,11 @@ namespace CACTUS.Domain.Entities
         [Required]
         public Guid Id { get; set; }
         
-        [Required]
+        [Required(ErrorMessage = "ENTER THE TITLE")]
         [Display(Name = "TITLE")]
         public string Title { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "ENTER THE THEME")]
         [Display(Name = "THEME")]
         public string Theme { get; set; }
 
