@@ -53,47 +53,36 @@ namespace CACTUS.Controllers
         }
 
         [Authorize]
-        public IActionResult Create(Guid collectionId)
+        public IActionResult Create(Guid collectionId, string userId)
         {
-            var collection = this.manager.Collections.GetCollection(collectionId);
-            var userId = collection.UserId;
-
-            var item = new Item();
-            item.Id = Guid.NewGuid();
-            item.UserId = userId;
-            item.CollectionId = collection.Id;
-            item.Collection = collection;
-
             return View(new ItemsViewModel
             {
-                Item = item
+                Item = new Item
+                {
+                    UserId = userId,
+                    CollectionId = collectionId,
+                    Collection = this.manager.Collections.GetCollection(collectionId)
+                }
             });
         }
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> Create(ItemsViewModel model, IFormFile uploadedFile)
+        public async Task<IActionResult> Create(ItemsViewModel model)
         {
             if (ModelState.IsValid)
             {
                 var item = model.Item;
-
                 item.Id = Guid.NewGuid();
-                item.TimeAdded = DateTime.Now;
-
-                if (uploadedFile != null)
-                {
-                    item.TitleImagePath = $"~/images/{uploadedFile.FileName}";
-
-                    using (var fileStream = new FileStream(item.TitleImagePath, FileMode.Create))
-                    {
-                        await uploadedFile.CopyToAsync(fileStream);
-                    }
-
-                    var file = new FileModel { Id = Guid.NewGuid(), Name = uploadedFile.FileName, Path = item.TitleImagePath };
-                    this.manager.Collections.SaveTitleImage(file);
-                }
+                item.Collection = model.Collection;
+                item.Theme = item.Collection.Theme;
                 
+                if (model.Collection.Items == null)
+                {
+                    model.Collection.Items = new List<Item>();
+                }
+
+                model.Collection.Items.Add(item);
                 this.manager.Items.AddItem(item);
 
                 return RedirectToAction("Index", "Home");
@@ -106,3 +95,4 @@ namespace CACTUS.Controllers
         }
     }
 }
+

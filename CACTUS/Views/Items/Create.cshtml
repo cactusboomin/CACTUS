@@ -20,101 +20,101 @@
                     <span asp-validation-for="@Model.Item.Title"></span>
                 </div>
 
-                @if (Model.Item.Collection.SecondNumberIsEnabled)
+                @if (Model.Collection != null)
                 {
                     <div>
-                        <h2>@Model.Item.Collection.FirstNumberName</h2>
+                        <h2>@Model.Collection.FirstNumberName</h2>
                         <input asp-for="@Model.Item.FirstNumber" />
                         <span asp-validation-for="@Model.Item.FirstNumber"></span>
                     </div>
                 }
-                @if (Model.Item.Collection.SecondNumberIsEnabled)
+                @if (Model.Collection.SecondNumberIsEnabled)
                 {
                     <div>
-                        <h2>@Model.Item.Collection.SecondNumberName</h2>
+                        <h2>@Model.Collection.SecondNumberName</h2>
                         <input asp-for="@Model.Item.SecondNumber" />
                         <span asp-validation-for="@Model.Item.SecondNumber"></span>
                     </div>
                 }
-                @if (Model.Item.Collection.ThirdNumberIsEnabled)
+                @if (Model.Collection.ThirdNumberIsEnabled)
                 {
                     <div>
-                        <h2>@Model.Item.Collection.ThirdNumberName</h2>
+                        <h2>@Model.Collection.ThirdNumberName</h2>
                         <input asp-for="@Model.Item.ThirdNumber" />
                         <span asp-validation-for="@Model.Item.ThirdNumber"></span>
                     </div>
                 }
 
-                @if (Model.Item.Collection.FirstTextIsEnabled)
+                @if (Model.Collection.FirstTextIsEnabled)
                 {
                     <div>
-                        <h2>@Model.Item.Collection.FirstTextName</h2>
+                        <h2>@Model.Collection.FirstTextName</h2>
                         <input asp-for="@Model.Item.FirstText" />
                         <span asp-validation-for="@Model.Item.FirstText"></span>
                     </div>
                 }
-                @if (Model.Item.Collection.SecondTextIsEnabled)
+                @if (Model.Collection.SecondTextIsEnabled)
                 {
                     <div>
-                        <h2>@Model.Item.Collection.SecondTextName</h2>
+                        <h2>@Model.Collection.SecondTextName</h2>
                         <input asp-for="@Model.Item.SecondText" />
                         <span asp-validation-for="@Model.Item.SecondText"></span>
                     </div>
                 }
-                @if (Model.Item.Collection.ThirdTextIsEnabled)
+                @if (Model.Collection.ThirdTextIsEnabled)
                 {
                     <div>
-                        <h2>@Model.Item.Collection.ThirdTextName</h2>
+                        <h2>@Model.Collection.ThirdTextName</h2>
                         <input asp-for="@Model.Item.ThirdText" />
                         <span asp-validation-for="@Model.Item.ThirdText"></span>
                     </div>
                 }
 
-                @if (Model.Item.Collection.FirstDateIsEnabled)
+                @if (Model.Collection.FirstDateIsEnabled)
                 {
                     <div>
-                        <h2>@Model.Item.Collection.FirstDateName</h2>
+                        <h2>@Model.Collection.FirstDateName</h2>
                         <input asp-for="@Model.Item.FirstDate" />
                         <span asp-validation-for="@Model.Item.FirstDate"></span>
                     </div>
                 }
-                @if (Model.Item.Collection.SecondDateIsEnabled)
+                @if (Model.Collection.SecondDateIsEnabled)
                 {
                     <div>
-                        <h2>@Model.Item.Collection.SecondDateName</h2>
+                        <h2>@Model.Collection.SecondDateName</h2>
                         <input asp-for="@Model.Item.SecondDate" />
                         <span asp-validation-for="@Model.Item.SecondDate"></span>
                     </div>
                 }
-                @if (Model.Item.Collection.ThirdDateIsEnabled)
+                @if (Model.Collection.ThirdDateIsEnabled)
                 {
                     <div>
-                        <h2>@Model.Item.Collection.ThirdDateName</h2>
+                        <h2>@Model.Collection.ThirdDateName</h2>
                         <input asp-for="@Model.Item.ThirdDate" />
                         <span asp-validation-for="@Model.Item.ThirdDate"></span>
                     </div>
                 }
 
-                @if (Model.Item.Collection.FirstCheckBoxIsEnabled)
+                @if (Model.Collection.FirstCheckBoxIsEnabled)
                 {
                     <div>
-                        <h2>@Model.Item.Collection.FirstCheckBoxName</h2>
+                        <h2>@Model.Collection.FirstCheckBoxName</h2>
                         <input asp-for="@Model.Item.FirstCheckBox" />
                         <span asp-validation-for="@Model.Item.FirstCheckBox"></span>
                     </div>
                 }
-                @if (Model.Item.Collection.SecondCheckBoxIsEnabled)
+                @if (Model.Collection.SecondCheckBoxIsEnabled)
                 {
                     <div>
-                        <h2>@Model.Item.Collection.SecondCheckBoxName</h2>
+                        <h2>@Model.Collection.SecondCheckBoxName</h2>
                         <input asp-for="@Model.Item.SecondCheckBox" />
                         <span asp-validation-for="@Model.Item.SecondCheckBox"></span>
                     </div>
                 }
-                @if (Model.Item.Collection.ThirdCheckBoxIsEnabled)
+                @if (Model.Collection.ThirdCheckBoxIsEnabled)
                 {
                     <div>
-                        <h2>@Model.Item.Collection.ThirdCheckBoxName</h2>
+                        <h2>@Model.Collection.ThirdCheckBoxName</h2>
                         <input asp-for="@Model.Item.ThirdCheckBox" />
                         <span asp-validation-for="@Model.Item.ThirdCheckBox"></span>
                     </div>
