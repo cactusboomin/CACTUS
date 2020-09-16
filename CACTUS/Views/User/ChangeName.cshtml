@@ -1,0 +1,21 @@
+﻿@model ChangeNameViewModel
+
+<div class="main">
+    <div class="inner">
+        <div>
+            <h2>CHANGE EMAIL</h2>
+            <form asp-area="" asp-controller="User" asp-action="ChangeName" method="post">
+                <div asp-validation-summary="All"></div>
+                <input type="hidden" asp-for="Id" />
+                <div>
+                    <label asp-for="NewName"></label>
+                    <input asp-for="NewName" />
+                    <span asp-validation-for="NewName"></span>
+                </div>
+                <div>
+                    <input type="submit" value="SAVE CHANGES" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

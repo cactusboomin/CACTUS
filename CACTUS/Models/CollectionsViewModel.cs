@@ -11,6 +11,8 @@ namespace CACTUS.Models
 {
     public class CollectionsViewModel
     {
+        public CollectionsViewModel() { }
+
         public CollectionsViewModel(DataManager manager)
         {
             this.Collections = manager.Collections.GetCollections().ToList();
@@ -28,6 +30,13 @@ namespace CACTUS.Models
             this.Collection = manager.Collections.GetCollections().FirstOrDefault(c => c.Id == id);
         }
 
+        public CollectionsViewModel(DataManager manager, IQueryable<Item> items, Guid id, string userId)
+        {
+            this.Items = items.ToList();
+
+            this.Collection = manager.Collections.GetCollections().FirstOrDefault(c => c.Id == id);
+        }
+
         [Display(Name = "COLLECTIONS")]
         public List<Collection> Collections { get; set; }
 
@@ -36,5 +45,7 @@ namespace CACTUS.Models
 
         [Display(Name = "ITEMS")]
         public List<Item> Items { get; set; }
+        
+        public string UserId { get; set; }
     }
 }

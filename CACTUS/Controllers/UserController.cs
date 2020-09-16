@@ -28,5 +28,116 @@ namespace CACTUS.Controllers
 
             return View(new UserViewModel(user, dataManager));
         }
+
+        [Authorize]
+        public IActionResult Settings(string name)
+        {
+            IdentityUser user = userManager.FindByNameAsync(name).Result;
+
+            return View(new UserViewModel(user));
+        }
+
+        [Authorize]
+        public async Task<IActionResult> ChangePassword(string id)
+        {
+            var user = await userManager.FindByIdAsync(id);
+
+            return View(new ChangePasswordViewModel { Id = user.Id, Email = user.Email });
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await userManager.FindByIdAsync(model.Id);
+
+                var _passwordValidator =
+                HttpContext.RequestServices.GetService(typeof(IPasswordValidator<IdentityUser>)) 
+                                            as IPasswordValidator<IdentityUser>;
+                var _passwordHasher =
+                    HttpContext.RequestServices.GetService(typeof(IPasswordHasher<IdentityUser>)) 
+                                                as IPasswordHasher<IdentityUser>;
+
+                IdentityResult result =
+                    await _passwordValidator.ValidateAsync(userManager, user, model.NewPassword);
+
+                if (result.Succeeded)
+                {
+                    user.PasswordHash = new PasswordHasher<IdentityUser>().HashPassword(user, model.NewPassword);
+                    await userManager.UpdateAsync(user);
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                }
+            }
+
+            return View(model);
+        }
+
+        [Authorize]
+        public async Task<IActionResult> ChangeEmail(string id)
+        {
+            var user = await userManager.FindByIdAsync(id);
+
+            return View(new ChangeEmailViewModel { Id = user.Id });
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> ChangeEmail(ChangeEmailViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await userManager.FindByIdAsync(model.Id);
+                var checkEmail = await userManager.FindByEmailAsync(model.NewEmail);
+                if (checkEmail == null)
+                {
+                    user.Email = model.NewEmail;
+                    user.NormalizedEmail = model.NewEmail.ToUpper();
+                    await userManager.UpdateAsync(user);
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, $"USER WITH EMAIL {model.NewEmail} ALREADY EXISTS.");
+                    return View(model);
+                }
+            }
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        public async Task<IActionResult> ChangeName(string id)
+        {
+            var user = await userManager.FindByIdAsync(id);
+
+            return View(new ChangeNameViewModel { Id = user.Id });
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> ChangeName(ChangeNameViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await userManager.FindByIdAsync(model.Id);
+                user.UserName = model.NewName;
+                user.NormalizedUserName = model.NewName.ToUpper();
+                await userManager.UpdateAsync(user);
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "INVALID DATA");
+                return View(model);
+            }
+
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

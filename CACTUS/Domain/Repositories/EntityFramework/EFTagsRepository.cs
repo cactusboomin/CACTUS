@@ -16,6 +16,12 @@ namespace CACTUS.Domain.Repositories.EntityFramework
             this.context = context;
         }
 
+        public void AddTag(Tag entity)
+        {
+            this.context.Tags.Add(entity);
+            this.context.SaveChanges();
+        }
+
         public Tag GetTag(string name)
         {
             return this.context.Tags.FirstOrDefault(x => 

@@ -8,20 +8,23 @@ namespace CACTUS.Models
 {
     public class RegisterViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "ENTER EMAIL")]
+        [Display(Name = "EMAIL")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "ENTER PASSWORD")]
         [DataType(DataType.Password)]
+        [Display(Name = "PASSWORD")]
         public string Password { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "CONFIRM PASSWORD")]
         [Compare("Password", ErrorMessage = "PASSWORDS AREN'T SAME")]
         [DataType(DataType.Password)]
+        [Display(Name = "CONFIRM PASSWORD")]
         public string PasswordConfirm { get; set; }
 
         [Required(ErrorMessage = "INPUT USER NAME")]
+        [Display(Name = "USER NAME")]
         public string UserName { get; set; }
-        public string TitleImagePath { get; set; }
     }
 }

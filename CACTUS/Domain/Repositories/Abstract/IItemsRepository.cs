@@ -12,6 +12,7 @@ namespace CACTUS.Domain.Repositories.Abstract
         IQueryable<Item> GetItemsFromUser(string userId);
         IQueryable<Item> GetItems(string searchString);
         Item GetItem(Guid Id);
+        void AddItem(Item entity);
         void SaveItem(Item entity);
         void DeleteItem(Guid Id);
     }
