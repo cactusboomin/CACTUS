@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace CACTUS.Controllers
@@ -15,11 +16,13 @@ namespace CACTUS.Controllers
     {
         private readonly DataManager dataManager;
         private readonly UserManager<IdentityUser> userManager;
+        private readonly SignInManager<IdentityUser> signInManager;
 
-        public UserController(DataManager dataManager, UserManager<IdentityUser> userManager)
+        public UserController(DataManager dataManager, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
         {
             this.dataManager = dataManager;
             this.userManager = userManager;
+            this.signInManager = signInManager;
         }
 
         public IActionResult Index(string name)
@@ -102,6 +105,8 @@ namespace CACTUS.Controllers
                     user.Email = model.NewEmail;
                     user.NormalizedEmail = model.NewEmail.ToUpper();
                     await userManager.UpdateAsync(user);
+                    await signInManager.SignOutAsync();
+                    await Authenticate(user);
                 }
                 else
                 {
@@ -130,6 +135,8 @@ namespace CACTUS.Controllers
                 user.UserName = model.NewName;
                 user.NormalizedUserName = model.NewName.ToUpper();
                 await userManager.UpdateAsync(user);
+                await signInManager.SignOutAsync();
+                await Authenticate(user);
             }
             else
             {
@@ -138,6 +145,16 @@ namespace CACTUS.Controllers
             }
 
             return RedirectToAction("Index", "Home");
+        }
+
+        public async Task Authenticate(IdentityUser user)
+        {
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email)
+            };
+
+            await signInManager.SignInWithClaimsAsync(user, true, claims);
         }
     }
 }

@@ -6,6 +6,41 @@
                 @Model.User.UserName'S PAGE
             </h1>
 
+            <section class="tiles">
+                <article class="style3">
+                    <span class="image">
+                        <img src="~/images/tag.jpg" alt="" />
+                    </span>
+                    <a asp-controller="Collections"
+                       asp-action="Create"
+                       asp-route-userId="@Model.User.Id">
+                        <h2>CREATE COLLECTION</h2>
+                    </a>
+                </article>
+
+                <article class="style3">
+                    <span class="image">
+                        <img src="~/images/tag.jpg" alt="" />
+                    </span>
+                    <a asp-controller="Collections"
+                       asp-action="Create"
+                       asp-route-userId="@Model.User.Id">
+                        <h2>CREATE COLLECTION</h2>
+                    </a>
+                </article>
+
+                <article class="style3">
+                    <span class="image">
+                        <img src="~/images/tag.jpg" alt="" />
+                    </span>
+                    <a asp-controller="Collections"
+                       asp-action="Create"
+                       asp-route-userId="@Model.User.Id">
+                        <h2>CREATE COLLECTION</h2>
+                    </a>
+                </article>
+            </section>
+
             @if (Model.Collections.Count != 0)
             {
                 <a asp-controller="Collections"

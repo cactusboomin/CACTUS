@@ -2,10 +2,13 @@
 using CACTUS.Domain.Entities;
 using CACTUS.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -64,13 +67,27 @@ namespace CACTUS.Controllers
         [Authorize]
         public IActionResult Create(string userId, string returnUrl)
         {
-            ViewBag.returnUrl = returnUrl;
-            return View(new CollectionsViewModel { UserId = userId });
+            var themes = new List<string>
+            {
+                "ALCOHOL",
+                "BOOKS",
+                "MUSIC",
+                "ART",
+                "CARS",
+                "PHOTO",
+                "MOVIES",
+                "CLOTHES",
+                "OTHER"
+            };
+
+            ViewBag.theme = new SelectList(themes);
+
+            return View(new CollectionsViewModel { UserId = userId, Collection = new Collection { UserId = userId } });
         }
 
         [HttpPost]
         [Authorize]
-        public IActionResult Create(CollectionsViewModel model, string returnUrl)
+        public async Task<IActionResult> Create(CollectionsViewModel model, IFormFile uploadedFile)
         {
             if (ModelState.IsValid)
             {
@@ -81,13 +98,25 @@ namespace CACTUS.Controllers
                 {
                     collection.FirstNumberIsEnabled = true;
                 }
+                else
+                {
+                    collection.FirstNumberIsEnabled = false;
+                }
                 if (collection.SecondNumberName != null)
                 {
                     collection.SecondNumberIsEnabled = true;
                 }
+                else
+                {
+                    collection.SecondNumberIsEnabled = false;
+                }
                 if (collection.ThirdNumberName != null)
                 {
                     collection.ThirdNumberIsEnabled = true;
+                }
+                else
+                {
+                    collection.ThirdNumberIsEnabled = false;
                 }
                 #endregion
                 #region TEXTS
@@ -95,13 +124,25 @@ namespace CACTUS.Controllers
                 {
                     collection.FirstTextIsEnabled = true;
                 }
+                else
+                {
+                    collection.FirstTextIsEnabled = false;
+                }
                 if (collection.SecondTextName != null)
                 {
                     collection.SecondTextIsEnabled = true;
                 }
+                else
+                {
+                    collection.SecondTextIsEnabled = false;
+                }
                 if (collection.ThirdTextName != null)
                 {
                     collection.ThirdTextIsEnabled = true;
+                }
+                else
+                {
+                    collection.SecondTextIsEnabled = false;
                 }
                 #endregion
                 #region DATES
@@ -109,13 +150,25 @@ namespace CACTUS.Controllers
                 {
                     collection.FirstDateIsEnabled = true;
                 }
+                else
+                {
+                    collection.FirstDateIsEnabled = false;
+                }
                 if (collection.SecondDateName != null)
                 {
                     collection.SecondDateIsEnabled = true;
                 }
+                else
+                {
+                    collection.SecondDateIsEnabled = false;
+                }
                 if (collection.ThirdDateName != null)
                 {
                     collection.ThirdDateIsEnabled = true;
+                }
+                else
+                {
+                    collection.ThirdDateIsEnabled = false;
                 }
                 #endregion
                 #region CHECKBOXES
@@ -123,22 +176,47 @@ namespace CACTUS.Controllers
                 {
                     collection.FirstCheckBoxIsEnabled = true;
                 }
+                else
+                {
+                    collection.FirstCheckBoxIsEnabled = false;
+                }
                 if (collection.SecondCheckBoxName != null)
                 {
                     collection.SecondCheckBoxIsEnabled = true;
+                }
+                else
+                {
+                    collection.SecondCheckBoxIsEnabled = false;
                 }
                 if (collection.ThirdCheckBoxName != null)
                 {
                     collection.ThirdCheckBoxIsEnabled = true;
                 }
+                else
+                {
+                    collection.ThirdCheckBoxIsEnabled = false;
+                }
                 #endregion
 
-                collection.UserId = model.UserId;
                 collection.Id = Guid.NewGuid();
+                collection.TimeAdded = DateTime.Now;
+
+                if (uploadedFile != null)
+                {
+                    collection.TitleImagePath = $"~/images/{uploadedFile.FileName}";
+
+                    using (var fileStream = new FileStream(collection.TitleImagePath, FileMode.Create))
+                    {
+                        await uploadedFile.CopyToAsync(fileStream);
+                    }
+
+                    var file = new FileModel { Id = Guid.NewGuid(), Name = uploadedFile.FileName, Path = collection.TitleImagePath };
+                    this.manager.Collections.SaveTitleImage(file);
+                }
 
                 this.manager.Collections.AddCollection(collection);
 
-                return Redirect(returnUrl ?? "/");
+                return RedirectToAction("Index", "Home");
             }
             else
             {

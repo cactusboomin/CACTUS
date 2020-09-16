@@ -1,5 +1,6 @@
 ﻿using CACTUS.Domain.Entities;
 using CACTUS.Domain.Repositories.Abstract;
+using CACTUS.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,12 @@ namespace CACTUS.Domain.Repositories.EntityFramework
         public EFCollectionsRepository(AppDbContext context)
         {
             this.context = context;
+        }
+
+        public void SaveTitleImage(FileModel file)
+        {
+            this.context.Files.Add(file);
+            this.context.SaveChanges();
         }
 
         public void DeleteCollection(Guid Id)
@@ -60,15 +67,6 @@ namespace CACTUS.Domain.Repositories.EntityFramework
 
         public void SaveCollection(Collection entity)
         {
-            if (entity.Id == default)
-            {
-                context.Entry(entity).State = EntityState.Added;
-            }
-            else
-            {
-                context.Entry(entity).State = EntityState.Modified;
-            }
-
             context.SaveChanges();
         }
     }

@@ -1,9 +1,13 @@
 ﻿using CACTUS.Domain;
+using CACTUS.Domain.Entities;
 using CACTUS.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -46,6 +50,59 @@ namespace CACTUS.Controllers
         public IActionResult Item(Guid id)
         {
             return View(new ItemsViewModel(this.manager, id));
+        }
+
+        [Authorize]
+        public IActionResult Create(Guid collectionId)
+        {
+            var collection = this.manager.Collections.GetCollection(collectionId);
+            var userId = collection.UserId;
+
+            var item = new Item();
+            item.Id = Guid.NewGuid();
+            item.UserId = userId;
+            item.CollectionId = collection.Id;
+            item.Collection = collection;
+
+            return View(new ItemsViewModel
+            {
+                Item = item
+            });
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> Create(ItemsViewModel model, IFormFile uploadedFile)
+        {
+            if (ModelState.IsValid)
+            {
+                var item = model.Item;
+
+                item.Id = Guid.NewGuid();
+                item.TimeAdded = DateTime.Now;
+
+                if (uploadedFile != null)
+                {
+                    item.TitleImagePath = $"~/images/{uploadedFile.FileName}";
+
+                    using (var fileStream = new FileStream(item.TitleImagePath, FileMode.Create))
+                    {
+                        await uploadedFile.CopyToAsync(fileStream);
+                    }
+
+                    var file = new FileModel { Id = Guid.NewGuid(), Name = uploadedFile.FileName, Path = item.TitleImagePath };
+                    this.manager.Collections.SaveTitleImage(file);
+                }
+                
+                this.manager.Items.AddItem(item);
+
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "INVALID DATA");
+                return View(model);
+            }
         }
     }
 }

@@ -27,7 +27,7 @@ namespace CACTUS.Models
         {
             this.Items = items.ToList();
 
-            this.Collection = manager.Collections.GetCollections().FirstOrDefault(c => c.Id == id);
+            this.Collection = manager.Collections.GetCollection(id);
         }
 
         public CollectionsViewModel(DataManager manager, IQueryable<Item> items, Guid id, string userId)
