@@ -8,7 +8,11 @@ namespace CACTUS.Domain.Entities
 {
     public abstract class EntityBase
     {
-        protected EntityBase() => TimeAdded = DateTime.UtcNow;
+        protected EntityBase()
+        {
+            TimeAdded = DateTime.UtcNow;
+            Id = Guid.NewGuid();
+        }
 
         [Required]
         public string UserId { get; set; }

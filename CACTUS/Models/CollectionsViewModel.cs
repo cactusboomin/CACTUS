@@ -28,6 +28,8 @@ namespace CACTUS.Models
             this.Items = items.ToList();
 
             this.Collection = manager.Collections.GetCollection(id);
+
+            this.UserId = Collection.UserId;
         }
 
         public CollectionsViewModel(DataManager manager, IQueryable<Item> items, Guid id, string userId)

@@ -57,14 +57,7 @@ namespace CACTUS.Domain.Repositories.EntityFramework
 
         public void SaveItem(Item entity)
         {
-            if (entity.Id == default)
-            {
-                context.Entry(entity).State = EntityState.Added;
-            }
-            else
-            {
-                context.Entry(entity).State = EntityState.Modified;
-            }
+            context.Entry(entity).State = EntityState.Modified;
 
             context.SaveChanges();
         }

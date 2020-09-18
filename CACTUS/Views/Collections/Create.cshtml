@@ -1,100 +1,101 @@
 ﻿@model CollectionsViewModel
 
-    <div class="main">
-        <div class="inner">
-            <div>
-                <h2>CREATE COLLECTION</h2>
-                <form asp-area=""
-                      asp-controller="Collections"
-                      asp-action="Create" method="post"
-                      enctype="multipart/form-data">
-                    <input type="hidden" asp-for="@Model.Collection.UserId" />
+<div class="main">
+    <div class="inner">
+        <div>
+            <h2>CREATE COLLECTION</h2>
+            <form asp-area=""
+                  asp-controller="Collections"
+                  asp-action="Create" method="post"
+                  enctype="multipart/form-data">
 
-                    <div asp-validation-summary="All"></div>
-                    <div>
-                        <label asp-for="@Model.Collection.Title"></label>
-                        <input asp-for="@Model.Collection.Title" />
-                        <span asp-validation-for="@Model.Collection.Title"></span>
-                    </div>
+                <input type="hidden" asp-for="@Model.Collection.UserId" />
 
-                    <div>
-                        <select asp-for="@Model.Collection.Theme" asp-items="ViewBag.theme"></select>
-                    </div>
+                <div asp-validation-summary="All"></div>
+                <div>
+                    <label asp-for="@Model.Collection.Title"></label>
+                    <input asp-for="@Model.Collection.Title" />
+                    <span asp-validation-for="@Model.Collection.Title"></span>
+                </div>
 
-                    <div>
-                        <label asp-for="@Model.Collection.Description"></label>
-                        <input asp-for="@Model.Collection.Description" />
-                        <span asp-validation-for="@Model.Collection.Description"></span>
-                    </div>
+                <div>
+                    <select asp-for="@Model.Collection.Theme" asp-items="ViewBag.Theme"></select>
+                </div>
 
-                    <div>
-                        <label asp-for="@Model.Collection.FirstNumberName"></label>
-                        <input asp-for="@Model.Collection.FirstNumberName" />
-                        <span asp-validation-for="@Model.Collection.FirstNumberName"></span>
-                    </div>
-                    <div>
-                        <label asp-for="@Model.Collection.SecondNumberName"></label>
-                        <input asp-for="@Model.Collection.SecondNumberName" />
-                        <span asp-validation-for="@Model.Collection.SecondNumberName"></span>
-                    </div>
-                    <div>
-                        <label asp-for="@Model.Collection.ThirdNumberName"></label>
-                        <input asp-for="@Model.Collection.ThirdNumberName" />
-                        <span asp-validation-for="@Model.Collection.ThirdNumberName"></span>
-                    </div>
+                <div>
+                    <label asp-for="@Model.Collection.Description"></label>
+                    <input asp-for="@Model.Collection.Description" />
+                    <span asp-validation-for="@Model.Collection.Description"></span>
+                </div>
 
-                    <div>
-                        <label asp-for="@Model.Collection.FirstTextName"></label>
-                        <input asp-for="@Model.Collection.FirstTextName" />
-                        <span asp-validation-for="@Model.Collection.FirstTextName"></span>
-                    </div>
-                    <div>
-                        <label asp-for="@Model.Collection.SecondTextName"></label>
-                        <input asp-for="@Model.Collection.SecondTextName" />
-                        <span asp-validation-for="@Model.Collection.SecondTextName"></span>
-                    </div>
-                    <div>
-                        <label asp-for="@Model.Collection.ThirdTextName"></label>
-                        <input asp-for="@Model.Collection.ThirdTextName" />
-                        <span asp-validation-for="@Model.Collection.ThirdTextName"></span>
-                    </div>
+                <div>
+                    <label asp-for="@Model.Collection.FirstNumberName"></label>
+                    <input asp-for="@Model.Collection.FirstNumberName" />
+                    <span asp-validation-for="@Model.Collection.FirstNumberName"></span>
+                </div>
+                <div>
+                    <label asp-for="@Model.Collection.SecondNumberName"></label>
+                    <input asp-for="@Model.Collection.SecondNumberName" />
+                    <span asp-validation-for="@Model.Collection.SecondNumberName"></span>
+                </div>
+                <div>
+                    <label asp-for="@Model.Collection.ThirdNumberName"></label>
+                    <input asp-for="@Model.Collection.ThirdNumberName" />
+                    <span asp-validation-for="@Model.Collection.ThirdNumberName"></span>
+                </div>
 
-                    <div>
-                        <label asp-for="@Model.Collection.FirstDateName"></label>
-                        <input asp-for="@Model.Collection.FirstDateName" />
-                        <span asp-validation-for="@Model.Collection.FirstDateName"></span>
-                    </div>
-                    <div>
-                        <label asp-for="@Model.Collection.SecondDateName"></label>
-                        <input asp-for="@Model.Collection.SecondDateName" />
-                        <span asp-validation-for="@Model.Collection.SecondDateName"></span>
-                    </div>
-                    <div>
-                        <label asp-for="@Model.Collection.ThirdDateName"></label>
-                        <input asp-for="@Model.Collection.ThirdDateName" />
-                        <span asp-validation-for="@Model.Collection.ThirdDateName"></span>
-                    </div>
+                <div>
+                    <label asp-for="@Model.Collection.FirstTextName"></label>
+                    <input asp-for="@Model.Collection.FirstTextName" />
+                    <span asp-validation-for="@Model.Collection.FirstTextName"></span>
+                </div>
+                <div>
+                    <label asp-for="@Model.Collection.SecondTextName"></label>
+                    <input asp-for="@Model.Collection.SecondTextName" />
+                    <span asp-validation-for="@Model.Collection.SecondTextName"></span>
+                </div>
+                <div>
+                    <label asp-for="@Model.Collection.ThirdTextName"></label>
+                    <input asp-for="@Model.Collection.ThirdTextName" />
+                    <span asp-validation-for="@Model.Collection.ThirdTextName"></span>
+                </div>
 
-                    <div>
-                        <label asp-for="@Model.Collection.FirstCheckBoxName"></label>
-                        <input asp-for="@Model.Collection.FirstCheckBoxName" />
-                        <span asp-validation-for="@Model.Collection.FirstCheckBoxName"></span>
-                    </div>
-                    <div>
-                        <label asp-for="@Model.Collection.SecondCheckBoxName"></label>
-                        <input asp-for="@Model.Collection.SecondCheckBoxName" />
-                        <span asp-validation-for="@Model.Collection.SecondCheckBoxName"></span>
-                    </div>
-                    <div>
-                        <label asp-for="@Model.Collection.ThirdCheckBoxName"></label>
-                        <input asp-for="@Model.Collection.ThirdCheckBoxName" />
-                        <span asp-validation-for="@Model.Collection.ThirdCheckBoxName"></span>
-                    </div>
+                <div>
+                    <label asp-for="@Model.Collection.FirstDateName"></label>
+                    <input asp-for="@Model.Collection.FirstDateName" />
+                    <span asp-validation-for="@Model.Collection.FirstDateName"></span>
+                </div>
+                <div>
+                    <label asp-for="@Model.Collection.SecondDateName"></label>
+                    <input asp-for="@Model.Collection.SecondDateName" />
+                    <span asp-validation-for="@Model.Collection.SecondDateName"></span>
+                </div>
+                <div>
+                    <label asp-for="@Model.Collection.ThirdDateName"></label>
+                    <input asp-for="@Model.Collection.ThirdDateName" />
+                    <span asp-validation-for="@Model.Collection.ThirdDateName"></span>
+                </div>
 
-                    <div>
-                        <input type="submit" value="CREATE" />
-                    </div>
-                </form>
-            </div>
+                <div>
+                    <label asp-for="@Model.Collection.FirstCheckBoxName"></label>
+                    <input asp-for="@Model.Collection.FirstCheckBoxName" />
+                    <span asp-validation-for="@Model.Collection.FirstCheckBoxName"></span>
+                </div>
+                <div>
+                    <label asp-for="@Model.Collection.SecondCheckBoxName"></label>
+                    <input asp-for="@Model.Collection.SecondCheckBoxName" />
+                    <span asp-validation-for="@Model.Collection.SecondCheckBoxName"></span>
+                </div>
+                <div>
+                    <label asp-for="@Model.Collection.ThirdCheckBoxName"></label>
+                    <input asp-for="@Model.Collection.ThirdCheckBoxName" />
+                    <span asp-validation-for="@Model.Collection.ThirdCheckBoxName"></span>
+                </div>
+
+                <div>
+                    <input type="submit" value="CREATE" />
+                </div>
+            </form>
         </div>
     </div>
+</div>

@@ -25,17 +25,17 @@ namespace CACTUS.Controllers
             this.signInManager = signInManager;
         }
 
-        public IActionResult Index(string name)
+        public IActionResult Index(string userName)
         {
-            IdentityUser user = userManager.FindByNameAsync(name).Result;
-
+            IdentityUser user = userManager.FindByNameAsync(userName).Result;
+            
             return View(new UserViewModel(user, dataManager));
         }
 
         [Authorize]
-        public IActionResult Settings(string name)
+        public IActionResult Settings(string userName)
         {
-            IdentityUser user = userManager.FindByNameAsync(name).Result;
+            IdentityUser user = userManager.FindByNameAsync(userName).Result;
 
             return View(new UserViewModel(user));
         }
