@@ -89,6 +89,14 @@ namespace CACTUS.Controllers
                 return View(model);
             }
         }
+
+        [Authorize]
+        public IActionResult Delete(Guid itemId)
+        {
+            this.manager.Items.DeleteItem(itemId);
+
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
 

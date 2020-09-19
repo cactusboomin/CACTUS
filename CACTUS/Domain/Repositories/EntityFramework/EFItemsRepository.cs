@@ -20,6 +20,8 @@ namespace CACTUS.Domain.Repositories.EntityFramework
         public void DeleteItem(Guid Id)
         {
             this.context.Items.Remove(new Item() { Id = Id });
+
+            this.context.SaveChanges();
         }
 
         public Item GetItem(Guid Id)

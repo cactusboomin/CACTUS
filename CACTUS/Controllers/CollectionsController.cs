@@ -68,17 +68,7 @@ namespace CACTUS.Controllers
         [HttpGet]
         public IActionResult Create(string userId)
         {
-            ViewBag.Theme = new SelectList(new List<string>
-            {
-                "ALCOHOL",
-                "BOOKS",
-                "MOVIES",
-                "MUSIC",
-                "ART",
-                "HOBBY",
-                "FOOD",
-                "OTHER"
-            });
+            ViewBag.Theme = new SelectList(Themes.List);
 
             return View(new CollectionsViewModel
             {
@@ -205,17 +195,7 @@ namespace CACTUS.Controllers
             }
             else
             {
-                ViewBag.Theme = new SelectList(new List<string>
-            {
-                "ALCOHOL",
-                "BOOKS",
-                "MOVIES",
-                "MUSIC",
-                "ART",
-                "HOBBY",
-                "FOOD",
-                "OTHER"
-            });
+                ViewBag.Theme = new SelectList(Themes.List);
 
                 ModelState.AddModelError(string.Empty, "INVALID DATA");
                 return View(model);
@@ -223,7 +203,110 @@ namespace CACTUS.Controllers
         }
 
         [Authorize]
-        public IActionResult Delete(Guid collectionId, string userName)
+        public IActionResult Edit(Guid collectionId)
+        {
+            return View(new CollectionsViewModel
+            {
+                Collection = this.manager.Collections.GetCollection(collectionId)
+            });
+        }
+
+        [Authorize]
+        [HttpGet]
+        public IActionResult EditTitle(Guid collectionId)
+        {
+            var collection = this.manager.Collections.GetCollection(collectionId);
+            return View(new EditCollectionViewModel
+            {
+                Collection = collection,
+            });
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult EditTitle([FromForm]EditCollectionViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var collection = this.manager.Collections.GetCollection(model.Collection.Id);
+                collection.Title = model.Title;
+
+                this.manager.Collections.SaveCollection(collection);
+
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                model.Collection = this.manager.Collections.GetCollection(model.Collection.Id);
+                return View(model);
+            }
+        }
+
+        [Authorize]
+        [HttpGet]
+        public IActionResult EditDescription(Guid collectionId)
+        {
+            var collection = this.manager.Collections.GetCollection(collectionId);
+            return View(new EditCollectionViewModel
+            {
+                Collection = collection,
+            });
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult EditDescription([FromForm]EditCollectionViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var collection = this.manager.Collections.GetCollection(model.Collection.Id);
+                collection.Description = model.Description;
+
+                this.manager.Collections.SaveCollection(collection);
+
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                model.Collection = this.manager.Collections.GetCollection(model.Collection.Id);
+                return View(model);
+            }
+        }
+
+        [Authorize]
+        [HttpGet]
+        public IActionResult EditTheme(Guid collectionId)
+        {
+            ViewBag.Theme = new SelectList(Themes.List);
+
+            return View(new EditCollectionViewModel
+            {
+                Collection = this.manager.Collections.GetCollection(collectionId)
+            });
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult EditTheme(EditCollectionViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var collection = this.manager.Collections.GetCollection(model.Collection.Id);
+                collection.Theme = model.Theme;
+
+                this.manager.Collections.SaveCollection(collection);
+
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                ViewBag.Theme = new SelectList(Themes.List);
+                return View(model);
+            }
+        }
+
+        [Authorize]
+        public IActionResult Delete(Guid collectionId)
         {
             this.manager.Collections.DeleteCollection(collectionId);
 
