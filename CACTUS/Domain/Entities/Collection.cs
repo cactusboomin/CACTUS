@@ -13,7 +13,6 @@ namespace CACTUS.Domain.Entities
             this.Items = new List<Item>();
         }
 
-        [Required]
         [Display(Name = "DESCRIPTION")]
         public string Description { get; set; }
 

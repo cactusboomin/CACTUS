@@ -1,0 +1,42 @@
+﻿@model CollectionsViewModel
+
+<div id="main">
+    <div class="inner">
+        <h1>EDIT COLLECTION @Model.Collection.Title</h1>
+        
+        <section class="tiles">
+            <article class="style3">
+                <span class="image">
+                    <img src="~/images/tag.jpg" alt="" />
+                </span>
+                <a asp-controller="Collections"
+                   asp-action="EditTitle"
+                   asp-route-collectionId="@Model.Collection.Id">
+                    <h2>EDIT TITLE</h2>
+                </a>
+            </article>
+
+            <article class="style3">
+                <span class="image">
+                    <img src="~/images/tag.jpg" alt="" />
+                </span>
+                <a asp-controller="Collections"
+                   asp-action="EditDescription"
+                   asp-route-collectionId="@Model.Collection.Id">
+                    <h2>EDIT DESCRIPTION</h2>
+                </a>
+            </article>
+
+            <article class="style3">
+                <span class="image">
+                    <img src="~/images/tag.jpg" alt="" />
+                </span>
+                <a asp-controller="Collections"
+                   asp-action="EditTheme"
+                   asp-route-collectionId="@Model.Collection.Id">
+                    <h2>EDIT THEME</h2>
+                </a>
+            </article>
+        </section>
+    </div>
+</div>

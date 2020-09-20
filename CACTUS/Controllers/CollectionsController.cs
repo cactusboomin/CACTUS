@@ -29,7 +29,7 @@ namespace CACTUS.Controllers
 
             ViewData["CollectionNameSort"] = sortOrder == SortState.TitleAsc ? SortState.TitleDesc : SortState.TitleAsc;
             ViewData["CollectionDateSort"] = sortOrder == SortState.DateAsc ? SortState.DateDesc : SortState.DateAsc;
-            
+
             collections = sortOrder switch
             {
                 SortState.TitleAsc => collections.OrderBy(c => c.Title),
@@ -42,7 +42,7 @@ namespace CACTUS.Controllers
             if (!string.IsNullOrEmpty(searchString))
             {
                 collections = collections.Where(c => (c.Title.Contains(searchString) || searchString.Contains(c.Title))
-                                                    || (c.Description.Contains(searchString)||searchString.Contains(c.Description))
+                                                    || (c.Description.Contains(searchString) || searchString.Contains(c.Description))
                                                     || (c.Theme.Contains(searchString) || searchString.Contains(c.Theme)));
             }
 
@@ -65,29 +65,30 @@ namespace CACTUS.Controllers
         }
 
         [Authorize]
+        [HttpGet]
         public IActionResult Create(string userId)
         {
-            var themes = new List<string>
+            ViewBag.Theme = new SelectList(new List<string>
             {
                 "ALCOHOL",
                 "BOOKS",
+                "MOVIES",
                 "MUSIC",
                 "ART",
-                "CARS",
-                "PHOTO",
-                "MOVIES",
-                "CLOTHES",
+                "HOBBY",
+                "FOOD",
                 "OTHER"
-            };
+            });
 
-            ViewBag.theme = new SelectList(themes);
-
-            return View(new CollectionsViewModel { UserId = userId, Collection = new Collection { UserId = userId } });
+            return View(new CollectionsViewModel
+            {
+                Collection = new Collection { UserId = userId }
+            });
         }
 
-        [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Create(CollectionsViewModel model, IFormFile uploadedFile)
+        [HttpPost]
+        public IActionResult Create([FromForm]CollectionsViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -198,31 +199,35 @@ namespace CACTUS.Controllers
                 }
                 #endregion
 
-                collection.Id = Guid.NewGuid();
-                collection.TimeAdded = DateTime.Now;
-
-                if (uploadedFile != null)
-                {
-                    collection.TitleImagePath = $"~/images/{uploadedFile.FileName}";
-
-                    using (var fileStream = new FileStream(collection.TitleImagePath, FileMode.Create))
-                    {
-                        await uploadedFile.CopyToAsync(fileStream);
-                    }
-
-                    var file = new FileModel { Id = Guid.NewGuid(), Name = uploadedFile.FileName, Path = collection.TitleImagePath };
-                    this.manager.Collections.SaveTitleImage(file);
-                }
-
                 this.manager.Collections.AddCollection(collection);
 
                 return RedirectToAction("Index", "Home");
             }
             else
             {
+                ViewBag.Theme = new SelectList(new List<string>
+            {
+                "ALCOHOL",
+                "BOOKS",
+                "MOVIES",
+                "MUSIC",
+                "ART",
+                "HOBBY",
+                "FOOD",
+                "OTHER"
+            });
+
                 ModelState.AddModelError(string.Empty, "INVALID DATA");
                 return View(model);
             }
+        }
+
+        [Authorize]
+        public IActionResult Delete(Guid collectionId, string userName)
+        {
+            this.manager.Collections.DeleteCollection(collectionId);
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

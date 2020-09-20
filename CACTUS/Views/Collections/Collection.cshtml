@@ -25,30 +25,30 @@
                 <span class="image">
                     <img src="~/images/tag.jpg" alt="" />
                 </span>
-                <a asp-controller="Items"
-                   asp-action="Create"
-                   asp-route-collectionId="@Model.Collection.Id"
-                   asp-route-userId="@Model.UserId">
-                    <h2>CREATE ITEM</h2>
+                <a asp-controller="Collections"
+                   asp-action="Edit"
+                   asp-route-collectionId="@Model.Collection.Id">
+                    <h2>EDIT COLLECTION</h2>
                 </a>
             </article>
             <article class="style3">
                 <span class="image">
                     <img src="~/images/tag.jpg" alt="" />
                 </span>
-                <a asp-controller="Items"
-                   asp-action="Create"
+                <a asp-controller="Collections"
+                   asp-action="Delete"
                    asp-route-collectionId="@Model.Collection.Id"
-                   asp-route-userId="@Model.UserId">
-                    <h2>CREATE ITEM</h2>
+                   asp-route-userName="@User.Identity.Name">
+                    <h2>DELETE COLLECTION</h2>
                 </a>
             </article>
         </section>
 
             <h1>@Model.Collection.Title</h1>
+            <h1>CREATOR: @User.Identity.Name</h1>
             <h2>@Model.Collection.Theme</h2>
             <h2>@Model.Collection.Description</h2>
-            
+
             <section class="tiles">
                 @foreach (var i in Model.Items)
                 {

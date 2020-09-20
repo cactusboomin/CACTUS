@@ -53,43 +53,39 @@ namespace CACTUS.Controllers
         }
 
         [Authorize]
-        public IActionResult Create(Guid collectionId, string userId)
+        [HttpGet]
+        public IActionResult Create(Guid collectionId)
         {
+            var collection = this.manager.Collections.GetCollection(collectionId);
+
             return View(new ItemsViewModel
             {
                 Item = new Item
                 {
-                    UserId = userId,
-                    CollectionId = collectionId,
-                    Collection = this.manager.Collections.GetCollection(collectionId)
-                }
+                    UserId = collection.UserId,
+                    Collection = collection,
+                    CollectionId = collection.Id,
+                    Theme = collection.Theme
+                },
+                Collection = collection
             });
         }
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> Create(ItemsViewModel model)
+        public IActionResult Create([FromForm]ItemsViewModel model)
         {
             if (ModelState.IsValid)
             {
                 var item = model.Item;
-                item.Id = Guid.NewGuid();
-                item.Collection = model.Collection;
-                item.Theme = item.Collection.Theme;
+                item.Collection = this.manager.Collections.GetCollection(item.CollectionId);
                 
-                if (model.Collection.Items == null)
-                {
-                    model.Collection.Items = new List<Item>();
-                }
-
-                model.Collection.Items.Add(item);
                 this.manager.Items.AddItem(item);
 
                 return RedirectToAction("Index", "Home");
             }
             else
             {
-                ModelState.AddModelError(string.Empty, "INVALID DATA");
                 return View(model);
             }
         }

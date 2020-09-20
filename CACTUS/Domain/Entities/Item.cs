@@ -19,9 +19,9 @@ namespace CACTUS.Domain.Entities
 
         #region NUMBERS
 
-        public double FirstNumber { get; set; }
-        public double SecondNumber { get; set; }
-        public double ThirdNumber { get; set; }
+        public double? FirstNumber { get; set; }
+        public double? SecondNumber { get; set; }
+        public double? ThirdNumber { get; set; }
 
         #endregion
 
@@ -35,17 +35,17 @@ namespace CACTUS.Domain.Entities
 
         #region DATES
 
-        public DateTime FirstDate { get; set; }
-        public DateTime SecondDate { get; set; }
-        public DateTime ThirdDate { get; set; }
+        public DateTime? FirstDate { get; set; }
+        public DateTime? SecondDate { get; set; }
+        public DateTime? ThirdDate { get; set; }
 
         #endregion
 
         #region CHECKBOXES
 
-        public bool FirstCheckBox { get; set; }
-        public bool SecondCheckBox { get; set; }
-        public bool ThirdCheckBox { get; set; }
+        public bool? FirstCheckBox { get; set; }
+        public bool? SecondCheckBox { get; set; }
+        public bool? ThirdCheckBox { get; set; }
 
         #endregion
     }

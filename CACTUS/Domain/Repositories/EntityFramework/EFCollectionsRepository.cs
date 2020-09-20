@@ -18,21 +18,21 @@ namespace CACTUS.Domain.Repositories.EntityFramework
             this.context = context;
         }
 
-        public void SaveTitleImage(FileModel file)
+        public async void SaveTitleImage(FileModel file)
         {
             this.context.Files.Add(file);
-            this.context.SaveChanges();
+            await this.context.SaveChangesAsync();
         }
 
-        public void DeleteCollection(Guid Id)
+        public async void DeleteCollection(Guid Id)
         {
             this.context.Collections.Remove(new Collection() { Id = Id });
-            this.context.SaveChanges();
+            await this.context.SaveChangesAsync();
         }
 
         public Collection GetCollection(Guid Id)
         {
-            return this.context.Collections.FirstOrDefault(x => x.Id == Id);
+            return this.context.Collections.Include(c => c.Items).FirstOrDefault(x => x.Id == Id);
         }
 
         public IQueryable<Collection> GetCollections()
@@ -54,20 +54,29 @@ namespace CACTUS.Domain.Repositories.EntityFramework
             return result.AsQueryable<Collection>();
         }
 
+        public void AddItem(Guid collectionId, Item item)
+        {
+            var collection = this.context.Collections.FirstOrDefault(c => c.Id == collectionId);
+            collection.Items.Add(item);
+            SaveCollection(collection);
+        }
+
         public IQueryable<Collection> GetCollectionsFromUser(string userId)
         {
             return this.context.Collections.Where(x => x.UserId == userId);
         }
 
-        public void AddCollection(Collection entity)
+        public async void AddCollection(Collection entity)
         {
             this.context.Collections.Add(entity);
-            this.context.SaveChanges();
+            await this.context.SaveChangesAsync();
         }
 
-        public void SaveCollection(Collection entity)
+        public async void SaveCollection(Collection entity)
         {
-            context.SaveChanges();
+            context.Entry(entity).State = EntityState.Modified;
+
+            await context.SaveChangesAsync();
         }
     }
 }
