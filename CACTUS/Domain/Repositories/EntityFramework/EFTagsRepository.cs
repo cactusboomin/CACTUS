@@ -1,5 +1,6 @@
 ﻿using CACTUS.Domain.Entities;
 using CACTUS.Domain.Repositories.Abstract;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,7 @@ namespace CACTUS.Domain.Repositories.EntityFramework
         public Tag GetTag(string name)
         {
             return this.context.Tags.FirstOrDefault(x => 
-                    x.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
+                    x.Name == name);
         }
 
         public Tag GetTag(Guid id)
@@ -47,6 +48,13 @@ namespace CACTUS.Domain.Repositories.EntityFramework
                                                         && searchString.Contains(x.Name)));
 
             return result.AsQueryable<Tag>();
+        }
+
+        public void SaveTag(Tag entity)
+        {
+            this.context.Entry(entity).State = EntityState.Modified;
+
+            this.context.SaveChanges();
         }
     }
 }

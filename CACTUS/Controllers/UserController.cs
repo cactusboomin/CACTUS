@@ -25,17 +25,17 @@ namespace CACTUS.Controllers
             this.signInManager = signInManager;
         }
 
-        public IActionResult Index(string userName)
+        public IActionResult Index()
         {
-            IdentityUser user = userManager.FindByNameAsync(userName).Result;
+            IdentityUser user = userManager.GetUserAsync(HttpContext.User).Result;
             
             return View(new UserViewModel(user, dataManager));
         }
 
         [Authorize]
-        public IActionResult Settings(string userName)
+        public IActionResult Settings()
         {
-            IdentityUser user = userManager.FindByNameAsync(userName).Result;
+            IdentityUser user = userManager.GetUserAsync(HttpContext.User).Result;
 
             return View(new UserViewModel(user));
         }
@@ -102,9 +102,8 @@ namespace CACTUS.Controllers
                 var checkEmail = await userManager.FindByEmailAsync(model.NewEmail);
                 if (checkEmail == null)
                 {
-                    user.Email = model.NewEmail;
-                    user.NormalizedEmail = model.NewEmail.ToUpper();
-                    await userManager.UpdateAsync(user);
+                    await userManager.SetEmailAsync(user, model.NewEmail);
+
                     await signInManager.SignOutAsync();
                     await Authenticate(user);
                 }
@@ -118,6 +117,7 @@ namespace CACTUS.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [Authorize]
         public async Task<IActionResult> ChangeName(string id)
         {
             var user = await userManager.FindByIdAsync(id);
@@ -132,9 +132,11 @@ namespace CACTUS.Controllers
             if (ModelState.IsValid)
             {
                 var user = await userManager.FindByIdAsync(model.Id);
-                user.UserName = model.NewName;
-                user.NormalizedUserName = model.NewName.ToUpper();
+
+                await userManager.SetUserNameAsync(user, model.NewName);
+
                 await userManager.UpdateAsync(user);
+
                 await signInManager.SignOutAsync();
                 await Authenticate(user);
             }

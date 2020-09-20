@@ -13,5 +13,6 @@ namespace CACTUS.Domain.Repositories.Abstract
         IQueryable<Tag> GetTags(string searchString);
         Tag GetTag(string Name);
         Tag GetTag(Guid id);
+        void SaveTag(Tag entity);
     }
 }

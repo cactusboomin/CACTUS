@@ -26,6 +26,7 @@ namespace CACTUS.Models
         public IdentityUser User { get; set; }
 
         public List<Collection> Collections { get; set; }
+
         public List<Item> Items { get; set; }
     }
 }

@@ -1,0 +1,28 @@
+﻿@model AddTagViewModel
+
+<div id="main">
+    <div class="inner">
+
+        <div>
+            <h2>ADD TAG</h2>
+            <form asp-area=""
+                  asp-controller="Items"
+                  asp-action="AddTag" method="post">
+
+                <input type="hidden" asp-for="@Model.ItemId" />
+
+                <div asp-validation-summary="All"></div>
+                <div>
+                    <h2><label asp-for="@Model.Tag"></label></h2>
+                    <input asp-for="@Model.Tag" />
+                    <span asp-validation-for="@Model.Tag"></span>
+                </div>
+
+                <div>
+                    <input type="submit" value="ADD" />
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>

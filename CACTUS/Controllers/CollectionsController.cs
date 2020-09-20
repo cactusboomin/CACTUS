@@ -3,6 +3,7 @@ using CACTUS.Domain.Entities;
 using CACTUS.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -16,16 +17,18 @@ namespace CACTUS.Controllers
 {
     public class CollectionsController : Controller
     {
-        private readonly DataManager manager;
+        private readonly DataManager dataManager;
+        private readonly UserManager<IdentityUser> userManager;
 
-        public CollectionsController(DataManager manager, AppDbContext context)
+        public CollectionsController(DataManager dataManager, UserManager<IdentityUser> userManager, AppDbContext context)
         {
-            this.manager = manager;
+            this.dataManager = dataManager;
+            this.userManager = userManager;
         }
 
         public IActionResult Index(string searchString, SortState sortOrder = SortState.TitleAsc)
         {
-            var collections = this.manager.Collections.GetCollections();
+            var collections = this.dataManager.Collections.GetCollections();
 
             ViewData["CollectionNameSort"] = sortOrder == SortState.TitleAsc ? SortState.TitleDesc : SortState.TitleAsc;
             ViewData["CollectionDateSort"] = sortOrder == SortState.DateAsc ? SortState.DateDesc : SortState.DateAsc;
@@ -51,7 +54,7 @@ namespace CACTUS.Controllers
 
         public IActionResult Collection(string searchString, Guid id)
         {
-            var items = this.manager.Collections.GetCollection(id).Items.AsQueryable()
+            var items = this.dataManager.Collections.GetCollection(id).Items.AsQueryable()
                                                                         .Include(i => i.Collection)
                                                                         .AsQueryable();
 
@@ -61,7 +64,7 @@ namespace CACTUS.Controllers
                              || (i.Theme.Contains(searchString) || searchString.Contains(i.Theme)));
             }
 
-            return View(new CollectionsViewModel(this.manager, items, id));
+            return View(new CollectionsViewModel(this.dataManager, this.userManager, items, id));
         }
 
         [Authorize]
@@ -72,7 +75,8 @@ namespace CACTUS.Controllers
 
             return View(new CollectionsViewModel
             {
-                Collection = new Collection { UserId = userId }
+                Collection = new Collection { UserId = userId },
+                UserName = this.userManager.FindByIdAsync(userId).Result.UserName
             });
         }
 
@@ -189,7 +193,7 @@ namespace CACTUS.Controllers
                 }
                 #endregion
 
-                this.manager.Collections.AddCollection(collection);
+                this.dataManager.Collections.AddCollection(collection);
 
                 return RedirectToAction("Index", "Home");
             }
@@ -207,7 +211,7 @@ namespace CACTUS.Controllers
         {
             return View(new CollectionsViewModel
             {
-                Collection = this.manager.Collections.GetCollection(collectionId)
+                Collection = this.dataManager.Collections.GetCollection(collectionId)
             });
         }
 
@@ -215,10 +219,9 @@ namespace CACTUS.Controllers
         [HttpGet]
         public IActionResult EditTitle(Guid collectionId)
         {
-            var collection = this.manager.Collections.GetCollection(collectionId);
             return View(new EditCollectionViewModel
             {
-                Collection = collection,
+                CollectionId = collectionId,
             });
         }
 
@@ -228,16 +231,18 @@ namespace CACTUS.Controllers
         {
             if (ModelState.IsValid)
             {
-                var collection = this.manager.Collections.GetCollection(model.Collection.Id);
-                collection.Title = model.Title;
+                if (model.Title != null)
+                {
+                    var collection = this.dataManager.Collections.GetCollection(model.CollectionId);
+                    collection.Title = model.Title;
 
-                this.manager.Collections.SaveCollection(collection);
+                    this.dataManager.Collections.SaveCollection(collection);
+                }
 
                 return RedirectToAction("Index", "Home");
             }
             else
             {
-                model.Collection = this.manager.Collections.GetCollection(model.Collection.Id);
                 return View(model);
             }
         }
@@ -246,10 +251,9 @@ namespace CACTUS.Controllers
         [HttpGet]
         public IActionResult EditDescription(Guid collectionId)
         {
-            var collection = this.manager.Collections.GetCollection(collectionId);
             return View(new EditCollectionViewModel
             {
-                Collection = collection,
+                CollectionId = collectionId,
             });
         }
 
@@ -259,16 +263,18 @@ namespace CACTUS.Controllers
         {
             if (ModelState.IsValid)
             {
-                var collection = this.manager.Collections.GetCollection(model.Collection.Id);
-                collection.Description = model.Description;
+                if (model.Description != null)
+                {
+                    var collection = this.dataManager.Collections.GetCollection(model.CollectionId);
+                    collection.Description = model.Description;
 
-                this.manager.Collections.SaveCollection(collection);
+                    this.dataManager.Collections.SaveCollection(collection);
+                }
 
                 return RedirectToAction("Index", "Home");
             }
             else
-            {
-                model.Collection = this.manager.Collections.GetCollection(model.Collection.Id);
+            { 
                 return View(model);
             }
         }
@@ -281,20 +287,29 @@ namespace CACTUS.Controllers
 
             return View(new EditCollectionViewModel
             {
-                Collection = this.manager.Collections.GetCollection(collectionId)
+                CollectionId = collectionId
             });
         }
 
         [Authorize]
         [HttpPost]
-        public IActionResult EditTheme(EditCollectionViewModel model)
+        public IActionResult EditTheme([FromForm]EditCollectionViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var collection = this.manager.Collections.GetCollection(model.Collection.Id);
+                var collection = this.dataManager.Collections
+                                            .GetCollections()
+                                            .Include(c => c.Items)
+                                            .FirstOrDefault(c => c.Id == model.CollectionId);
                 collection.Theme = model.Theme;
 
-                this.manager.Collections.SaveCollection(collection);
+                for (var i = 0; i < collection.Items.Count; i++)
+                {
+                    collection.Items[i].Theme = model.Theme;
+                    this.dataManager.Items.SaveItem(collection.Items[i]);
+                }
+
+                this.dataManager.Collections.SaveCollection(collection);
 
                 return RedirectToAction("Index", "Home");
             }
@@ -308,7 +323,7 @@ namespace CACTUS.Controllers
         [Authorize]
         public IActionResult Delete(Guid collectionId)
         {
-            this.manager.Collections.DeleteCollection(collectionId);
+            this.dataManager.Collections.DeleteCollection(collectionId);
 
             return RedirectToAction("Index", "Home");
         }

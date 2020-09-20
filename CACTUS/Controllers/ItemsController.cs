@@ -91,6 +91,106 @@ namespace CACTUS.Controllers
         }
 
         [Authorize]
+        public IActionResult Edit(Guid itemId)
+        {
+            return View(new ItemsViewModel
+            {
+                Item = this.manager.Items.GetItem(itemId)
+            });
+        }
+
+        [Authorize]
+        [HttpGet]
+        public IActionResult EditTitle(Guid itemId)
+        {
+            return View(new EditItemViewModel
+            {
+                ItemId = itemId
+            });
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult EditTitle([FromForm]EditItemViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var item = this.manager.Items.GetItem(model.ItemId);
+                item.Title = model.Title;
+
+                this.manager.Items.SaveItem(item);
+
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View(model);
+            }
+        }
+
+        [Authorize]
+        [HttpGet]
+        public IActionResult AddTag(Guid itemId)
+        {
+            return View(new AddTagViewModel { ItemId = itemId });
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult AddTag(AddTagViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var checkTag = this.manager.Tags.GetTag(model.Tag);
+
+                if (checkTag == null)
+                {
+                    var tag = new Tag
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = model.Tag
+                    };
+
+                    this.manager.Tags.AddTag(tag);
+
+                    var item = this.manager.Items.GetItem(model.ItemId);
+
+                    item.ItemTags.Add(new ItemTag
+                    {
+                        Item = item,
+                        ItemId = item.Id,
+                        Tag = tag,
+                        TagId = tag.Id
+                    });
+
+                    this.manager.Items.SaveItem(item);
+                    this.manager.Tags.SaveTag(tag);
+                }
+                else
+                {
+                    var item = this.manager.Items.GetItem(model.ItemId);
+
+                    item.ItemTags.Add(new ItemTag
+                    {
+                        Item = item,
+                        ItemId = item.Id,
+                        Tag = checkTag,
+                        TagId = checkTag.Id
+                    });
+
+                    this.manager.Items.SaveItem(item);
+                    this.manager.Tags.SaveTag(checkTag);
+                }
+
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View(model);
+            }
+        }
+
+        [Authorize]
         public IActionResult Delete(Guid itemId)
         {
             this.manager.Items.DeleteItem(itemId);

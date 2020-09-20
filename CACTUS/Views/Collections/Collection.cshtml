@@ -16,7 +16,7 @@
                 </span>
                 <a asp-controller="Items"
                    asp-action="Create"
-                   asp-route-userId="@Model.UserId">
+                   asp-route-collectionId="@Model.Collection.Id">
                     <h2>CREATE ITEM</h2>
                 </a>
             </article>
@@ -43,7 +43,7 @@
         </section>
 
             <h1>@Model.Collection.Title</h1>
-            <h1>CREATOR: @User.Identity.Name</h1>
+            <h1>CREATOR: @Model.UserName</h1>
             <h2>@Model.Collection.Theme</h2>
             <h2>@Model.Collection.Description</h2>
 
