@@ -12,13 +12,13 @@ namespace CACTUS.Models
     {
         public Collection Collection { get; set; }
         
-        [Display(Name = "TITLE")]
-        public string NewTitle { get; set; }
+        [Display(Name = "NEW TITLE")]
+        public string Title { get; set; }
 
-        [Display(Name = "DESCRIPTION")]
+        [Display(Name = "NEW DESCRIPTION")]
         public string Description { get; set; }
 
-        [Display(Name = "THEME")]
+        [Display(Name = "NEW THEME")]
         public string Theme { get; set; }
     }
 }

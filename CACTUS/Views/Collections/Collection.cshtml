@@ -16,7 +16,6 @@
                 </span>
                 <a asp-controller="Items"
                    asp-action="Create"
-                   asp-route-collectionId="@Model.Collection.Id"
                    asp-route-userId="@Model.UserId">
                     <h2>CREATE ITEM</h2>
                 </a>
@@ -37,8 +36,7 @@
                 </span>
                 <a asp-controller="Collections"
                    asp-action="Delete"
-                   asp-route-collectionId="@Model.Collection.Id"
-                   asp-route-userName="@User.Identity.Name">
+                   asp-route-collectionId="@Model.Collection.Id">
                     <h2>DELETE COLLECTION</h2>
                 </a>
             </article>

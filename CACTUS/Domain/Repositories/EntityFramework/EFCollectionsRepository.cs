@@ -24,10 +24,10 @@ namespace CACTUS.Domain.Repositories.EntityFramework
             await this.context.SaveChangesAsync();
         }
 
-        public async void DeleteCollection(Guid Id)
+        public void DeleteCollection(Guid Id)
         {
             this.context.Collections.Remove(new Collection() { Id = Id });
-            await this.context.SaveChangesAsync();
+            this.context.SaveChanges();
         }
 
         public Collection GetCollection(Guid Id)
@@ -66,17 +66,18 @@ namespace CACTUS.Domain.Repositories.EntityFramework
             return this.context.Collections.Where(x => x.UserId == userId);
         }
 
-        public async void AddCollection(Collection entity)
+        public void AddCollection(Collection entity)
         {
             this.context.Collections.Add(entity);
-            await this.context.SaveChangesAsync();
+
+            this.context.SaveChangesAsync();
         }
 
-        public async void SaveCollection(Collection entity)
+        public void SaveCollection(Collection entity)
         {
             context.Entry(entity).State = EntityState.Modified;
 
-            await context.SaveChangesAsync();
+            context.SaveChangesAsync();
         }
     }
 }

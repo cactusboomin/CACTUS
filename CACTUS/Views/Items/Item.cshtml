@@ -4,6 +4,39 @@
     <div class="inner">
         <h1>@Model.Item.Title</h1>
 
+        <section class="tiles">
+            <article class="style3">
+                <span class="image">
+                    <img src="~/images/tag.jpg" alt="" />
+                </span>
+                <a asp-controller="Items"
+                   asp-action="AddTag"
+                   asp-route-itemId="@Model.Item.Id">
+                    <h2>ADD TAG</h2>
+                </a>
+            </article>
+            <article class="style3">
+                <span class="image">
+                    <img src="~/images/tag.jpg" alt="" />
+                </span>
+                <a asp-controller="Items"
+                   asp-action="Edit"
+                   asp-route-itemId="@Model.Item.Id">
+                    <h2>EDIT ITEM</h2>
+                </a>
+            </article>
+            <article class="style3">
+                <span class="image">
+                    <img src="~/images/tag.jpg" alt="" />
+                </span>
+                <a asp-controller="Items"
+                   asp-action="Delete"
+                   asp-route-itemId="@Model.Item.Id">
+                    <h2>DELETE ITEM</h2>
+                </a>
+            </article>
+        </section>
+
         @if (Model.Item.TitleImagePath == null)
         {
             <span class="image main"><img src="~/images/empty.jpg" alt="" /></span>
@@ -14,7 +47,9 @@
         }
 
         <h2>@Model.Item.Theme</h2>
-        <h2>COLLECTION: @Model.Item.Collection.Title</h2>
+        <h2>COLLECTION: <a asp-action="Collection"
+                           asp-controller="Collections"
+                           asp-route-id="@Model.Item.Collection.Id">@Model.Item.Collection.Title</a></h2>
         <h2>DATE: @Model.Item.TimeAdded</h2>
 
 
