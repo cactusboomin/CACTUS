@@ -30,14 +30,12 @@ namespace CACTUS.Controllers
         {
             var collections = this.dataManager.Collections.GetCollections();
 
-            ViewData["CollectionNameSort"] = sortOrder == SortState.TitleAsc ? SortState.TitleDesc : SortState.TitleAsc;
-            ViewData["CollectionDateSort"] = sortOrder == SortState.DateAsc ? SortState.DateDesc : SortState.DateAsc;
+            ViewData["CollectionNameSort"] = sortOrder == SortState.TitleAsc ? SortState.DateDesc : SortState.TitleAsc;
+            ViewData["CollectionDateSort"] = sortOrder == SortState.DateDesc ? SortState.TitleAsc : SortState.DateDesc;
 
             collections = sortOrder switch
             {
                 SortState.TitleAsc => collections.OrderBy(c => c.Title),
-                SortState.TitleDesc => collections.OrderByDescending(c => c.Title),
-                SortState.DateAsc => collections.OrderBy(c => c.TimeAdded),
                 SortState.DateDesc => collections.OrderByDescending(c => c.TimeAdded),
                 _ => collections.OrderBy(c => c.Title),
             };

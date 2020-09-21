@@ -23,5 +23,11 @@
                asp-action="ChangePassword"
                asp-route-id="@Model.User.Id">CHANGE PASSWORD</a>
         </h2>
+
+        <h2>
+            <a asp-controller="Account"
+               asp-action="Delete"
+               asp-route-userId="@Model.User.Id">DELETE USER</a>
+        </h2>
     </div>
 </div>

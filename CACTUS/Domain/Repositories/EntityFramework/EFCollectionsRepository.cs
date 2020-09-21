@@ -26,6 +26,7 @@ namespace CACTUS.Domain.Repositories.EntityFramework
 
         public void DeleteCollection(Guid Id)
         {
+            this.context.Items.RemoveRange(this.context.Items.Where(i => i.CollectionId == Id));
             this.context.Collections.Remove(new Collection() { Id = Id });
 
             this.context.SaveChanges();

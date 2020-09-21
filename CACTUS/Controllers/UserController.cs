@@ -25,11 +25,25 @@ namespace CACTUS.Controllers
             this.signInManager = signInManager;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string userId = null)
         {
-            IdentityUser user = userManager.GetUserAsync(HttpContext.User).Result;
-            
+            IdentityUser user;
+
+            if (userId == null)
+            {
+                user = userManager.GetUserAsync(HttpContext.User).Result;
+            }
+            else
+            {
+                user = userManager.FindByIdAsync(userId).Result;
+            }
+
             return View(new UserViewModel(user, dataManager));
+        }
+
+        public IActionResult AllUsers()
+        {
+            return View(new UserViewModel(this.userManager));
         }
 
         [Authorize]
@@ -85,11 +99,9 @@ namespace CACTUS.Controllers
         }
 
         [Authorize]
-        public async Task<IActionResult> ChangeEmail(string id)
+        public IActionResult ChangeEmail(string id)
         {
-            var user = await userManager.FindByIdAsync(id);
-
-            return View(new ChangeEmailViewModel { Id = user.Id });
+            return View(new ChangeEmailViewModel { Id = id });
         }
 
         [HttpPost]
@@ -118,11 +130,9 @@ namespace CACTUS.Controllers
         }
 
         [Authorize]
-        public async Task<IActionResult> ChangeName(string id)
+        public IActionResult ChangeName(string id)
         {
-            var user = await userManager.FindByIdAsync(id);
-
-            return View(new ChangeNameViewModel { Id = user.Id });
+            return View(new ChangeNameViewModel { Id = id });
         }
 
         [HttpPost]

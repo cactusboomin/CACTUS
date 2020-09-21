@@ -1,4 +1,5 @@
-﻿using CACTUS.Domain.Entities;
+﻿using CACTUS.Domain;
+using CACTUS.Domain.Entities;
 using CACTUS.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -17,6 +18,7 @@ namespace CACTUS.Controllers
         private readonly UserManager<IdentityUser> userManager;
         private readonly SignInManager<IdentityUser> signInManager;
         private readonly RoleManager<IdentityRole> roleManager;
+        private readonly DataManager dataManager;
         
         public AccountController(UserManager<IdentityUser> userMgr, 
                                 SignInManager<IdentityUser> signInMgr,
@@ -106,6 +108,21 @@ namespace CACTUS.Controllers
 
             ModelState.AddModelError("", "UNCORRECT DATA.");
             return View(model);
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Delete(string userId)
+        {
+            var user = this.userManager.FindByIdAsync(userId).Result;
+
+            if (User.Identity.IsAuthenticated && User.Identity.Name == user.UserName)
+            {
+                await this.Logout();
+            }
+
+            await this.userManager.DeleteAsync(user);
+
+            return RedirectToAction("Index", "Home");
         }
 
         public async Task Authenticate(IdentityUser user)

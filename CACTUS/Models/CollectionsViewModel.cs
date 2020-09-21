@@ -30,7 +30,11 @@ namespace CACTUS.Models
 
             this.Collection = dataManager.Collections.GetCollection(id);
 
-            this.UserName = userManager.FindByIdAsync(this.Collection.UserId).Result.UserName;
+            var user = userManager.FindByIdAsync(this.Collection.UserId).Result;
+            if (user != null)
+            {
+                this.UserName = user.UserName;
+            }
         }
 
         public CollectionsViewModel(DataManager manager, IQueryable<Item> items, Guid id, string userId)

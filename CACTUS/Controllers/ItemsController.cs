@@ -3,6 +3,7 @@ using CACTUS.Domain.Entities;
 using CACTUS.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -15,25 +16,25 @@ namespace CACTUS.Controllers
 {
     public class ItemsController : Controller
     {
-        private readonly DataManager manager;
+        private readonly DataManager dataManager;
+        private readonly UserManager<IdentityUser> userManager;
 
-        public ItemsController(DataManager manager)
+        public ItemsController(DataManager dataManager, UserManager<IdentityUser> userManager)
         {
-            this.manager = manager;
+            this.dataManager = dataManager;
+            this.userManager = userManager;
         }
 
         public IActionResult Index(string searchString, SortState sortOrder = SortState.TitleAsc)
         {
-            var items = this.manager.Items.GetItems();
+            var items = this.dataManager.Items.GetItems();
 
-            ViewData["ItemNameSort"] = sortOrder == SortState.TitleAsc ? SortState.TitleDesc : SortState.TitleAsc;
-            ViewData["ItemDateSort"] = sortOrder == SortState.DateAsc ? SortState.DateDesc : SortState.DateAsc;
+            ViewData["ItemNameSort"] = sortOrder == SortState.TitleAsc ? SortState.DateDesc : SortState.TitleAsc;
+            ViewData["ItemDateSort"] = sortOrder == SortState.DateDesc ? SortState.TitleAsc : SortState.DateDesc;
 
             items = sortOrder switch
             {
                 SortState.TitleAsc => items.OrderBy(i => i.Title),
-                SortState.TitleDesc => items.OrderByDescending(i => i.Title),
-                SortState.DateAsc => items.OrderBy(i => i.TimeAdded),
                 SortState.DateDesc => items.OrderByDescending(i => i.TimeAdded),
                 _ => items.OrderBy(i => i.Title),
             };
@@ -49,14 +50,14 @@ namespace CACTUS.Controllers
 
         public IActionResult Item(Guid id)
         {
-            return View(new ItemsViewModel(this.manager, id));
+            return View(new ItemsViewModel(this.dataManager, id));
         }
 
         [Authorize]
         [HttpGet]
         public IActionResult Create(Guid collectionId)
         {
-            var collection = this.manager.Collections.GetCollection(collectionId);
+            var collection = this.dataManager.Collections.GetCollection(collectionId);
 
             return View(new ItemsViewModel
             {
@@ -78,9 +79,9 @@ namespace CACTUS.Controllers
             if (ModelState.IsValid)
             {
                 var item = model.Item;
-                item.Collection = this.manager.Collections.GetCollection(item.CollectionId);
+                item.Collection = this.dataManager.Collections.GetCollection(item.CollectionId);
                 
-                this.manager.Items.AddItem(item);
+                this.dataManager.Items.AddItem(item);
 
                 return RedirectToAction("Index", "Home");
             }
@@ -93,9 +94,19 @@ namespace CACTUS.Controllers
         [Authorize]
         public IActionResult Edit(Guid itemId)
         {
+            var item = this.dataManager.Items.GetItem(itemId);
+            var user = this.userManager.FindByIdAsync(item.UserId).Result;
+            string userName = null;
+
+            if (user != null)
+            {
+                userName = user.UserName;    
+            }
+
             return View(new ItemsViewModel
             {
-                Item = this.manager.Items.GetItem(itemId)
+                Item = item,
+                UserName = userName
             });
         }
 
@@ -115,10 +126,10 @@ namespace CACTUS.Controllers
         {
             if (ModelState.IsValid)
             {
-                var item = this.manager.Items.GetItem(model.ItemId);
+                var item = this.dataManager.Items.GetItem(model.ItemId);
                 item.Title = model.Title;
 
-                this.manager.Items.SaveItem(item);
+                this.dataManager.Items.SaveItem(item);
 
                 return RedirectToAction("Index", "Home");
             }
@@ -141,7 +152,7 @@ namespace CACTUS.Controllers
         {
             if (ModelState.IsValid)
             {
-                var checkTag = this.manager.Tags.GetTag(model.Tag);
+                var checkTag = this.dataManager.Tags.GetTag(model.Tag);
 
                 if (checkTag == null)
                 {
@@ -151,9 +162,9 @@ namespace CACTUS.Controllers
                         Name = model.Tag
                     };
 
-                    this.manager.Tags.AddTag(tag);
+                    this.dataManager.Tags.AddTag(tag);
 
-                    var item = this.manager.Items.GetItem(model.ItemId);
+                    var item = this.dataManager.Items.GetItem(model.ItemId);
 
                     item.ItemTags.Add(new ItemTag
                     {
@@ -163,12 +174,12 @@ namespace CACTUS.Controllers
                         TagId = tag.Id
                     });
 
-                    this.manager.Items.SaveItem(item);
-                    this.manager.Tags.SaveTag(tag);
+                    this.dataManager.Items.SaveItem(item);
+                    this.dataManager.Tags.SaveTag(tag);
                 }
                 else
                 {
-                    var item = this.manager.Items.GetItem(model.ItemId);
+                    var item = this.dataManager.Items.GetItem(model.ItemId);
 
                     item.ItemTags.Add(new ItemTag
                     {
@@ -178,8 +189,8 @@ namespace CACTUS.Controllers
                         TagId = checkTag.Id
                     });
 
-                    this.manager.Items.SaveItem(item);
-                    this.manager.Tags.SaveTag(checkTag);
+                    this.dataManager.Items.SaveItem(item);
+                    this.dataManager.Tags.SaveTag(checkTag);
                 }
 
                 return RedirectToAction("Index", "Home");
@@ -193,7 +204,7 @@ namespace CACTUS.Controllers
         [Authorize]
         public IActionResult Delete(Guid itemId)
         {
-            this.manager.Items.DeleteItem(itemId);
+            this.dataManager.Items.DeleteItem(itemId);
 
             return RedirectToAction("Index", "Home");
         }
