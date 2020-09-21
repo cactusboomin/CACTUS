@@ -1,5 +1,6 @@
 ﻿using CACTUS.Domain;
 using CACTUS.Domain.Entities;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -52,6 +53,9 @@ namespace CACTUS.Models
 
         [Display(Name = "ITEMS")]
         public List<Item> Items { get; set; }
+
+        [Display(Name = "TITLE IMAGE")]
+        public IFormFile TitleImage { get; set; }
 
         public string UserName { get; set; }
     }

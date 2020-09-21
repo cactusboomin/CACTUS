@@ -40,13 +40,13 @@
             </section>
         }
 
-        @if (Model.Item.TitleImagePath == null)
+        @if (Model.Item.TitleImage == null)
         {
             <span class="image main"><img src="~/images/empty.jpg" alt="" /></span>
         }
         else
         {
-            <span class="image main"><img src="@Model.Item.TitleImagePath" alt="" /></span>
+            <span class="image main"><img src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Item.TitleImage))" alt="" /></span>
         }
         <h2>
             COLLECTION: <a asp-action="Collection"

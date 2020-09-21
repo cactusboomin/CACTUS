@@ -29,7 +29,7 @@ namespace CACTUS.Domain.Entities
         public string Theme { get; set; }
 
         [Display(Name = "TITLE IMAGE")]
-        public string TitleImagePath { get; set; }
+        public byte[] TitleImage { get; set; }
 
         [DataType(DataType.DateTime)]
         public DateTime TimeAdded { get; set; }

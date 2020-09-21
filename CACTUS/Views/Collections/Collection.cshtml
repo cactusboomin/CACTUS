@@ -47,13 +47,13 @@
 
         <h1>@Model.Collection.Title</h1>
         
-        @if (Model.Collection.TitleImagePath == null)
+        @if (Model.Collection.TitleImage == null)
         {
             <span class="image main"><img src="~/images/empty.jpg" alt="" /></span>
         }
         else
         {
-            <span class="image main"><img src="@Model.Collection.TitleImagePath" alt="" /></span>
+            <span class="image main"><img src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Collection.TitleImage))" alt="" /></span>
         }
 
         @if (Model.UserName != null)
@@ -68,13 +68,13 @@
             {
                 <article class="style3">
                     <span class="image">
-                        @if (i.TitleImagePath == null)
+                        @if (i.TitleImage == null)
                         {
                             <img src="~/images/empty.jpg" alt="" />
                         }
                         else
                         {
-                            <img src="@i.TitleImagePath" alt="" />
+                            <img src="data:image/jpeg;base64,@(Convert.ToBase64String(i.TitleImage))" alt="" />
                         }
                     </span>
                     <a asp-controller="Items"

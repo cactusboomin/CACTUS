@@ -18,7 +18,6 @@ namespace CACTUS.Controllers
         private readonly UserManager<IdentityUser> userManager;
         private readonly SignInManager<IdentityUser> signInManager;
         private readonly RoleManager<IdentityRole> roleManager;
-        private readonly DataManager dataManager;
         
         public AccountController(UserManager<IdentityUser> userMgr, 
                                 SignInManager<IdentityUser> signInMgr,
@@ -108,6 +107,16 @@ namespace CACTUS.Controllers
 
             ModelState.AddModelError("", "UNCORRECT DATA.");
             return View(model);
+        }
+
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> AdminRoots(string userId)
+        {
+            var user = this.userManager.FindByIdAsync(userId).Result;
+
+            await this.userManager.AddToRoleAsync(user, "admin");
+
+            return RedirectToAction("Index", "Home");
         }
 
         [Authorize]

@@ -86,6 +86,18 @@ namespace CACTUS.Controllers
             {
                 var collection = model.Collection;
 
+                if (model.TitleImage != null)
+                {
+                    byte[] imageData = null;
+
+                    using (var binaryReader = new BinaryReader(model.TitleImage.OpenReadStream()))
+                    {
+                        imageData = binaryReader.ReadBytes((int)model.TitleImage.Length);
+                    }
+
+                    collection.TitleImage = imageData;
+                }
+
                 #region NUMBERS
                 if (collection.FirstNumberName != null)
                 {
