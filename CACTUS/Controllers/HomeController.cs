@@ -18,30 +18,26 @@ namespace CACTUS.Controllers
             this.manager = manager;
         }
 
-        public IActionResult Index(string searchString, SortState sortOrder = SortState.TitleAsc)
+        public IActionResult Index(string searchString, SortState sortOrderItem = SortState.DateDesc, SortState sortOrderCollection = SortState.DateDesc)
         {
             var collections = this.manager.Collections.GetCollections();
             var items = this.manager.Items.GetItems();
 
-            ViewData["CollectionNameSort"] = sortOrder == SortState.TitleAsc ? SortState.TitleDesc : SortState.TitleAsc;
-            ViewData["CollectionDateSort"] = sortOrder == SortState.DateAsc ? SortState.DateDesc : SortState.DateAsc;
-            ViewData["ItemNameSort"] = sortOrder == SortState.TitleAsc ? SortState.TitleDesc : SortState.TitleAsc;
-            ViewData["ItemDateSort"] = sortOrder == SortState.DateAsc ? SortState.DateDesc : SortState.DateAsc;
+            ViewData["CollectionNameSort"] = sortOrderCollection == SortState.TitleAsc ? SortState.DateDesc : SortState.TitleAsc;
+            ViewData["CollectionDateSort"] = sortOrderCollection == SortState.DateDesc ? SortState.TitleAsc : SortState.DateDesc;
+            ViewData["ItemNameSort"] = sortOrderItem == SortState.TitleAsc ? SortState.DateDesc : SortState.TitleAsc;
+            ViewData["ItemDateSort"] = sortOrderItem == SortState.DateDesc ? SortState.TitleAsc : SortState.DateDesc;
 
-            collections = sortOrder switch
+            collections = sortOrderCollection switch
             {
                 SortState.TitleAsc => collections.OrderBy(c => c.Title),
-                SortState.TitleDesc => collections.OrderByDescending(c => c.Title),
-                SortState.DateAsc => collections.OrderBy(c => c.TimeAdded),
                 SortState.DateDesc => collections.OrderByDescending(c => c.TimeAdded),
                 _ => collections.OrderBy(c => c.Title),
             };
 
-            items = sortOrder switch
+            items = sortOrderItem switch
             { 
                 SortState.TitleAsc => items.OrderBy(i => i.Title),
-                SortState.TitleDesc => items.OrderByDescending(i => i.Title),
-                SortState.DateAsc => items.OrderBy(i => i.TimeAdded),
                 SortState.DateDesc => items.OrderByDescending(i => i.TimeAdded),
                 _ => items.OrderBy(i => i.Title),
             };

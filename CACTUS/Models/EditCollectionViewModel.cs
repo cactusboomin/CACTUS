@@ -10,7 +10,7 @@ namespace CACTUS.Models
 {
     public class EditCollectionViewModel
     {
-        public Collection Collection { get; set; }
+        public Guid CollectionId { get; set; }
         
         [Display(Name = "NEW TITLE")]
         public string Title { get; set; }

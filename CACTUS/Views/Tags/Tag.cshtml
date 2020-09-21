@@ -4,18 +4,20 @@
     <div class="inner">
         <h1>@Model.Tag.Name</h1>
 
+        
+
         <section class="tiles">
             @foreach (var it in Model.Tag.ItemTags)
             {
                 <article class="style3">
                     <span class="image">
-                        @if (it.Item.TitleImagePath == null)
+                        @if (it.Item.TitleImage == null)
                         {
                             <img src="~/images/empty.jpg" alt="" />
                         }
                         else
                         {
-                            <img src="@it.Item.TitleImagePath" alt="" />
+                            <img src="data:image/jpeg;base64,@(Convert.ToBase64String(it.Item.TitleImage))" alt="" />
                         }
                     </span>
                     <a asp-controller="Items"

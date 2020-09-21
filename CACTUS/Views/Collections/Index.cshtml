@@ -21,13 +21,13 @@
                 {
                     <article class="style3">
                         <span class="image">
-                            @if (c.TitleImagePath == null)
+                            @if (c.TitleImage == null)
                             {
                                 <img src="~/images/empty.jpg" alt="" />
                             }
                             else
                             {
-                                <img src="@c.TitleImagePath" alt="" />
+                                <img src="data:image/jpeg;base64,@(Convert.ToBase64String(c.TitleImage))" alt="" />
                             }
                         </span>
                         <a asp-controller="Collections"

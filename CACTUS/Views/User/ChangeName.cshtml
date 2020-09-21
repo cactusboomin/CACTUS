@@ -3,10 +3,12 @@
 <div class="main">
     <div class="inner">
         <div>
-            <h2>CHANGE EMAIL</h2>
+            <h2>CHANGE NAME</h2>
             <form asp-area="" asp-controller="User" asp-action="ChangeName" method="post">
                 <div asp-validation-summary="All"></div>
+
                 <input type="hidden" asp-for="Id" />
+                
                 <div>
                     <label asp-for="NewName"></label>
                     <input asp-for="NewName" />

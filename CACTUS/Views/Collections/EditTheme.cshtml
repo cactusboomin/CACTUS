@@ -1,0 +1,27 @@
+﻿@model EditCollectionViewModel
+
+<div id="main">
+    <div class="inner">
+
+        <div>
+            <h2>CREATE THEME</h2>
+            <form asp-area=""
+                  asp-controller="Collections"
+                  asp-action="EditTheme" method="post">
+
+                <input type="hidden" asp-for="@Model.CollectionId" />
+
+                <div asp-validation-summary="All"></div>
+
+                <div>
+                    <select asp-for="@Model.Theme" asp-items="ViewBag.Theme"></select>
+                </div>
+
+                <div>
+                    <input type="submit" value="EDIT" />
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>

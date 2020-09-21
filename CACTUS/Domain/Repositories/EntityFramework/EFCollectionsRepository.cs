@@ -18,15 +18,17 @@ namespace CACTUS.Domain.Repositories.EntityFramework
             this.context = context;
         }
 
-        public async void SaveTitleImage(FileModel file)
+        public void SaveTitleImage(FileModel file)
         {
             this.context.Files.Add(file);
-            await this.context.SaveChangesAsync();
+            this.context.SaveChanges();
         }
 
         public void DeleteCollection(Guid Id)
         {
+            this.context.Items.RemoveRange(this.context.Items.Where(i => i.CollectionId == Id));
             this.context.Collections.Remove(new Collection() { Id = Id });
+
             this.context.SaveChanges();
         }
 
@@ -70,14 +72,14 @@ namespace CACTUS.Domain.Repositories.EntityFramework
         {
             this.context.Collections.Add(entity);
 
-            this.context.SaveChangesAsync();
+            this.context.SaveChanges();
         }
 
         public void SaveCollection(Collection entity)
         {
             context.Entry(entity).State = EntityState.Modified;
 
-            context.SaveChangesAsync();
+            this.context.SaveChanges();
         }
     }
 }

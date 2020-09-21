@@ -1,0 +1,28 @@
+﻿@model EditCollectionViewModel
+
+<div id="main">
+    <div class="inner">
+
+        <div>
+            <h2>EDIT DESCRIPTION</h2>
+            <form asp-area=""
+                  asp-controller="Collections"
+                  asp-action="EditDescription" method="post">
+
+                <input type="hidden" asp-for="@Model.CollectionId" />
+
+                <div asp-validation-summary="All"></div>
+                <div>
+                    <h2><label asp-for="@Model.Description"></label></h2>
+                    <input asp-for="@Model.Description" />
+                    <span asp-validation-for="@Model.Description"></span>
+                </div>
+
+                <div>
+                    <input type="submit" value="EDIT" />
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>

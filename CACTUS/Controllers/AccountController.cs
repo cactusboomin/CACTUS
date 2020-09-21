@@ -1,4 +1,5 @@
-﻿using CACTUS.Domain.Entities;
+﻿using CACTUS.Domain;
+using CACTUS.Domain.Entities;
 using CACTUS.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -106,6 +107,31 @@ namespace CACTUS.Controllers
 
             ModelState.AddModelError("", "UNCORRECT DATA.");
             return View(model);
+        }
+
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> AdminRoots(string userId)
+        {
+            var user = this.userManager.FindByIdAsync(userId).Result;
+
+            await this.userManager.AddToRoleAsync(user, "admin");
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Delete(string userId)
+        {
+            var user = this.userManager.FindByIdAsync(userId).Result;
+
+            if (User.Identity.IsAuthenticated && User.Identity.Name == user.UserName)
+            {
+                await this.Logout();
+            }
+
+            await this.userManager.DeleteAsync(user);
+
+            return RedirectToAction("Index", "Home");
         }
 
         public async Task Authenticate(IdentityUser user)

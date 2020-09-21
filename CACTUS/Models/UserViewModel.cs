@@ -23,9 +23,17 @@ namespace CACTUS.Models
             this.Items = dataManager.Items.GetItemsFromUser(user.Id).ToList();
         }
 
+        public UserViewModel(UserManager<IdentityUser> users)
+        {
+            this.Users = users.Users.ToList();
+        }
+
         public IdentityUser User { get; set; }
 
+        public List<IdentityUser> Users { get; set; }
+
         public List<Collection> Collections { get; set; }
+
         public List<Item> Items { get; set; }
     }
 }

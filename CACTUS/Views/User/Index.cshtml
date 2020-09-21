@@ -5,41 +5,59 @@
             <h1>
                 @Model.User.UserName'S PAGE
             </h1>
+            @if (User.IsInRole("admin") && User.Identity.Name != Model.User.UserName)
+            {
+                <h4>
+                    <a asp-controller="Account" asp-action="AdminRoots" asp-route-userId="@Model.User.Id">GIVE ADMIN ROOTS</a>
+                </h4>
+            }
+            <h4>
+                @if (User.IsInRole("admin") && User.Identity.Name != Model.User.UserName)
+                {
+                    <a asp-controller="Account" asp-action="Delete" asp-route-userId="@Model.User.Id">DELETE USER</a>
+                }
+            </h4>
+            <h2>
+                EMAIL: @Model.User.Email
+            </h2>
 
-            <section class="tiles">
-                <article class="style3">
-                    <span class="image">
-                        <img src="~/images/tag.jpg" alt="" />
-                    </span>
-                    <a asp-controller="Collections"
-                       asp-action="Create"
-                       asp-route-userId="@Model.User.Id">
-                        <h2>CREATE COLLECTION</h2>
-                    </a>
-                </article>
+            @if ((User.Identity.Name == Model.User.UserName))
+            {
+                <section class="tiles">
+                    <article class="style3">
+                        <span class="image">
+                            <img src="~/images/tag.jpg" alt="" />
+                        </span>
+                        <a asp-controller="Collections"
+                           asp-action="Create"
+                           asp-route-userId="@Model.User.Id">
+                            <h2>CREATE COLLECTION</h2>
+                        </a>
+                    </article>
 
-                <article class="style3">
-                    <span class="image">
-                        <img src="~/images/tag.jpg" alt="" />
-                    </span>
-                    <a asp-controller="Collections"
-                       asp-action="Create"
-                       asp-route-userId="@Model.User.Id">
-                        <h2>CREATE COLLECTION</h2>
-                    </a>
-                </article>
+                    <article class="style3">
+                        <span class="image">
+                            <img src="~/images/tag.jpg" alt="" />
+                        </span>
+                        <a asp-controller="Collections"
+                           asp-action="Create"
+                           asp-route-userId="@Model.User.Id">
+                            <h2>CREATE COLLECTION</h2>
+                        </a>
+                    </article>
 
-                <article class="style3">
-                    <span class="image">
-                        <img src="~/images/tag.jpg" alt="" />
-                    </span>
-                    <a asp-controller="Collections"
-                       asp-action="Create"
-                       asp-route-userId="@Model.User.Id">
-                        <h2>CREATE COLLECTION</h2>
-                    </a>
-                </article>
-            </section>
+                    <article class="style3">
+                        <span class="image">
+                            <img src="~/images/tag.jpg" alt="" />
+                        </span>
+                        <a asp-controller="Collections"
+                           asp-action="Create"
+                           asp-route-userId="@Model.User.Id">
+                            <h2>CREATE COLLECTION</h2>
+                        </a>
+                    </article>
+                </section>
+            }
 
             @if (Model.Collections.Count != 0)
             {
@@ -56,13 +74,13 @@
                     {
                         <article class="style3">
                             <span class="image">
-                                @if (Model.Collections[i].TitleImagePath == null)
+                                @if (Model.Collections[i].TitleImage == null)
                                 {
                                     <img src="~/images/empty.jpg" alt="" />
                                 }
                                 else
                                 {
-                                    <img src="@Model.Collections[i].TitleImagePath" alt="" />
+                                    <img src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Collections[i].TitleImage))" alt="" />
                                 }
                             </span>
                             <a asp-controller="Collections"
@@ -93,13 +111,13 @@
                     {
                         <article class="style3">
                             <span class="image">
-                                @if (Model.Items[i].TitleImagePath == null)
+                                @if (Model.Items[i].TitleImage == null)
                                 {
                                     <img src="~/images/empty.jpg" alt="" />
                                 }
                                 else
                                 {
-                                    <img src="@Model.Items[i].TitleImagePath" alt="" />
+                                    <img src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Items[i].TitleImage))" alt="" />
                                 }
                             </span>
                             <a asp-controller="Items"

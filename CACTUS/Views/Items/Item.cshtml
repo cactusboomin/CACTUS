@@ -4,141 +4,155 @@
     <div class="inner">
         <h1>@Model.Item.Title</h1>
 
-        <section class="tiles">
-            <article class="style3">
-                <span class="image">
-                    <img src="~/images/tag.jpg" alt="" />
-                </span>
-                <a asp-controller="Items"
-                   asp-action="AddTag"
-                   asp-route-itemId="@Model.Item.Id">
-                    <h2>ADD TAG</h2>
-                </a>
-            </article>
-            <article class="style3">
-                <span class="image">
-                    <img src="~/images/tag.jpg" alt="" />
-                </span>
-                <a asp-controller="Items"
-                   asp-action="Edit"
-                   asp-route-itemId="@Model.Item.Id">
-                    <h2>EDIT ITEM</h2>
-                </a>
-            </article>
-            <article class="style3">
-                <span class="image">
-                    <img src="~/images/tag.jpg" alt="" />
-                </span>
-                <a asp-controller="Items"
-                   asp-action="Delete"
-                   asp-route-itemId="@Model.Item.Id">
-                    <h2>DELETE ITEM</h2>
-                </a>
-            </article>
-        </section>
+        @if ((User.Identity.IsAuthenticated) && ((User.Identity.Name == Model.UserName) || (User.IsInRole("admin"))))
+        {
+            <section class="tiles">
+                <article class="style3">
+                    <span class="image">
+                        <img src="~/images/tag.jpg" alt="" />
+                    </span>
+                    <a asp-controller="Items"
+                       asp-action="AddTag"
+                       asp-route-itemId="@Model.Item.Id">
+                        <h2>ADD TAG</h2>
+                    </a>
+                </article>
+                <article class="style3">
+                    <span class="image">
+                        <img src="~/images/tag.jpg" alt="" />
+                    </span>
+                    <a asp-controller="Items"
+                       asp-action="Edit"
+                       asp-route-itemId="@Model.Item.Id">
+                        <h2>EDIT ITEM</h2>
+                    </a>
+                </article>
+                <article class="style3">
+                    <span class="image">
+                        <img src="~/images/tag.jpg" alt="" />
+                    </span>
+                    <a asp-controller="Items"
+                       asp-action="Delete"
+                       asp-route-itemId="@Model.Item.Id">
+                        <h2>DELETE ITEM</h2>
+                    </a>
+                </article>
+            </section>
+        }
 
-        @if (Model.Item.TitleImagePath == null)
+        @if (Model.Item.TitleImage == null)
         {
             <span class="image main"><img src="~/images/empty.jpg" alt="" /></span>
         }
         else
         {
-            <span class="image main"><img src="@Model.Item.TitleImagePath" alt="" /></span>
+            <span class="image main"><img src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Item.TitleImage))" alt="" /></span>
         }
-
-        <h2>@Model.Item.Theme</h2>
-        <h2>COLLECTION: <a asp-action="Collection"
+        <h2>
+            COLLECTION: <a asp-action="Collection"
                            asp-controller="Collections"
-                           asp-route-id="@Model.Item.Collection.Id">@Model.Item.Collection.Title</a></h2>
-        <h2>DATE: @Model.Item.TimeAdded</h2>
+                           asp-route-id="@Model.Item.Collection.Id">@Model.Item.Collection.Title</a>
+                    </h2>
+                    @if (Model.UserName != null)
+                    {
+                        <h2>
+                            CREATOR: <a asp-action="Index"
+                                        asp-controller="User"
+                                        asp-route-userId="@Model.Item.UserId"></a>
+                        </h2>
+                    }
+                    <h2>
+                        @Model.Item.Theme
+                    </h2>
+                    <h2>DATE: @Model.Item.TimeAdded</h2>
 
 
-        @if (Model.Item.Collection.FirstNumberIsEnabled)
-        {
-            <h2>@Model.Item.Collection.FirstNumberName</h2>
-            <p>@Model.Item.FirstNumber</p>
-        }
+                    @if (Model.Item.Collection.FirstNumberIsEnabled)
+                    {
+                        <h2>@Model.Item.Collection.FirstNumberName</h2>
+                        <p>@Model.Item.FirstNumber</p>
+                    }
 
-        @if (Model.Item.Collection.SecondNumberIsEnabled)
-        {
-            <h2>@Model.Item.Collection.SecondNumberName</h2>
-            <p>@Model.Item.SecondNumber</p>
-        }
+                    @if (Model.Item.Collection.SecondNumberIsEnabled)
+                    {
+                        <h2>@Model.Item.Collection.SecondNumberName</h2>
+                        <p>@Model.Item.SecondNumber</p>
+                    }
 
-        @if (Model.Item.Collection.ThirdNumberIsEnabled)
-        {
-            <h2>@Model.Item.Collection.ThirdNumberName</h2>
-            <p>@Model.Item.ThirdNumber</p>
-        }
+                    @if (Model.Item.Collection.ThirdNumberIsEnabled)
+                    {
+                        <h2>@Model.Item.Collection.ThirdNumberName</h2>
+                        <p>@Model.Item.ThirdNumber</p>
+                    }
 
-        @if (Model.Item.Collection.FirstTextIsEnabled)
-        {
-            <h2>@Model.Item.Collection.FirstTextName</h2>
-            <p>@Model.Item.FirstText</p>
-        }
+                    @if (Model.Item.Collection.FirstTextIsEnabled)
+                    {
+                        <h2>@Model.Item.Collection.FirstTextName</h2>
+                        <p>@Model.Item.FirstText</p>
+                    }
 
-        @if (Model.Item.Collection.SecondTextIsEnabled)
-        {
-            <h2>@Model.Item.Collection.SecondTextName</h2>
-            <p>@Model.Item.SecondText</p>
-        }
+                    @if (Model.Item.Collection.SecondTextIsEnabled)
+                    {
+                        <h2>@Model.Item.Collection.SecondTextName</h2>
+                        <p>@Model.Item.SecondText</p>
+                    }
 
-        @if (Model.Item.Collection.ThirdTextIsEnabled)
-        {
-            <h2>@Model.Item.Collection.ThirdTextName</h2>
-            <p>@Model.Item.ThirdText</p>
-        }
+                    @if (Model.Item.Collection.ThirdTextIsEnabled)
+                    {
+                        <h2>@Model.Item.Collection.ThirdTextName</h2>
+                        <p>@Model.Item.ThirdText</p>
+                    }
 
-        @if (Model.Item.Collection.FirstDateIsEnabled)
-        {
-            <h2>@Model.Item.Collection.FirstDateName</h2>
-            <p>@Model.Item.FirstDate</p>
-        }
+                    @if (Model.Item.Collection.FirstDateIsEnabled)
+                    {
+                        <h2>@Model.Item.Collection.FirstDateName</h2>
+                        <p>@Model.Item.FirstDate</p>
+                    }
 
-        @if (Model.Item.Collection.SecondDateIsEnabled)
-        {
-            <h2>@Model.Item.Collection.SecondDateName</h2>
-            <p>@Model.Item.SecondDate</p>
-        }
+                    @if (Model.Item.Collection.SecondDateIsEnabled)
+                    {
+                        <h2>@Model.Item.Collection.SecondDateName</h2>
+                        <p>@Model.Item.SecondDate</p>
+                    }
 
-        @if (Model.Item.Collection.ThirdDateIsEnabled)
-        {
-            <h2>@Model.Item.Collection.ThirdDateName</h2>
-            <p>@Model.Item.ThirdDate</p>
-        }
+                    @if (Model.Item.Collection.ThirdDateIsEnabled)
+                    {
+                        <h2>@Model.Item.Collection.ThirdDateName</h2>
+                        <p>@Model.Item.ThirdDate</p>
+                    }
 
-        @if (Model.Item.Collection.FirstCheckBoxIsEnabled)
-        {
-            <h2>@Model.Item.Collection.FirstCheckBoxName</h2>
-            <span asp-validation-for="@Model.Item.FirstCheckBox"></span>
-        }
+                    @if (Model.Item.Collection.FirstCheckBoxIsEnabled)
+                    {
+                        <h2>@Model.Item.Collection.FirstCheckBoxName</h2>
+                        <span asp-validation-for="@Model.Item.FirstCheckBox"></span>
+                    }
 
-        @if (Model.Item.Collection.SecondCheckBoxIsEnabled)
-        {
-            <h2>@Model.Item.Collection.SecondCheckBoxName</h2>
-            <span asp-validation-for="@Model.Item.SecondCheckBox"></span>
-        }
+                    @if (Model.Item.Collection.SecondCheckBoxIsEnabled)
+                    {
+                        <h2>@Model.Item.Collection.SecondCheckBoxName</h2>
+                        <span asp-validation-for="@Model.Item.SecondCheckBox"></span>
+                    }
 
-        @if (Model.Item.Collection.ThirdCheckBoxIsEnabled)
-        {
-            <h2>@Model.Item.Collection.ThirdCheckBoxName</h2>
-            <span asp-validation-for="@Model.Item.ThirdCheckBox"></span>
-        }
+                    @if (Model.Item.Collection.ThirdCheckBoxIsEnabled)
+                    {
+                        <h2>@Model.Item.Collection.ThirdCheckBoxName</h2>
+                        <span asp-validation-for="@Model.Item.ThirdCheckBox"></span>
+                    }
 
-        <section class="tiles">
-            @foreach (var t in Model.Item.ItemTags)
-            {
-                <article class="style3">
-                    <span class="image">
-                        <img src="~/images/tag.jpg" alt="" />
-                    </span>
-                    <a asp-controller="Tags"
-                       asp-action="Tag"
-                       asp-route-id="@t.Tag.Id">
-                        <h2>@t.Tag.Name</h2>
-                    </a>
-                </article>
-            }
-        </section>
-    </div>
-</div>
+                    <section class="tiles">
+                        @foreach (var t in Model.Item.ItemTags)
+                        {
+                            <article class="style3">
+                                <span class="image">
+                                    <img src="~/images/tag.jpg" alt="" />
+                                </span>
+                                <a asp-controller="Tags"
+                                   asp-action="Tag"
+                                   asp-route-id="@t.Tag.Id">
+                                    <h2>@t.Tag.Name</h2>
+                                </a>
+                            </article>
+                        }
+                    </section>
+                </div>
+            </div>

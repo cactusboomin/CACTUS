@@ -40,5 +40,7 @@ namespace CACTUS.Models
         public Item Item { get; set; }
 
         public Collection Collection { get; set; }
+
+        public string UserName { get; set; }
     }
 }

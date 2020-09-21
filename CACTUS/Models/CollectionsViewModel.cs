@@ -1,5 +1,7 @@
 ﻿using CACTUS.Domain;
 using CACTUS.Domain.Entities;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -23,13 +25,17 @@ namespace CACTUS.Models
             this.Collections = collections.ToList();
         }
 
-        public CollectionsViewModel(DataManager manager, IQueryable<Item> items, Guid id)
+        public CollectionsViewModel(DataManager dataManager, UserManager<IdentityUser> userManager, IQueryable<Item> items, Guid id)
         {
             this.Items = items.ToList();
 
-            this.Collection = manager.Collections.GetCollection(id);
+            this.Collection = dataManager.Collections.GetCollection(id);
 
-            this.UserId = Collection.UserId;
+            var user = userManager.FindByIdAsync(this.Collection.UserId).Result;
+            if (user != null)
+            {
+                this.UserName = user.UserName;
+            }
         }
 
         public CollectionsViewModel(DataManager manager, IQueryable<Item> items, Guid id, string userId)
@@ -47,7 +53,10 @@ namespace CACTUS.Models
 
         [Display(Name = "ITEMS")]
         public List<Item> Items { get; set; }
-        
-        public string UserId { get; set; }
+
+        [Display(Name = "TITLE IMAGE")]
+        public IFormFile TitleImage { get; set; }
+
+        public string UserName { get; set; }
     }
 }

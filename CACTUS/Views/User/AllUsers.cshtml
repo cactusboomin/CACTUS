@@ -1,0 +1,27 @@
+﻿@model UserViewModel
+
+<div id="main">
+    <div class="inner">
+        <div>
+            <h1>
+                USERS
+            </h1>
+
+            <section class="tiles">
+                @foreach (var u in Model.Users)
+                {
+                    <article class="style3">
+                        <span class="image">
+                            <img src="~/images/tag.jpg" alt="" />
+                        </span>
+                        <a asp-controller="User"
+                           asp-action="Index"
+                           asp-route-userId="@u.Id">
+                            <h2>@u.UserName</h2>
+                        </a>
+                    </article>
+                }
+            </section>
+        </div>
+    </div>
+</div>

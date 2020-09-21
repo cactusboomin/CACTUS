@@ -1,0 +1,31 @@
+﻿@model ItemsViewModel
+
+    <div id="main">
+        <div class="inner">
+            <h1>EDIT ITEM @Model.Item.Title</h1>
+
+            <section class="tiles">
+                <article class="style3">
+                    <span class="image">
+                        <img src="~/images/tag.jpg" alt="" />
+                    </span>
+                    <a asp-controller="Items"
+                       asp-action="EditTitle"
+                       asp-route-itemId="@Model.Item.Id">
+                        <h2>EDIT TITLE</h2>
+                    </a>
+                </article>
+
+                <article class="style3">
+                    <span class="image">
+                        <img src="~/images/tag.jpg" alt="" />
+                    </span>
+                    <a asp-controller="Items"
+                       asp-action="EditTitleImage"
+                       asp-route-itemId="@Model.Item.Id">
+                        <h2>EDIT TITLE IMAGE</h2>
+                    </a>
+                </article>
+            </section>
+        </div>
+    </div>

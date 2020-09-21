@@ -10,12 +10,18 @@
                   enctype="multipart/form-data">
 
                 <input type="hidden" asp-for="@Model.Collection.UserId" />
+                <input type="hidden" asp-for="@Model.UserName" />
 
                 <div asp-validation-summary="All"></div>
                 <div>
                     <label asp-for="@Model.Collection.Title"></label>
                     <input asp-for="@Model.Collection.Title" />
                     <span asp-validation-for="@Model.Collection.Title"></span>
+                </div>
+
+                <div>
+                    <label>TITLE IMAGE</label>
+                    <input name="TitleImage" type="file" class="form-control" />
                 </div>
 
                 <div>
