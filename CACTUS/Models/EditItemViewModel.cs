@@ -1,4 +1,5 @@
 ﻿using CACTUS.Domain.Entities;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -15,6 +16,6 @@ namespace CACTUS.Models
         public string Title { get; set; }
 
         [Display(Name = "NEW IMAGE")]
-        public string TitleImagePath { get; set; }
+        public IFormFile TitleImage { get; set; }
     }
 }

@@ -80,7 +80,19 @@ namespace CACTUS.Controllers
             {
                 var item = model.Item;
                 item.Collection = this.dataManager.Collections.GetCollection(item.CollectionId);
-                
+
+                if (model.TitleImage != null)
+                {
+                    byte[] dataImage = null;
+
+                    using (var binaryReader = new BinaryReader(model.TitleImage.OpenReadStream()))
+                    {
+                        dataImage = binaryReader.ReadBytes((int)model.TitleImage.Length);
+                    }
+
+                    item.TitleImage = dataImage;
+                }
+
                 this.dataManager.Items.AddItem(item);
 
                 return RedirectToAction("Index", "Home");
@@ -137,6 +149,42 @@ namespace CACTUS.Controllers
             {
                 return View(model);
             }
+        }
+
+        [Authorize]
+        [HttpGet]
+        public IActionResult EditTitleImage(Guid itemId)
+        {
+            return View(new EditItemViewModel { ItemId = itemId });
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult EditTitleImage([FromForm]EditItemViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var item = this.dataManager.Items.GetItem(model.ItemId);
+
+                if (model.TitleImage != null)
+                {
+                    byte[] dataImage = null;
+
+                    using (var binaryReader = new BinaryReader(model.TitleImage.OpenReadStream()))
+                    {
+                        dataImage = binaryReader.ReadBytes((int)model.TitleImage.Length);
+                    }
+
+                    item.TitleImage = dataImage;
+
+                    this.dataManager.Items.SaveItem(item);
+
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+
+            ModelState.AddModelError(string.Empty, "INVALID DATA");
+            return View(model);
         }
 
         [Authorize]

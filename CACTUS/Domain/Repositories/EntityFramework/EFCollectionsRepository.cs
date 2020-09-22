@@ -18,12 +18,6 @@ namespace CACTUS.Domain.Repositories.EntityFramework
             this.context = context;
         }
 
-        public void SaveTitleImage(FileModel file)
-        {
-            this.context.Files.Add(file);
-            this.context.SaveChanges();
-        }
-
         public void DeleteCollection(Guid Id)
         {
             this.context.Items.RemoveRange(this.context.Items.Where(i => i.CollectionId == Id));

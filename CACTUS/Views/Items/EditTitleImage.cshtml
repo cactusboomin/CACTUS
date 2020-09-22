@@ -1,0 +1,29 @@
+﻿@model EditItemViewModel
+
+<div id="main">
+    <div class="inner">
+
+        <div>
+            <h2>EDIT TITLE IMAGE</h2>
+            <form asp-area=""
+                  asp-controller="Items"
+                  asp-action="EditTitle" method="post"
+                  enctype="multipart/form-data">
+
+                <input type="hidden" asp-for="@Model.ItemId" />
+
+                <div asp-validation-summary="All"></div>
+                <div>
+                    <label asp-for="@Model.TitleImage"></label>
+                    <input asp-for="@Model.TitleImage" />
+                    <span asp-validation-for="@Model.TitleImage"></span>
+                </div>
+
+                <div>
+                    <input type="submit" value="EDIT" />
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
