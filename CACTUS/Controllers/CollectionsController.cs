@@ -259,6 +259,48 @@ namespace CACTUS.Controllers
 
         [Authorize]
         [HttpGet]
+        public IActionResult EditTitleImage(Guid collectionId)
+        {
+            return View(new EditCollectionViewModel { CollectionId = collectionId });
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult EditTitleImage([FromForm]EditCollectionViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var collection = this.dataManager.Collections.GetCollection(model.CollectionId);
+
+                if (model.TitleImage != null)
+                {
+                    byte[] imageData = null;
+
+                    using (var binaryReader = new BinaryReader(model.TitleImage.OpenReadStream()))
+                    {
+                        imageData = binaryReader.ReadBytes((int)model.TitleImage.Length);
+                    }
+
+                    collection.TitleImage = imageData;
+
+                    this.dataManager.Collections.SaveCollection(collection);
+
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "CHOOSE NEW PHOTO");
+                    return View(model);
+                }
+            }
+            else
+            {
+                return View(model);
+            }
+        }
+
+        [Authorize]
+        [HttpGet]
         public IActionResult EditDescription(Guid collectionId)
         {
             return View(new EditCollectionViewModel

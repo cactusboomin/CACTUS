@@ -1,4 +1,4 @@
-﻿@model EditItemViewModel
+﻿@model EditCollectionViewModel
 
 <div id="main">
     <div class="inner">
@@ -6,11 +6,11 @@
         <div>
             <h2>EDIT TITLE IMAGE</h2>
             <form asp-area=""
-                  asp-controller="Items"
+                  asp-controller="Collections"
                   asp-action="EditTitleImage" method="post"
                   enctype="multipart/form-data">
 
-                <input type="hidden" asp-for="@Model.ItemId" />
+                <input type="hidden" asp-for="@Model.CollectionId" />
 
                 <div asp-validation-summary="All"></div>
                 <div>

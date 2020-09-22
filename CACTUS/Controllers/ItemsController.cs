@@ -181,10 +181,16 @@ namespace CACTUS.Controllers
 
                     return RedirectToAction("Index", "Home");
                 }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "CHOOSE NEW PHOTO");
+                    return View(model);
+                }
             }
-
-            ModelState.AddModelError(string.Empty, "INVALID DATA");
-            return View(model);
+            else
+            {
+                return View(model);
+            }
         }
 
         [Authorize]
