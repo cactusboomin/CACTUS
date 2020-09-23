@@ -1,8 +1,10 @@
 ﻿using CACTUS.Domain;
 using CACTUS.Domain.Entities;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -40,6 +42,9 @@ namespace CACTUS.Models
         public Item Item { get; set; }
 
         public Collection Collection { get; set; }
+
+        [Display(Name = "TITLE IMAGE")]
+        public IFormFile TitleImage { get; set; }
 
         public string UserName { get; set; }
     }

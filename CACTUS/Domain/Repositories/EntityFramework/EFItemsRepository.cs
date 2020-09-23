@@ -53,6 +53,7 @@ namespace CACTUS.Domain.Repositories.EntityFramework
         public void AddItem(Item entity)
         {
             this.context.Items.Add(entity);
+
             this.context.SaveChanges();
         }
 
