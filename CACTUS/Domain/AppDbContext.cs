@@ -14,7 +14,7 @@ namespace CACTUS.Domain
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) {}
 
-        public DbSet<FileModel> Files { get; set; }
+        public DbSet<Like> Likes { get; set; }
         public DbSet<Item> Items { get; set; }
         public DbSet<Collection> Collections { get; set; }
         public DbSet<Tag> Tags { get; set; }
@@ -72,6 +72,9 @@ namespace CACTUS.Domain
             });
 
             base.OnModelCreating(builder);
+
+            builder.Entity<Like>()
+                .HasKey(l => new { l.ItemId, l.UserId });
 
             builder.Entity<Item>()
                 .HasOne(i => i.Collection)

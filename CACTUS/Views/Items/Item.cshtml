@@ -4,6 +4,21 @@
     <div class="inner">
         <h1>@Model.Item.Title</h1>
 
+        @if (Model.manager.Likes.HasLike(Model.Item.UserId, Model.Item.Id))
+        {
+            <h4><a asp-action="DisLikeItem" asp-controller="Items"
+                    asp-route-userId="@Model.Item.UserId" asp-route-itemId="@Model.Item.Id">
+                DISLIKE
+            </a></h4>
+        }
+        else
+        {
+            <h4><a asp-action="LikeItem" asp-controller="Items"
+                    asp-route-userId="@Model.Item.UserId" asp-route-itemId="@Model.Item.Id">
+                LIKE
+            </a></h4>
+        }
+
         @if ((User.Identity.IsAuthenticated) && ((User.Identity.Name == Model.UserName) || (User.IsInRole("admin"))))
         {
             <section class="tiles">
@@ -88,19 +103,19 @@
                     @if (Model.Item.Collection.FirstTextIsEnabled)
                     {
                         <h2>@Model.Item.Collection.FirstTextName</h2>
-                        <p>@Model.Item.FirstText</p>
+                        <p>@Markdown.ToPlainText(Model.Item.FirstText)</p>
                     }
 
                     @if (Model.Item.Collection.SecondTextIsEnabled)
                     {
                         <h2>@Model.Item.Collection.SecondTextName</h2>
-                        <p>@Model.Item.SecondText</p>
+                        <p>@Markdown.ToPlainText(Model.Item.SecondText)</p>
                     }
 
                     @if (Model.Item.Collection.ThirdTextIsEnabled)
                     {
                         <h2>@Model.Item.Collection.ThirdTextName</h2>
-                        <p>@Model.Item.ThirdText</p>
+                        <p>@Markdown.ToPlainText(Model.Item.ThirdText)</p>
                     }
 
                     @if (Model.Item.Collection.FirstDateIsEnabled)
@@ -124,19 +139,40 @@
                     @if (Model.Item.Collection.FirstCheckBoxIsEnabled)
                     {
                         <h2>@Model.Item.Collection.FirstCheckBoxName</h2>
-                        <span asp-validation-for="@Model.Item.FirstCheckBox"></span>
+                        if (Model.Item.FirstCheckBox)
+                        {
+                            <img src="~/images/true.png" />
+                        }
+                        else
+                        {
+                            <img src="~/images/false.png" />
+                        }
                     }
 
                     @if (Model.Item.Collection.SecondCheckBoxIsEnabled)
                     {
                         <h2>@Model.Item.Collection.SecondCheckBoxName</h2>
-                        <span asp-validation-for="@Model.Item.SecondCheckBox"></span>
+                        if (Model.Item.SecondCheckBox)
+                        {
+                            <img src="~/images/true.png" />
+                        }
+                        else
+                        {
+                            <img src="~/images/false.png" />
+                        }
                     }
 
                     @if (Model.Item.Collection.ThirdCheckBoxIsEnabled)
                     {
                         <h2>@Model.Item.Collection.ThirdCheckBoxName</h2>
-                        <span asp-validation-for="@Model.Item.ThirdCheckBox"></span>
+                        if (Model.Item.ThirdCheckBox)
+                        {
+                            <img src="~/images/true.png" />
+                        }
+                        else
+                        {
+                            <img src="~/images/false.png" />
+                        }
                     }
 
                     <section class="tiles">
@@ -145,6 +181,9 @@
                             <article class="style3">
                                 <span class="image">
                                     <img src="~/images/tag.jpg" alt="" />
+
+
+
                                 </span>
                                 <a asp-controller="Tags"
                                    asp-action="Tag"

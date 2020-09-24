@@ -1,139 +1,139 @@
 ﻿@model ItemsViewModel
 
-<div class="main">
-    <div class="inner">
-        <div>
-            <h2>CREATE ITEM</h2>
-            <form asp-area=""
-                  asp-controller="Items"
-                  asp-action="Create" method="post"
-                  enctype="multipart/form-data">
+    <div class="main">
+        <div class="inner">
+            <div>
+                <h2>CREATE ITEM</h2>
+                <form asp-area=""
+                      asp-controller="Items"
+                      asp-action="Create" method="post"
+                      enctype="multipart/form-data">
 
-                <input type="hidden" asp-for="@Model.Item.UserId" />
-                <input type="hidden" asp-for="@Model.Item.CollectionId" />
-                <input type="hidden" asp-for="@Model.Item.Theme" />
-                <input type="hidden" asp-for="@Model.Collection.Id" />
-                <input type="hidden" asp-for="@Model.Collection.UserId" />
-                <input type="hidden" asp-for="@Model.Collection.Theme" />
-                <input type="hidden" asp-for="@Model.Collection.Title" />
+                    <input type="hidden" asp-for="@Model.Item.UserId" />
+                    <input type="hidden" asp-for="@Model.Item.CollectionId" />
+                    <input type="hidden" asp-for="@Model.Item.Theme" />
+                    <input type="hidden" asp-for="@Model.Collection.Id" />
+                    <input type="hidden" asp-for="@Model.Collection.UserId" />
+                    <input type="hidden" asp-for="@Model.Collection.Theme" />
+                    <input type="hidden" asp-for="@Model.Collection.Title" />
 
-                <div asp-validation-summary="All"></div>
-                <div>
-                    <h2><label asp-for="@Model.Item.Title"></label></h2>
-                    <input asp-for="@Model.Item.Title" />
-                    <span asp-validation-for="@Model.Item.Title"></span>
-                </div>
+                    <div asp-validation-summary="All"></div>
+                    <div>
+                        <h2><label asp-for="@Model.Item.Title"></label></h2>
+                        <input asp-for="@Model.Item.Title" />
+                        <span asp-validation-for="@Model.Item.Title"></span>
+                    </div>
 
-                <div>
-                    <label asp-for="@Model.TitleImage"></label>
-                    <input asp-for="@Model.TitleImage" />
-                    <span asp-validation-for="@Model.TitleImage"></span>
-                </div>
+                    <div>
+                        <label asp-for="@Model.TitleImage"></label>
+                        <input asp-for="@Model.TitleImage" />
+                        <span asp-validation-for="@Model.TitleImage"></span>
+                    </div>
 
-                @if (Model.Collection.FirstNumberIsEnabled)
-                {
-                    <div>
-                        <h2>@Model.Collection.FirstNumberName</h2>
-                        <input asp-for="@Model.Item.FirstNumber" />
-                        <span asp-validation-for="@Model.Item.FirstNumber"></span>
-                    </div>
-                }
-                @if (Model.Collection.SecondNumberIsEnabled)
-                {
-                    <div>
-                        <h2>@Model.Collection.SecondNumberName</h2>
-                        <input asp-for="@Model.Item.SecondNumber" />
-                        <span asp-validation-for="@Model.Item.SecondNumber"></span>
-                    </div>
-                }
-                @if (Model.Collection.ThirdNumberIsEnabled)
-                {
-                    <div>
-                        <h2>@Model.Collection.ThirdNumberName</h2>
-                        <input asp-for="@Model.Item.ThirdNumber" />
-                        <span asp-validation-for="@Model.Item.ThirdNumber"></span>
-                    </div>
-                }
+                    @if (Model.Collection.FirstNumberIsEnabled)
+                    {
+                        <div>
+                            <h2>@Model.Collection.FirstNumberName</h2>
+                            <input asp-for="@Model.Item.FirstNumber" />
+                            <span asp-validation-for="@Model.Item.FirstNumber"></span>
+                        </div>
+                    }
+                    @if (Model.Collection.SecondNumberIsEnabled)
+                    {
+                        <div>
+                            <h2>@Model.Collection.SecondNumberName</h2>
+                            <input asp-for="@Model.Item.SecondNumber" />
+                            <span asp-validation-for="@Model.Item.SecondNumber"></span>
+                        </div>
+                    }
+                    @if (Model.Collection.ThirdNumberIsEnabled)
+                    {
+                        <div>
+                            <h2>@Model.Collection.ThirdNumberName</h2>
+                            <input asp-for="@Model.Item.ThirdNumber" />
+                            <span asp-validation-for="@Model.Item.ThirdNumber"></span>
+                        </div>
+                    }
 
-                @if (Model.Collection.FirstTextIsEnabled)
-                {
-                    <div>
-                        <h2>@Model.Collection.FirstTextName</h2>
-                        <input asp-for="@Model.Item.FirstText" />
-                        <span asp-validation-for="@Model.Item.FirstText"></span>
-                    </div>
-                }
-                @if (Model.Collection.SecondTextIsEnabled)
-                {
-                    <div>
-                        <h2>@Model.Collection.SecondTextName</h2>
-                        <input asp-for="@Model.Item.SecondText" />
-                        <span asp-validation-for="@Model.Item.SecondText"></span>
-                    </div>
-                }
-                @if (Model.Collection.ThirdTextIsEnabled)
-                {
-                    <div>
-                        <h2>@Model.Collection.ThirdTextName</h2>
-                        <input asp-for="@Model.Item.ThirdText" />
-                        <span asp-validation-for="@Model.Item.ThirdText"></span>
-                    </div>
-                }
+                    @if (Model.Collection.FirstTextIsEnabled)
+                    {
+                        <div>
+                            <h2>@Model.Collection.FirstTextName</h2>
+                            <textarea asp-for="@Model.Item.FirstText"></textarea> />
+                            <span asp-validation-for="@Model.Item.FirstText"></span>
+                        </div>
+                    }
+                    @if (Model.Collection.SecondTextIsEnabled)
+                    {
+                        <div>
+                            <h2>@Model.Collection.SecondTextName</h2>
+                            <textarea asp-for="@Model.Item.SecondText"></textarea> />
+                            <span asp-validation-for="@Model.Item.SecondText"></span>
+                        </div>
+                    }
+                    @if (Model.Collection.ThirdTextIsEnabled)
+                    {
+                        <div>
+                            <h2>@Model.Collection.ThirdTextName</h2>
+                            <textarea asp-for="@Model.Item.ThirdText"></textarea> />
+                            <span asp-validation-for="@Model.Item.ThirdText"></span>
+                        </div>
+                    }
 
-                @if (Model.Collection.FirstDateIsEnabled)
-                {
-                    <div>
-                        <h2>@Model.Collection.FirstDateName</h2>
-                        <input asp-for="@Model.Item.FirstDate" />
-                        <span asp-validation-for="@Model.Item.FirstDate"></span>
-                    </div>
-                }
-                @if (Model.Collection.SecondDateIsEnabled)
-                {
-                    <div>
-                        <h2>@Model.Collection.SecondDateName</h2>
-                        <input asp-for="@Model.Item.SecondDate" />
-                        <span asp-validation-for="@Model.Item.SecondDate"></span>
-                    </div>
-                }
-                @if (Model.Collection.ThirdDateIsEnabled)
-                {
-                    <div>
-                        <h2>@Model.Collection.ThirdDateName</h2>
-                        <input asp-for="@Model.Item.ThirdDate" />
-                        <span asp-validation-for="@Model.Item.ThirdDate"></span>
-                    </div>
-                }
+                    @if (Model.Collection.FirstDateIsEnabled)
+                    {
+                        <div>
+                            <h2>@Model.Collection.FirstDateName</h2>
+                            <input asp-for="@Model.Item.FirstDate" />
+                            <span asp-validation-for="@Model.Item.FirstDate"></span>
+                        </div>
+                    }
+                    @if (Model.Collection.SecondDateIsEnabled)
+                    {
+                        <div>
+                            <h2>@Model.Collection.SecondDateName</h2>
+                            <input asp-for="@Model.Item.SecondDate" />
+                            <span asp-validation-for="@Model.Item.SecondDate"></span>
+                        </div>
+                    }
+                    @if (Model.Collection.ThirdDateIsEnabled)
+                    {
+                        <div>
+                            <h2>@Model.Collection.ThirdDateName</h2>
+                            <input asp-for="@Model.Item.ThirdDate" />
+                            <span asp-validation-for="@Model.Item.ThirdDate"></span>
+                        </div>
+                    }
 
-                @if (Model.Collection.FirstCheckBoxIsEnabled)
-                {
-                    <div>
-                        <h2>@Model.Collection.FirstCheckBoxName</h2>
-                        <input asp-for="@Model.Item.FirstCheckBox" />
-                        <span asp-validation-for="@Model.Item.FirstCheckBox"></span>
-                    </div>
-                }
-                @if (Model.Collection.SecondCheckBoxIsEnabled)
-                {
-                    <div>
-                        <h2>@Model.Collection.SecondCheckBoxName</h2>
-                        <input asp-for="@Model.Item.SecondCheckBox" />
-                        <span asp-validation-for="@Model.Item.SecondCheckBox"></span>
-                    </div>
-                }
-                @if (Model.Collection.ThirdCheckBoxIsEnabled)
-                {
-                    <div>
-                        <h2>@Model.Collection.ThirdCheckBoxName</h2>
-                        <input asp-for="@Model.Item.ThirdCheckBox" />
-                        <span asp-validation-for="@Model.Item.ThirdCheckBox"></span>
-                    </div>
-                }
+                    @if (Model.Collection.FirstCheckBoxIsEnabled)
+                    {
+                        <div>
+                            <h2>@Model.Collection.FirstCheckBoxName</h2>
+                            @Html.EditorFor(model => model.Item.FirstCheckBox)
+                            <span asp-validation-for="@Model.Item.FirstCheckBox"></span>
+                        </div>
+                    }
+                    @if (Model.Collection.SecondCheckBoxIsEnabled)
+                    {
+                        <div>
+                            <h2>@Model.Collection.SecondCheckBoxName</h2>
+                            @Html.EditorFor(model => model.Item.SecondCheckBox)
+                            <span asp-validation-for="@Model.Item.SecondCheckBox"></span>
+                        </div>
+                    }
+                    @if (Model.Collection.ThirdCheckBoxIsEnabled)
+                    {
+                        <div>
+                            <h2>@Model.Collection.ThirdCheckBoxName</h2>
+                            @Html.EditorFor(model => model.Item.ThirdCheckBox)
+                            <span asp-validation-for="@Model.Item.ThirdCheckBox"></span>
+                        </div>
+                    }
 
-                <div>
-                    <input type="submit" value="CREATE" />
-                </div>
-            </form>
+                    <div>
+                        <input type="submit" value="CREATE" />
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>

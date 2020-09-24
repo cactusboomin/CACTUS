@@ -1,6 +1,7 @@
 ﻿using CACTUS.Domain;
 using CACTUS.Domain.Entities;
 using CACTUS.Models;
+using Markdig;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -95,7 +96,7 @@ namespace CACTUS.Controllers
 
                 this.dataManager.Items.AddItem(item);
 
-                return RedirectToAction("Index", "Home");
+                return Redirect($"/Collections/Collection/{item.CollectionId}");
             }
             else
             {
@@ -143,7 +144,7 @@ namespace CACTUS.Controllers
 
                 this.dataManager.Items.SaveItem(item);
 
-                return RedirectToAction("Index", "Home");
+                return Redirect($"/Items/Item/{item.UserId}");
             }
             else
             {
@@ -179,7 +180,7 @@ namespace CACTUS.Controllers
 
                     this.dataManager.Items.SaveItem(item);
 
-                    return RedirectToAction("Index", "Home");
+                    return Redirect($"/Items/Item/{item.UserId}");
                 }
                 else
                 {
@@ -213,7 +214,7 @@ namespace CACTUS.Controllers
                     var tag = new Tag
                     {
                         Id = Guid.NewGuid(),
-                        Name = model.Tag
+                        Name = model.Tag.ToUpper()
                     };
 
                     this.dataManager.Tags.AddTag(tag);
@@ -235,19 +236,22 @@ namespace CACTUS.Controllers
                 {
                     var item = this.dataManager.Items.GetItem(model.ItemId);
 
-                    item.ItemTags.Add(new ItemTag
+                    if (!item.ItemTags.Exists(it => it.ItemId == model.ItemId && it.Tag.Name.ToUpper() == model.Tag.ToUpper()))
                     {
-                        Item = item,
-                        ItemId = item.Id,
-                        Tag = checkTag,
-                        TagId = checkTag.Id
-                    });
+                        item.ItemTags.Add(new ItemTag
+                        {
+                            Item = item,
+                            ItemId = item.Id,
+                            Tag = checkTag,
+                            TagId = checkTag.Id
+                        });
 
-                    this.dataManager.Items.SaveItem(item);
-                    this.dataManager.Tags.SaveTag(checkTag);
+                        this.dataManager.Items.SaveItem(item);
+                        this.dataManager.Tags.SaveTag(checkTag);
+                    }
                 }
 
-                return RedirectToAction("Index", "Home");
+                return Redirect($"/Items/Item/{model.ItemId}");
             }
             else
             {
@@ -261,6 +265,20 @@ namespace CACTUS.Controllers
             this.dataManager.Items.DeleteItem(itemId);
 
             return RedirectToAction("Index", "Home");
+        }
+
+        public IActionResult LikeItem(Guid itemId, string userId)
+        {
+            this.dataManager.Likes.Like(userId, itemId);
+
+            return Redirect($"/Items/Item/{itemId}");
+        }
+
+        public IActionResult DisLikeItem(Guid itemId, string userId)
+        {
+            this.dataManager.Likes.Dislike(userId, itemId);
+
+            return Redirect($"/Items/Item/{itemId}");
         }
     }
 }

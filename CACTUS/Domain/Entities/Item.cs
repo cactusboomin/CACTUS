@@ -43,9 +43,9 @@ namespace CACTUS.Domain.Entities
 
         #region CHECKBOXES
 
-        public bool? FirstCheckBox { get; set; }
-        public bool? SecondCheckBox { get; set; }
-        public bool? ThirdCheckBox { get; set; }
+        public bool FirstCheckBox { get; set; }
+        public bool SecondCheckBox { get; set; }
+        public bool ThirdCheckBox { get; set; }
 
         #endregion
     }
