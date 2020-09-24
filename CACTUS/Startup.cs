@@ -32,6 +32,7 @@ namespace CACTUS
             services.AddTransient<ICollectionsRepository, EFCollectionsRepository>();
             services.AddTransient<IItemsRepository, EFItemsRepository>();
             services.AddTransient<ITagsRepository, EFTagsRepository>();
+            services.AddTransient<ILikesRepository, EFLikesRepository>();
             services.AddTransient<DataManager>();
 
             services.AddDbContext<AppDbContext>(x => x.UseSqlServer(Config.ConnectionString));

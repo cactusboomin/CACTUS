@@ -46,6 +46,15 @@ namespace CACTUS.Controllers
             return View(new UserViewModel(this.userManager));
         }
 
+        public IActionResult Favourites()
+        {
+            var user = userManager.GetUserAsync(HttpContext.User).Result;
+
+            var items = this.dataManager.Likes.GetLikedItems(user.Id);
+
+            return View(new ItemsViewModel(items));
+        }
+
         [Authorize]
         public IActionResult Settings()
         {
@@ -84,7 +93,7 @@ namespace CACTUS.Controllers
                 {
                     user.PasswordHash = new PasswordHasher<IdentityUser>().HashPassword(user, model.NewPassword);
                     await userManager.UpdateAsync(user);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Settings", "User");
                 }
                 else
                 {
@@ -118,6 +127,8 @@ namespace CACTUS.Controllers
 
                     await signInManager.SignOutAsync();
                     await Authenticate(user);
+
+                    return RedirectToAction("Settings", "User");
                 }
                 else
                 {
@@ -125,8 +136,10 @@ namespace CACTUS.Controllers
                     return View(model);
                 }
             }
-
-            return RedirectToAction("Index", "Home");
+            else
+            {
+                return View(model);
+            }
         }
 
         [Authorize]
@@ -149,14 +162,14 @@ namespace CACTUS.Controllers
 
                 await signInManager.SignOutAsync();
                 await Authenticate(user);
+
+                return RedirectToAction("Settings", "User");
             }
             else
             {
                 ModelState.AddModelError(string.Empty, "INVALID DATA");
                 return View(model);
             }
-
-            return RedirectToAction("Index", "Home");
         }
 
         public async Task Authenticate(IdentityUser user)

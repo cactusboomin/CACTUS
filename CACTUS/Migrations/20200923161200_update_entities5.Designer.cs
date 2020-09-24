@@ -4,14 +4,16 @@ using CACTUS.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CACTUS.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200923161200_update_entities5")]
+    partial class update_entities5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -144,7 +146,7 @@ namespace CACTUS.Migrations
                             ThirdDateIsEnabled = false,
                             ThirdNumberIsEnabled = false,
                             ThirdTextIsEnabled = false,
-                            TimeAdded = new DateTime(2020, 9, 23, 20, 37, 47, 39, DateTimeKind.Utc).AddTicks(6655),
+                            TimeAdded = new DateTime(2020, 9, 23, 16, 11, 58, 874, DateTimeKind.Utc).AddTicks(5830),
                             Title = "SLIM SHADY",
                             UserId = "7DF74B2D-5189-4622-BD09-FE6337C18C3D"
                         },
@@ -169,7 +171,7 @@ namespace CACTUS.Migrations
                             ThirdDateIsEnabled = false,
                             ThirdNumberIsEnabled = false,
                             ThirdTextIsEnabled = false,
-                            TimeAdded = new DateTime(2020, 9, 23, 20, 37, 47, 40, DateTimeKind.Utc).AddTicks(6630),
+                            TimeAdded = new DateTime(2020, 9, 23, 16, 11, 58, 875, DateTimeKind.Utc).AddTicks(5594),
                             Title = "TRAVIS SCOTT",
                             UserId = "7DF74B2D-5189-4622-BD09-FE6337C18C3D"
                         },
@@ -195,7 +197,7 @@ namespace CACTUS.Migrations
                             ThirdDateIsEnabled = false,
                             ThirdNumberIsEnabled = false,
                             ThirdTextIsEnabled = false,
-                            TimeAdded = new DateTime(2020, 9, 23, 20, 37, 47, 40, DateTimeKind.Utc).AddTicks(6852),
+                            TimeAdded = new DateTime(2020, 9, 23, 16, 11, 58, 875, DateTimeKind.Utc).AddTicks(5817),
                             Title = "KANYE WEST",
                             UserId = "7DF74B2D-5189-4622-BD09-FE6337C18C3D"
                         });
@@ -276,13 +278,13 @@ namespace CACTUS.Migrations
                             Id = new Guid("61bdd256-5b8e-4db5-958c-601ea4d2eda1"),
                             CollectionId = new Guid("48cca082-152c-43df-96f2-7a6345b11cbd"),
                             FirstCheckBox = false,
-                            FirstDate = new DateTime(2020, 9, 23, 23, 37, 47, 41, DateTimeKind.Local).AddTicks(2604),
+                            FirstDate = new DateTime(2020, 9, 23, 19, 11, 58, 876, DateTimeKind.Local).AddTicks(3987),
                             FirstNumber = 1000.0,
                             FirstText = "DON'T YOU OPEN UP THE WINDOW",
                             SecondCheckBox = false,
                             Theme = "FIRST",
                             ThirdCheckBox = false,
-                            TimeAdded = new DateTime(2020, 9, 23, 20, 37, 47, 41, DateTimeKind.Utc).AddTicks(826),
+                            TimeAdded = new DateTime(2020, 9, 23, 16, 11, 58, 876, DateTimeKind.Utc).AddTicks(1068),
                             Title = "TRAVIS",
                             UserId = "7DF74B2D-5189-4622-BD09-FE6337C18C3D"
                         },
@@ -291,13 +293,13 @@ namespace CACTUS.Migrations
                             Id = new Guid("3246a17e-a59d-42d6-8a26-cd4bf84f8612"),
                             CollectionId = new Guid("c0b297f8-367b-4465-b7b1-0dbcc470ad7a"),
                             FirstCheckBox = false,
-                            FirstDate = new DateTime(2020, 9, 23, 23, 37, 47, 43, DateTimeKind.Local).AddTicks(1414),
+                            FirstDate = new DateTime(2020, 9, 23, 19, 11, 58, 878, DateTimeKind.Local).AddTicks(117),
                             FirstNumber = 1000.0,
                             FirstText = "DON'T YOU LET OUT THE ANTIDOTE",
                             SecondCheckBox = false,
                             Theme = "SECOND",
                             ThirdCheckBox = false,
-                            TimeAdded = new DateTime(2020, 9, 23, 20, 37, 47, 43, DateTimeKind.Utc).AddTicks(1269),
+                            TimeAdded = new DateTime(2020, 9, 23, 16, 11, 58, 877, DateTimeKind.Utc).AddTicks(9976),
                             Title = "SECOND ITEM",
                             UserId = "7DF74B2D-5189-4622-BD09-FE6337C18C3D"
                         },
@@ -307,12 +309,12 @@ namespace CACTUS.Migrations
                             CollectionId = new Guid("b5306fba-e436-4d49-a902-2ce1d01002b8"),
                             FirstCheckBox = true,
                             SecondCheckBox = false,
-                            SecondDate = new DateTime(2020, 9, 23, 23, 37, 47, 43, DateTimeKind.Local).AddTicks(2840),
+                            SecondDate = new DateTime(2020, 9, 23, 19, 11, 58, 878, DateTimeKind.Local).AddTicks(2281),
                             SecondNumber = 10000000.0,
                             SecondText = "STRAIGHT UP",
                             Theme = "THIRD",
                             ThirdCheckBox = false,
-                            TimeAdded = new DateTime(2020, 9, 23, 20, 37, 47, 43, DateTimeKind.Utc).AddTicks(1443),
+                            TimeAdded = new DateTime(2020, 9, 23, 16, 11, 58, 878, DateTimeKind.Utc).AddTicks(148),
                             Title = "THIRD ITEM",
                             UserId = "7DF74B2D-5189-4622-BD09-FE6337C18C3D"
                         });
@@ -355,21 +357,6 @@ namespace CACTUS.Migrations
                         });
                 });
 
-            modelBuilder.Entity("CACTUS.Domain.Entities.Like", b =>
-                {
-                    b.Property<Guid>("ItemId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("ItemId", "UserId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Likes");
-                });
-
             modelBuilder.Entity("CACTUS.Domain.Entities.Tag", b =>
                 {
                     b.Property<Guid>("Id")
@@ -407,6 +394,23 @@ namespace CACTUS.Migrations
                         });
                 });
 
+            modelBuilder.Entity("CACTUS.Models.FileModel", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Path")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Files");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -437,14 +441,14 @@ namespace CACTUS.Migrations
                         new
                         {
                             Id = "1E2EFB41-DAA4-4643-9E94-418D05609F57",
-                            ConcurrencyStamp = "2cff096c-e9a2-4116-9d68-3df2709f2560",
+                            ConcurrencyStamp = "0edca9b1-7ffd-4099-949a-d2d35eb6e461",
                             Name = "admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "02d962c8-3531-41e9-bf0f-bdf29fb0b745",
-                            ConcurrencyStamp = "321aebbe-3946-477d-afe3-e7f523e7bd6d",
+                            ConcurrencyStamp = "6030e19a-b6fc-4bed-a450-104d47a7afa6",
                             Name = "user",
                             NormalizedName = "USER"
                         });
@@ -543,13 +547,13 @@ namespace CACTUS.Migrations
                         {
                             Id = "7DF74B2D-5189-4622-BD09-FE6337C18C3D",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "6a96a5bb-2691-4d12-9a5a-9eaaf31918cf",
+                            ConcurrencyStamp = "aef36848-8671-4070-8d4b-4cf4223f178e",
                             Email = "123@mail.ru",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "123@MAIL.RU",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAELlvBRm4kfHn3qPF2T+v/hN0XF5Oh4JpMYwxMWRclDdWdj4+h5nXAxkquZdr/Drx8g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECk3eN1L8Heh1BHIpZgG07VV5FKFO7icKF+MfcypeNiwTy5eBsb5r+pRwFKSyM8XAQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -559,13 +563,13 @@ namespace CACTUS.Migrations
                         {
                             Id = "9a0136a4-5b7a-41ac-b9d9-0556dbd09eda",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3a44508c-cd99-4c7b-86e8-9d5a83c0e918",
+                            ConcurrencyStamp = "bbefdc1b-e53e-43a9-b381-259f05f01d74",
                             Email = "oc@yandex.by",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "OC@YANDEX.BY",
                             NormalizedUserName = "USER",
-                            PasswordHash = "AQAAAAEAACcQAAAAEInlrq9qcfI5Y/XVDQklSrJmHdJiQ0pg7fnycjIA1kC34JTsJWNHzmoNjOo3rmmggQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOq14lDZ03E2PJT9U4AKtLEDwVciBnQVrPqUmUP6i8wzpHM2g/w/pTpTaAYS7321iQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -685,21 +689,6 @@ namespace CACTUS.Migrations
                     b.HasOne("CACTUS.Domain.Entities.Tag", "Tag")
                         .WithMany("ItemTags")
                         .HasForeignKey("TagId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("CACTUS.Domain.Entities.Like", b =>
-                {
-                    b.HasOne("CACTUS.Domain.Entities.Item", "Item")
-                        .WithMany()
-                        .HasForeignKey("ItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

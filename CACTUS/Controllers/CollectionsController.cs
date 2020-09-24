@@ -205,7 +205,7 @@ namespace CACTUS.Controllers
 
                 this.dataManager.Collections.AddCollection(collection);
 
-                return RedirectToAction("Index", "Home");
+                return Redirect($"/User/Index/{collection.UserId}");
             }
             else
             {
@@ -249,7 +249,7 @@ namespace CACTUS.Controllers
                     this.dataManager.Collections.SaveCollection(collection);
                 }
 
-                return RedirectToAction("Index", "Home");
+                return Redirect($"/Collections/Collection/{model.CollectionId}");
             }
             else
             {
@@ -285,7 +285,7 @@ namespace CACTUS.Controllers
 
                     this.dataManager.Collections.SaveCollection(collection);
 
-                    return RedirectToAction("Index", "Home");
+                    return Redirect($"/Collections/Collection/{collection.Id}");
                 }
                 else
                 {
@@ -323,7 +323,7 @@ namespace CACTUS.Controllers
                     this.dataManager.Collections.SaveCollection(collection);
                 }
 
-                return RedirectToAction("Index", "Home");
+                return Redirect($"/Collections/Collection/{model.CollectionId}");
             }
             else
             { 
@@ -363,7 +363,7 @@ namespace CACTUS.Controllers
 
                 this.dataManager.Collections.SaveCollection(collection);
 
-                return RedirectToAction("Index", "Home");
+                return Redirect($"/Collections/Collection/{collection.Id}");
             }
             else
             {

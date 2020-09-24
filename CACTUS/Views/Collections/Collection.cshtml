@@ -61,8 +61,10 @@
         <h2>CREATOR: <a asp-action="Index" asp-controller="User" asp-route-userId="@Model.Collection.UserId">@Model.UserName</a></h2>
         }
         <h2>@Model.Collection.Theme</h2>
-        <h2>@Model.Collection.Description</h2>
-
+        @if (Model.Collection.Description != null)
+        {
+        <h2><p>@Markdown.ToPlainText(Model.Collection.Description)</p></h2>
+        }
         <section class="tiles">
             @foreach (var i in Model.Items)
             {

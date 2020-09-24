@@ -21,6 +21,17 @@
                     <img src="~/images/tag.jpg" alt="" />
                 </span>
                 <a asp-controller="Collections"
+                   asp-action="EditTitleImage"
+                   asp-route-collectionId="@Model.Collection.Id">
+                    <h2>EDIT TITLE IMAGE</h2>
+                </a>
+            </article>
+
+            <article class="style3">
+                <span class="image">
+                    <img src="~/images/tag.jpg" alt="" />
+                </span>
+                <a asp-controller="Collections"
                    asp-action="EditDescription"
                    asp-route-collectionId="@Model.Collection.Id">
                     <h2>EDIT DESCRIPTION</h2>

@@ -21,6 +21,8 @@ namespace CACTUS.Models
 
         public ItemsViewModel(DataManager manager, Guid id)
         {
+            this.manager = manager;
+
             this.Item = manager.Items.GetItem(id);
 
             this.Items = manager.Items.GetItems()
@@ -36,6 +38,8 @@ namespace CACTUS.Models
         {
             this.Items = items.ToList();
         }
+
+        public DataManager manager { get; set; }
 
         public List<Item> Items { get; set; }
 

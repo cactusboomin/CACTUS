@@ -25,7 +25,7 @@ namespace CACTUS.Domain.Repositories.EntityFramework
 
         public Item GetItem(Guid Id)
         {
-            return this.context.Items.FirstOrDefault(x => x.Id == Id);
+            return this.context.Items.Include(i => i.ItemTags).ThenInclude(it => it.Tag).FirstOrDefault(x => x.Id == Id);
         }
 
         public IQueryable<Item> GetItems()
