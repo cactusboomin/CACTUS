@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using AspNet.Security.OAuth.Vkontakte;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,6 +31,8 @@ namespace CACTUS
         {
             Configuration.Bind("Project", new Config());
 
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddTransient<ILanguageService, LanguageEnglish>();
             services.AddTransient<ICollectionsRepository, EFCollectionsRepository>();
             services.AddTransient<IItemsRepository, EFItemsRepository>();
             services.AddTransient<ITagsRepository, EFTagsRepository>();
@@ -58,17 +62,9 @@ namespace CACTUS
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme);
 
-            services.AddAuthorization(x =>
-            {
-                x.AddPolicy("AdminArea", policy => { policy.RequireRole("admin"); });
-            });
+            services.AddAuthorization();
 
-            services.AddControllersWithViews(x =>
-            {
-                x.Conventions.Add(new AdminAreaAuthorization("Admin", "AdminArea"));
-            })
-                .SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0)
-                .AddSessionStateTempDataProvider();
+            services.AddControllersWithViews();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -83,13 +79,13 @@ namespace CACTUS
             app.UseRouting();
 
             app.UseCookiePolicy();
+
             app.UseAuthentication();
 
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute("admin", "{area:exists}/{controller=Home}/{action=Index}");
                 endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
             });
         }

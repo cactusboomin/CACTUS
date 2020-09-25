@@ -1,7 +1,45 @@
-﻿<header id="header">
-    <div class="inner">
+﻿@inject IHttpContextAccessor httpContextAccessor
 
-        <!-- Logo -->
+<header id="header">
+    <div class="inner">
+        
+        <section class="tiles">
+            <article>
+                @{
+                    if (httpContextAccessor.HttpContext.Request.Cookies["theme"] == null ||
+                        httpContextAccessor.HttpContext.Request.Cookies["theme"].ToString() == "LIGHT")
+                    {
+                        <form method="post" asp-controller="Home" asp-action="ChangeTheme" asp-route-theme="DARK">
+                            <input type="submit" value="DARK" />
+                        </form>
+                    }
+                    else
+                    {
+                        <form method="post" asp-controller="Home" asp-action="ChangeTheme" asp-route-theme="LIGHT">
+                            <input type="submit" value="LIGHT" />
+                        </form>
+                    }
+                }
+                </article>
+            <article>
+                @{
+                    if (httpContextAccessor.HttpContext.Request.Cookies["theme"] == null ||
+                        httpContextAccessor.HttpContext.Request.Cookies["theme"].ToString() == "LIGHT")
+                    {
+                        <form method="post" asp-controller="Home" asp-action="ChangeTheme" asp-route-theme="DARK" asp-route-returnUrl="@ViewBag.returnUrl">
+                            <input type="submit" value="DARK" />
+                        </form>
+                    }
+                    else
+                    {
+                        <form method="post" asp-controller="Home" asp-action="ChangeTheme" asp-route-theme="LIGHT" asp-route-returnUrl="@ViewBag.returnUrl">
+                            <input type="submit" value="LIGHT" />
+                        </form>
+                    }
+                }
+            </article>
+        </section>
+
         <a href="/" class="logo">
             <span class="symbol"><img src="~/images/logo.svg" alt="" /></span><span class="title">CACTUS</span>
         </a>

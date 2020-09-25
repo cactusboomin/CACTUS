@@ -1,5 +1,6 @@
 ﻿using CACTUS.Domain;
 using CACTUS.Models;
+using CACTUS.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -41,11 +42,27 @@ namespace CACTUS.Controllers
             return View(new UserViewModel(user, dataManager));
         }
 
+        [HttpPost]
+        public async Task<IActionResult> SendEmail(string name, string email, string message)
+        {
+            if (ModelState.IsValid)
+            {
+                await EmailService.SendEmailAsync(name, email, message);
+
+                return Redirect("/Home/Index");
+            }
+            else
+            {
+                return Redirect("/Home/Index");
+            }
+        }
+
         public IActionResult AllUsers()
         {
             return View(new UserViewModel(this.userManager));
         }
 
+        [Authorize]
         public IActionResult Favourites()
         {
             var user = userManager.GetUserAsync(HttpContext.User).Result;
@@ -167,7 +184,6 @@ namespace CACTUS.Controllers
             }
             else
             {
-                ModelState.AddModelError(string.Empty, "INVALID DATA");
                 return View(model);
             }
         }

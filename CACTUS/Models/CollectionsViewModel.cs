@@ -45,16 +45,12 @@ namespace CACTUS.Models
             this.Collection = manager.Collections.GetCollections().FirstOrDefault(c => c.Id == id);
         }
 
-        [Display(Name = "COLLECTIONS")]
         public List<Collection> Collections { get; set; }
 
-        [Display(Name = "COLLECTION")]
         public Collection Collection { get; set; }
 
-        [Display(Name = "ITEMS")]
         public List<Item> Items { get; set; }
 
-        [Display(Name = "TITLE IMAGE")]
         public IFormFile TitleImage { get; set; }
 
         public string UserName { get; set; }

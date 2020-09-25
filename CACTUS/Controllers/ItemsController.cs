@@ -267,6 +267,7 @@ namespace CACTUS.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [Authorize]
         public IActionResult LikeItem(Guid itemId, string userId)
         {
             this.dataManager.Likes.Like(userId, itemId);
@@ -274,6 +275,7 @@ namespace CACTUS.Controllers
             return Redirect($"/Items/Item/{itemId}");
         }
 
+        [Authorize]
         public IActionResult DisLikeItem(Guid itemId, string userId)
         {
             this.dataManager.Likes.Dislike(userId, itemId);
