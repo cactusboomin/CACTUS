@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CACTUS.Domain;
 using CACTUS.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -55,6 +56,16 @@ namespace CACTUS.Controllers
             return View(new HomeViewModel(collections.AsNoTracking().ToList(),
                                             items.AsNoTracking().ToList(),
                                             this.manager.Tags.GetTags().AsNoTracking().ToList()));
+        }
+    
+        [HttpPost]
+        public IActionResult ChangeTheme(string theme, string returnUrl)
+        {
+            CookieOptions cookies = new CookieOptions();
+            
+            Response.Cookies.Append("theme", theme, cookies);
+
+            return Redirect(returnUrl ?? "/");
         }
     }
 }

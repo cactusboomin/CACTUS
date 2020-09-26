@@ -1,4 +1,5 @@
 ﻿using CACTUS.Domain.Repositories.Abstract;
+using CACTUS.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,8 @@ namespace CACTUS.Domain
         public ITagsRepository Tags { get; set; }
         public ILikesRepository Likes { get; set; }
 
-        public DataManager(IItemsRepository items, ICollectionsRepository collections, ITagsRepository tags, ILikesRepository likes)
+        public DataManager(IItemsRepository items, ICollectionsRepository collections, 
+            ITagsRepository tags, ILikesRepository likes)
         {
             this.Items = items;
             this.Collections = collections;

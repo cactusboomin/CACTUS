@@ -105,7 +105,6 @@ namespace CACTUS.Controllers
                 }
             }
 
-            ModelState.AddModelError("", "UNCORRECT DATA.");
             return View(model);
         }
 

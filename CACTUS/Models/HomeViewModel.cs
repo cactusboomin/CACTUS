@@ -18,13 +18,10 @@ namespace CACTUS.Models
             this.Tags = tags.ToList();
         }
 
-        [Display(Name = "COLLECTIONS")]
         public List<Collection> Collections { get; set; }
 
-        [Display(Name = "ITEMS")]
         public List<Item> Items { get; set; }
 
-        [Display(Name = "TAGS")]
         public List<Tag> Tags { get; set; }
     }
 }

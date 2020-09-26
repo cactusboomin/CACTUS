@@ -15,7 +15,7 @@ namespace CACTUS.Models
         [Display(Name = "NEW TITLE")]
         public string Title { get; set; }
 
-        [Display(Name = "NEW IMAGE")]
+        [Display(Name = "NEW TITLE IMAGE")]
         public IFormFile TitleImage { get; set; }
     }
 }

@@ -1,10 +1,31 @@
-﻿<!DOCTYPE HTML>
+﻿@inject IHttpContextAccessor httpContextAccessor
+<!DOCTYPE HTML>
 <html>
 <head>
     <title>CACTUS</title>
     <link rel="shortcut icon" href="~/images/favicon.ico" type="image/x-icon">
     @await Html.PartialAsync("MetatagsPartial")
-    @await Html.PartialAsync("CssPartial")
+    @{
+        <noscript><link rel="stylesheet" href="~/css/noscript.css" /></noscript>
+        string theme;
+        if (httpContextAccessor.HttpContext.Request.Cookies["theme"] == null)
+        {
+            theme = "LIGHT";
+        }
+        else
+        {
+            theme = httpContextAccessor.HttpContext.Request.Cookies["theme"].ToString();
+        }
+
+        if (theme == "DARK")
+        {
+            <link rel="stylesheet" href="~/css/darkmain.css" />
+        }
+        else
+        {
+            <link rel="stylesheet" href="~/css/lightmain.css" />
+            }
+        }
 </head>
 <body class="is-preload">
     <!-- Wrapper -->
@@ -12,9 +33,10 @@
 
         <!-- Header -->
         @await Html.PartialAsync("HeaderPartial")
+
         @await Html.PartialAsync("MenuPartial")
 
-                @RenderBody()
+        @RenderBody()
 
         <!-- Footer -->
         @await Html.PartialAsync("FooterPartial")

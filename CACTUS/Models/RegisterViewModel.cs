@@ -23,7 +23,7 @@ namespace CACTUS.Models
         [Display(Name = "CONFIRM PASSWORD")]
         public string PasswordConfirm { get; set; }
 
-        [Required(ErrorMessage = "INPUT USER NAME")]
+        [Required(ErrorMessage = "ENTER USER NAME")]
         [Display(Name = "USER NAME")]
         public string UserName { get; set; }
     }
