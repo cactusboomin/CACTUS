@@ -25,6 +25,8 @@ namespace CACTUS.Models
 
             this.Item = manager.Items.GetItem(id);
 
+            this.Comments = manager.Comments.GetComments(id).Include(c => c.User).ToList();
+
             this.Items = manager.Items.GetItems()
                 .Include(i => i.Collection)
                 .Include(i => i.ItemTags)
@@ -44,6 +46,8 @@ namespace CACTUS.Models
         public List<Item> Items { get; set; }
 
         public Item Item { get; set; }
+
+        public List<Comment> Comments { get; set; }
 
         public Collection Collection { get; set; }
 
