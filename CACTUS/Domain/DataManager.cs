@@ -9,20 +9,18 @@ namespace CACTUS.Domain
 {
     public class DataManager
     {
-        public ILanguageService Language { get; set; }
         public IItemsRepository Items { get; set; }
         public ICollectionsRepository Collections { get; set; }
         public ITagsRepository Tags { get; set; }
         public ILikesRepository Likes { get; set; }
 
         public DataManager(IItemsRepository items, ICollectionsRepository collections, 
-            ITagsRepository tags, ILikesRepository likes, ILanguageService language)
+            ITagsRepository tags, ILikesRepository likes)
         {
             this.Items = items;
             this.Collections = collections;
             this.Tags = tags;
             this.Likes = likes;
-            this.Language = language;
         }
     }
 }

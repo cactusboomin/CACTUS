@@ -32,7 +32,6 @@ namespace CACTUS
             Configuration.Bind("Project", new Config());
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddTransient<ILanguageService, LanguageEnglish>();
             services.AddTransient<ICollectionsRepository, EFCollectionsRepository>();
             services.AddTransient<IItemsRepository, EFItemsRepository>();
             services.AddTransient<ITagsRepository, EFTagsRepository>();
