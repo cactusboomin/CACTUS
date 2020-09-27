@@ -13,14 +13,16 @@ namespace CACTUS.Domain
         public ICollectionsRepository Collections { get; set; }
         public ITagsRepository Tags { get; set; }
         public ILikesRepository Likes { get; set; }
+        public ICommentsRepository Comments { get; set; }
 
         public DataManager(IItemsRepository items, ICollectionsRepository collections, 
-            ITagsRepository tags, ILikesRepository likes)
+            ITagsRepository tags, ILikesRepository likes, ICommentsRepository comments)
         {
             this.Items = items;
             this.Collections = collections;
             this.Tags = tags;
             this.Likes = likes;
+            this.Comments = comments;
         }
     }
 }

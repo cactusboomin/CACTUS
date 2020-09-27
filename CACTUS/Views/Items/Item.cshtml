@@ -4,19 +4,27 @@
     <div class="inner">
         <h1>@Model.Item.Title</h1>
 
-        @if (Model.manager.Likes.HasLike(Model.Item.UserId, Model.Item.Id))
+        @if (User.Identity.IsAuthenticated)
+
         {
-            <h4><a asp-action="DisLikeItem" asp-controller="Items"
-                    asp-route-userId="@Model.Item.UserId" asp-route-itemId="@Model.Item.Id">
-                DISLIKE
-            </a></h4>
-        }
-        else
-        {
-            <h4><a asp-action="LikeItem" asp-controller="Items"
-                    asp-route-userId="@Model.Item.UserId" asp-route-itemId="@Model.Item.Id">
-                LIKE
-            </a></h4>
+            @if (Model.manager.Likes.HasLike(Model.Item.UserId, Model.Item.Id))
+            {
+                <h4>
+                    <a asp-action="DisLikeItem" asp-controller="Items"
+                       asp-route-userId="@Model.Item.UserId" asp-route-itemId="@Model.Item.Id">
+                        DISLIKE
+                    </a>
+                </h4>
+            }
+            else
+            {
+                <h4>
+                    <a asp-action="LikeItem" asp-controller="Items"
+                       asp-route-userId="@Model.Item.UserId" asp-route-itemId="@Model.Item.Id">
+                        LIKE
+                    </a>
+                </h4>
+            }
         }
 
         @if ((User.Identity.IsAuthenticated) && ((User.Identity.Name == Model.UserName) || (User.IsInRole("admin"))))
@@ -80,7 +88,6 @@
                         @Model.Item.Theme
                     </h2>
                     <h2>DATE: @Model.Item.TimeAdded</h2>
-
 
                     @if (Model.Item.Collection.FirstNumberIsEnabled)
                     {
@@ -193,5 +200,42 @@
                             </article>
                         }
                     </section>
+
+                    @if ((User.Identity.Name == Model.UserName) && (User.IsInRole("admin")))
+                        @foreach (var c in Model.manager.Comments.GetComments(Model.Item.Id).OrderBy(c => c.Date))
+                        {
+                            <div class="comments">
+                                <div class="comment dialog">
+                                    <h6>@c.User.UserName:</h6>
+                                    <p>@c.Text</p>
+                                    <h4>
+                                        <a asp-action="DeleteComment" asp-controller="Items"
+                                           asp-route-commentId="@c.CommentId" asp-route-itemId="@Model.Item.Id">
+                                            DELETE
+                                        </a>
+                                    </h4>
+                                </div>
+                            </div>
+                        }
+                    }
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <form method="post" asp-action="Comment" asp-controller="Items">
+
+                            <div class="fields">
+                                <label>@Model.UserName</label>
+                                <input name="itemId" type="hidden" asp-for="@Model.Item.Id" />
+
+                                <div class="field">
+                                    <textarea name="message" id="message" placeholder="Message"></textarea>
+                                </div>
+                            </div>
+
+                            <ul class="actions">
+                                <li><input type="submit" value="COMMENT" class="primary" /></li>
+                            </ul>
+                        </form>
+                    }
                 </div>
             </div>

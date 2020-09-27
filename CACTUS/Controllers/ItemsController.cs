@@ -271,7 +271,7 @@ namespace CACTUS.Controllers
         public IActionResult LikeItem(Guid itemId, string userId)
         {
             this.dataManager.Likes.Like(userId, itemId);
-
+            
             return Redirect($"/Items/Item/{itemId}");
         }
 
@@ -279,6 +279,28 @@ namespace CACTUS.Controllers
         public IActionResult DisLikeItem(Guid itemId, string userId)
         {
             this.dataManager.Likes.Dislike(userId, itemId);
+
+            return Redirect($"/Items/Item/{itemId}");
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult Comment(Guid itemId, string message)
+        {
+            var userId = userManager.GetUserAsync(HttpContext.User).Result.Id;
+
+            if (ModelState.IsValid)
+            {
+                this.dataManager.Comments.AddComment(userId, itemId, message);
+            }
+            
+            return Redirect($"/Items/Item/{itemId}");
+        }
+
+        [Authorize]
+        public IActionResult DeleteComment(Guid commentId, Guid itemId)
+        {
+            this.dataManager.Comments.DeleteComment(commentId);
 
             return Redirect($"/Items/Item/{itemId}");
         }

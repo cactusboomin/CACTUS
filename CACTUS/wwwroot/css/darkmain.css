@@ -3138,7 +3138,7 @@ body.is-menu-visible #menu {
 
 #footer {
     padding: 5em 0 6em 0;
-    background-color: #1a1a1a;
+    background-color: #000000;
 }
 
     #footer > .inner {
@@ -3320,3 +3320,36 @@ body.is-menu-visible #menu {
 .left {
     float: left;
 }
+
+.comments {
+}
+
+.comment {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+    .comment p {
+        margin: 0 0 10px 0;
+    }
+
+.dialog {
+    position: relative;
+    background: #000000;
+    padding: 20px;
+    border-radius: 3px;
+    margin-left: 20px;
+}
+
+    .dialog::after {
+        content: '';
+        display: block;
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-top: 8px solid transparent;
+        border-bottom: 8px solid transparent;
+        border-right: 15px solid #000000;
+        left: -15px;
+        top: 15px;
+    }

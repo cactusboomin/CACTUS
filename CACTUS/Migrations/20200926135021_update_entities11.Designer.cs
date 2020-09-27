@@ -4,14 +4,16 @@ using CACTUS.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CACTUS.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200926135021_update_entities11")]
+    partial class update_entities11
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -121,6 +123,84 @@ namespace CACTUS.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Collections");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("48cca082-152c-43df-96f2-7a6345b11cbd"),
+                            Description = "LALALA",
+                            FirstCheckBoxIsEnabled = true,
+                            FirstCheckBoxName = "LOL",
+                            FirstDateIsEnabled = true,
+                            FirstDateName = "SLIM SHADY",
+                            FirstNumberIsEnabled = true,
+                            FirstNumberName = "HUH?",
+                            FirstTextIsEnabled = true,
+                            FirstTextName = "MY NAME IS",
+                            SecondCheckBoxIsEnabled = false,
+                            SecondDateIsEnabled = false,
+                            SecondNumberIsEnabled = false,
+                            SecondTextIsEnabled = false,
+                            Theme = "OLD SCHOOL",
+                            ThirdCheckBoxIsEnabled = false,
+                            ThirdDateIsEnabled = false,
+                            ThirdNumberIsEnabled = false,
+                            ThirdTextIsEnabled = false,
+                            TimeAdded = new DateTime(2020, 9, 26, 13, 50, 20, 269, DateTimeKind.Utc).AddTicks(5033),
+                            Title = "SLIM SHADY",
+                            UserId = "7DF74B2D-5189-4622-BD09-FE6337C18C3D"
+                        },
+                        new
+                        {
+                            Id = new Guid("c0b297f8-367b-4465-b7b1-0dbcc470ad7a"),
+                            Description = "ITS LIT",
+                            FirstCheckBoxIsEnabled = true,
+                            FirstCheckBoxName = "SSSSS",
+                            FirstDateIsEnabled = true,
+                            FirstDateName = "FFFFFFFFFFFF",
+                            FirstNumberIsEnabled = true,
+                            FirstNumberName = "HABABAGAGAGA",
+                            FirstTextIsEnabled = true,
+                            FirstTextName = "AAAAAAAA",
+                            SecondCheckBoxIsEnabled = false,
+                            SecondDateIsEnabled = false,
+                            SecondNumberIsEnabled = false,
+                            SecondTextIsEnabled = false,
+                            Theme = "ASTROWORLD",
+                            ThirdCheckBoxIsEnabled = false,
+                            ThirdDateIsEnabled = false,
+                            ThirdNumberIsEnabled = false,
+                            ThirdTextIsEnabled = false,
+                            TimeAdded = new DateTime(2020, 9, 26, 13, 50, 20, 270, DateTimeKind.Utc).AddTicks(2901),
+                            Title = "TRAVIS SCOTT",
+                            UserId = "7DF74B2D-5189-4622-BD09-FE6337C18C3D"
+                        },
+                        new
+                        {
+                            Id = new Guid("b5306fba-e436-4d49-a902-2ce1d01002b8"),
+                            Description = "I HATE BEING",
+                            FirstCheckBoxIsEnabled = true,
+                            FirstCheckBoxName = "LOL",
+                            FirstDateIsEnabled = false,
+                            FirstNumberIsEnabled = false,
+                            FirstTextIsEnabled = false,
+                            SecondCheckBoxIsEnabled = true,
+                            SecondCheckBoxName = "HA",
+                            SecondDateIsEnabled = true,
+                            SecondDateName = "AWESOME",
+                            SecondNumberIsEnabled = true,
+                            SecondNumberName = "IT'S",
+                            SecondTextIsEnabled = true,
+                            SecondTextName = "BIPOLAR",
+                            Theme = "PSYCHO",
+                            ThirdCheckBoxIsEnabled = false,
+                            ThirdDateIsEnabled = false,
+                            ThirdNumberIsEnabled = false,
+                            ThirdTextIsEnabled = false,
+                            TimeAdded = new DateTime(2020, 9, 26, 13, 50, 20, 270, DateTimeKind.Utc).AddTicks(3086),
+                            Title = "KANYE WEST",
+                            UserId = "7DF74B2D-5189-4622-BD09-FE6337C18C3D"
+                        });
                 });
 
             modelBuilder.Entity("CACTUS.Domain.Entities.Comment", b =>
@@ -220,6 +300,53 @@ namespace CACTUS.Migrations
                     b.HasIndex("CollectionId");
 
                     b.ToTable("Items");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("61bdd256-5b8e-4db5-958c-601ea4d2eda1"),
+                            CollectionId = new Guid("48cca082-152c-43df-96f2-7a6345b11cbd"),
+                            FirstCheckBox = false,
+                            FirstDate = new DateTime(2020, 9, 26, 16, 50, 20, 270, DateTimeKind.Local).AddTicks(9755),
+                            FirstNumber = 1000.0,
+                            FirstText = "DON'T YOU OPEN UP THE WINDOW",
+                            SecondCheckBox = false,
+                            Theme = "FIRST",
+                            ThirdCheckBox = false,
+                            TimeAdded = new DateTime(2020, 9, 26, 13, 50, 20, 270, DateTimeKind.Utc).AddTicks(7422),
+                            Title = "TRAVIS",
+                            UserId = "7DF74B2D-5189-4622-BD09-FE6337C18C3D"
+                        },
+                        new
+                        {
+                            Id = new Guid("3246a17e-a59d-42d6-8a26-cd4bf84f8612"),
+                            CollectionId = new Guid("c0b297f8-367b-4465-b7b1-0dbcc470ad7a"),
+                            FirstCheckBox = false,
+                            FirstDate = new DateTime(2020, 9, 26, 16, 50, 20, 272, DateTimeKind.Local).AddTicks(6727),
+                            FirstNumber = 1000.0,
+                            FirstText = "DON'T YOU LET OUT THE ANTIDOTE",
+                            SecondCheckBox = false,
+                            Theme = "SECOND",
+                            ThirdCheckBox = false,
+                            TimeAdded = new DateTime(2020, 9, 26, 13, 50, 20, 272, DateTimeKind.Utc).AddTicks(6586),
+                            Title = "SECOND ITEM",
+                            UserId = "7DF74B2D-5189-4622-BD09-FE6337C18C3D"
+                        },
+                        new
+                        {
+                            Id = new Guid("19e19e85-8ca7-4eb4-8dc9-63e70c93a47f"),
+                            CollectionId = new Guid("b5306fba-e436-4d49-a902-2ce1d01002b8"),
+                            FirstCheckBox = true,
+                            SecondCheckBox = false,
+                            SecondDate = new DateTime(2020, 9, 26, 16, 50, 20, 272, DateTimeKind.Local).AddTicks(8516),
+                            SecondNumber = 10000000.0,
+                            SecondText = "STRAIGHT UP",
+                            Theme = "THIRD",
+                            ThirdCheckBox = false,
+                            TimeAdded = new DateTime(2020, 9, 26, 13, 50, 20, 272, DateTimeKind.Utc).AddTicks(6752),
+                            Title = "THIRD ITEM",
+                            UserId = "7DF74B2D-5189-4622-BD09-FE6337C18C3D"
+                        });
                 });
 
             modelBuilder.Entity("CACTUS.Domain.Entities.ItemTag", b =>
@@ -235,6 +362,28 @@ namespace CACTUS.Migrations
                     b.HasIndex("TagId");
 
                     b.ToTable("ItemTag");
+
+                    b.HasData(
+                        new
+                        {
+                            ItemId = new Guid("61bdd256-5b8e-4db5-958c-601ea4d2eda1"),
+                            TagId = new Guid("ac7e2eb6-ffb3-4f9e-bbda-1574c07f47bc")
+                        },
+                        new
+                        {
+                            ItemId = new Guid("3246a17e-a59d-42d6-8a26-cd4bf84f8612"),
+                            TagId = new Guid("6a179fe5-db82-4cf2-b529-00359bf5b99d")
+                        },
+                        new
+                        {
+                            ItemId = new Guid("19e19e85-8ca7-4eb4-8dc9-63e70c93a47f"),
+                            TagId = new Guid("6d067807-2076-4c1f-9e2b-1d766e8bef2c")
+                        },
+                        new
+                        {
+                            ItemId = new Guid("19e19e85-8ca7-4eb4-8dc9-63e70c93a47f"),
+                            TagId = new Guid("2bf21f1c-ed7a-4943-a844-7eb7ddc66447")
+                        });
                 });
 
             modelBuilder.Entity("CACTUS.Domain.Entities.Like", b =>
@@ -265,6 +414,28 @@ namespace CACTUS.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Tags");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("ac7e2eb6-ffb3-4f9e-bbda-1574c07f47bc"),
+                            Name = "RAP"
+                        },
+                        new
+                        {
+                            Id = new Guid("6a179fe5-db82-4cf2-b529-00359bf5b99d"),
+                            Name = "POP"
+                        },
+                        new
+                        {
+                            Id = new Guid("6d067807-2076-4c1f-9e2b-1d766e8bef2c"),
+                            Name = "ROCK"
+                        },
+                        new
+                        {
+                            Id = new Guid("2bf21f1c-ed7a-4943-a844-7eb7ddc66447"),
+                            Name = "JAZZ"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -297,14 +468,14 @@ namespace CACTUS.Migrations
                         new
                         {
                             Id = "1E2EFB41-DAA4-4643-9E94-418D05609F57",
-                            ConcurrencyStamp = "68c64fbd-017d-41ea-bada-2a1f98e24824",
+                            ConcurrencyStamp = "64cd417d-ddab-462c-a0d1-2fac0d3c76d7",
                             Name = "admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "02d962c8-3531-41e9-bf0f-bdf29fb0b745",
-                            ConcurrencyStamp = "c3aafa66-22b0-45fc-9e12-fc491349b8f9",
+                            ConcurrencyStamp = "2dd57990-308c-4021-8829-0ee52bae1c5e",
                             Name = "user",
                             NormalizedName = "USER"
                         });
@@ -397,6 +568,40 @@ namespace CACTUS.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "7DF74B2D-5189-4622-BD09-FE6337C18C3D",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "0674014f-623f-40f8-8990-e328ab42cbcd",
+                            Email = "123@mail.ru",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "123@MAIL.RU",
+                            NormalizedUserName = "ADMIN",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMkwFKlD6P9oYva489VJNunjnxtFa9bANXGe2+4nCxYpRstVv9ogFKFtycSV5B6TkQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "",
+                            TwoFactorEnabled = false,
+                            UserName = "admin"
+                        },
+                        new
+                        {
+                            Id = "9a0136a4-5b7a-41ac-b9d9-0556dbd09eda",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "952bcb84-93d9-4035-8aac-1cacebf951c8",
+                            Email = "oc@yandex.by",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "OC@YANDEX.BY",
+                            NormalizedUserName = "USER",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDG8ivImAd4WtcpcZ6rnOcNA5ARb+Pmkqskvl53vCrYeLkBIfPZSRwN5cJT8Q34RIw==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "",
+                            TwoFactorEnabled = false,
+                            UserName = "user"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -458,6 +663,18 @@ namespace CACTUS.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "7DF74B2D-5189-4622-BD09-FE6337C18C3D",
+                            RoleId = "1E2EFB41-DAA4-4643-9E94-418D05609F57"
+                        },
+                        new
+                        {
+                            UserId = "9a0136a4-5b7a-41ac-b9d9-0556dbd09eda",
+                            RoleId = "02d962c8-3531-41e9-bf0f-bdf29fb0b745"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>

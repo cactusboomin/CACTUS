@@ -2,9 +2,18 @@
 
 <header id="header">
     <div class="inner">
-        
-        <section class="tiles">
-            <article>
+
+        <a href="/" class="logo">
+            <span class="symbol"><img src="~/images/logo.svg" alt="" /></span><span class="title">CACTUS</span>
+        </a>
+
+        <!-- Nav -->
+        <nav>
+            <ul>
+                <li><a href="#menu">Menu</a></li>
+            </ul>
+        </nav>
+
                 @{
                     if (httpContextAccessor.HttpContext.Request.Cookies["theme"] == null ||
                         httpContextAccessor.HttpContext.Request.Cookies["theme"].ToString() == "LIGHT")
@@ -20,36 +29,5 @@
                         </form>
                     }
                 }
-                </article>
-            <article>
-                @{
-                    if (httpContextAccessor.HttpContext.Request.Cookies["theme"] == null ||
-                        httpContextAccessor.HttpContext.Request.Cookies["theme"].ToString() == "LIGHT")
-                    {
-                        <form method="post" asp-controller="Home" asp-action="ChangeTheme" asp-route-theme="DARK" asp-route-returnUrl="@ViewBag.returnUrl">
-                            <input type="submit" value="DARK" />
-                        </form>
-                    }
-                    else
-                    {
-                        <form method="post" asp-controller="Home" asp-action="ChangeTheme" asp-route-theme="LIGHT" asp-route-returnUrl="@ViewBag.returnUrl">
-                            <input type="submit" value="LIGHT" />
-                        </form>
-                    }
-                }
-            </article>
-        </section>
-
-        <a href="/" class="logo">
-            <span class="symbol"><img src="~/images/logo.svg" alt="" /></span><span class="title">CACTUS</span>
-        </a>
-
-        <!-- Nav -->
-        <nav>
-            <ul>
-                <li><a href="#menu">Menu</a></li>
-            </ul>
-        </nav>
-
     </div>
 </header>

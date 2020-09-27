@@ -3346,3 +3346,36 @@ input::-moz-focus-inner {
 .left{
 	float: left;
 }
+
+.comments {
+}
+
+.comment {
+	width: 100%;
+	margin-bottom: 20px;
+}
+
+	.comment p {
+		margin: 0 0 10px 0;
+	}
+
+.dialog {
+	position: relative;
+	background: #f6f6f6;
+	padding: 20px;
+	border-radius: 3px;
+	margin-left: 20px;
+}
+
+	.dialog::after {
+		content: '';
+		display: block;
+		position: absolute;
+		width: 0;
+		height: 0;
+		border-top: 8px solid transparent;
+		border-bottom: 8px solid transparent;
+		border-right: 15px solid #f6f6f6;
+		left: -15px;
+		top: 15px;
+	}
