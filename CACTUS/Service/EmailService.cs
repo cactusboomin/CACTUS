@@ -14,7 +14,7 @@ namespace CACTUS.Service
             var emailMessage = new MimeMessage();
 
             emailMessage.From.Add(new MailboxAddress("Cactus Anonim", "cactusAnonim@yandex.ru"));
-            emailMessage.To.Add(new MailboxAddress("Administration", "alexeiputik@yandex.ru"));
+            emailMessage.To.Add(new MailboxAddress("Administration", Config.CompanyEmail));
             emailMessage.Subject = $"QUESTION FROM {name}";
             emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html)
             {
