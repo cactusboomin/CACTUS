@@ -13,6 +13,7 @@ namespace CACTUS.Models
         public string Email { get; set; }
 
         [Required(ErrorMessage = "ENTER PASSWORD")]
+        [DataType(DataType.Password)]
         [Display(Name = "PASSWORD")]
         public string Password { get; set; }
 

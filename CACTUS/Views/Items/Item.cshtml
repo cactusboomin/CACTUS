@@ -89,7 +89,6 @@
                     </h2>
                     <h2>DATE: @Model.Item.TimeAdded</h2>
 
-
                     @if (Model.Item.Collection.FirstNumberIsEnabled)
                     {
                         <h2>@Model.Item.Collection.FirstNumberName</h2>
@@ -202,20 +201,22 @@
                         }
                     </section>
 
-                    @foreach (var c in Model.manager.Comments.GetComments(Model.Item.Id).OrderBy(c => c.Date))
-                    {
-                        <div class="comments">
-                            <div class="comment dialog">
-                                <h6>@c.User.UserName:</h6>
-                                <p>@c.Text</p>
-                                <h4>
-                                    <a asp-action="DeleteComment" asp-controller="Items"
-                                       asp-route-commentId="@c.CommentId" asp-route-itemId="@Model.Item.Id">
-                                        DELETE
-                                    </a>
-                                </h4>
+                    @if ((User.Identity.Name == Model.UserName) && (User.IsInRole("admin")))
+                        @foreach (var c in Model.manager.Comments.GetComments(Model.Item.Id).OrderBy(c => c.Date))
+                        {
+                            <div class="comments">
+                                <div class="comment dialog">
+                                    <h6>@c.User.UserName:</h6>
+                                    <p>@c.Text</p>
+                                    <h4>
+                                        <a asp-action="DeleteComment" asp-controller="Items"
+                                           asp-route-commentId="@c.CommentId" asp-route-itemId="@Model.Item.Id">
+                                            DELETE
+                                        </a>
+                                    </h4>
+                                </div>
                             </div>
-                        </div>
+                        }
                     }
 
                     @if (User.Identity.IsAuthenticated)
