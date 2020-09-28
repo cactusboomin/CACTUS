@@ -92,55 +92,118 @@
                     @if (Model.Item.Collection.FirstNumberIsEnabled)
                     {
                         <h2>@Model.Item.Collection.FirstNumberName</h2>
-                        <p>@Model.Item.FirstNumber</p>
+                        if (Model.Item.FirstNumber == null)
+                        {
+                            <p>UNSPECIFIED</p>
+                        }
+                        else
+                        {
+                            <p>@Model.Item.FirstNumber</p>
+                        }
                     }
 
                     @if (Model.Item.Collection.SecondNumberIsEnabled)
                     {
                         <h2>@Model.Item.Collection.SecondNumberName</h2>
-                        <p>@Model.Item.SecondNumber</p>
+                        if (Model.Item.SecondNumber == null)
+                        {
+                            <p>UNSPECIFIED</p>
+                        }
+                        else
+                        {
+                            <p>@Model.Item.SecondNumber</p>
+                        }
                     }
 
                     @if (Model.Item.Collection.ThirdNumberIsEnabled)
                     {
                         <h2>@Model.Item.Collection.ThirdNumberName</h2>
-                        <p>@Model.Item.ThirdNumber</p>
+                        if (Model.Item.ThirdNumber == null)
+                        {
+                            <p>UNSPECIFIED</p>
+                        }
+                        else
+                        {
+                            <p>@Model.Item.ThirdNumber</p>
+                        }
                     }
 
                     @if (Model.Item.Collection.FirstTextIsEnabled)
                     {
                         <h2>@Model.Item.Collection.FirstTextName</h2>
-                        <p>@Markdown.ToPlainText(Model.Item.FirstText)</p>
+                        if (Model.Item.FirstText == null)
+                        {
+                            <p>UNSPECIFIED</p>
+                        }
+                        else
+                        {
+                            <p>@Markdown.ToPlainText(Model.Item.FirstText)</p>
+                        }
                     }
 
                     @if (Model.Item.Collection.SecondTextIsEnabled)
                     {
                         <h2>@Model.Item.Collection.SecondTextName</h2>
-                        <p>@Markdown.ToPlainText(Model.Item.SecondText)</p>
+                        if (Model.Item.SecondText == null)
+                        {
+                            <p>UNSPECIFIED</p>
+                        }
+                        else
+                        {
+                            <p>@Markdown.ToPlainText(Model.Item.SecondText)</p>
+                        }
                     }
 
                     @if (Model.Item.Collection.ThirdTextIsEnabled)
                     {
                         <h2>@Model.Item.Collection.ThirdTextName</h2>
-                        <p>@Markdown.ToPlainText(Model.Item.ThirdText)</p>
+                        if (Model.Item.ThirdText == null)
+                        {
+                            <p>UNSPECIFIED</p>
+                        }
+                        else
+                        {
+                            <p>@Markdown.ToPlainText(Model.Item.ThirdText)</p>
+                        }
                     }
 
                     @if (Model.Item.Collection.FirstDateIsEnabled)
                     {
                         <h2>@Model.Item.Collection.FirstDateName</h2>
-                        <p>@Model.Item.FirstDate</p>
+                        if (Model.Item.FirstDate == null)
+                        {
+                            <p>UNSPECIFIED</p>
+                        }
+                        else
+                        {
+                            <p>@Model.Item.FirstDate</p>
+                        }
                     }
 
                     @if (Model.Item.Collection.SecondDateIsEnabled)
                     {
                         <h2>@Model.Item.Collection.SecondDateName</h2>
-                        <p>@Model.Item.SecondDate</p>
+                        if (Model.Item.SecondDate == null)
+                        {
+                            <p>UNSPECIFIED</p>
+                        }
+                        else
+                        {
+                            <p>@Model.Item.SecondDate</p>
+                        }
                     }
 
                     @if (Model.Item.Collection.ThirdDateIsEnabled)
                     {
                         <h2>@Model.Item.Collection.ThirdDateName</h2>
-                        <p>@Model.Item.ThirdDate</p>
+                        if (Model.Item.ThirdDate == null)
+                        {
+                            <p>UNSPECIFIED</p>
+                        }
+                        else
+                        {
+                            <p>@Model.Item.ThirdDate</p>
+                        }
                     }
 
                     @if (Model.Item.Collection.FirstCheckBoxIsEnabled)
